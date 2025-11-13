@@ -1,0 +1,3 @@
+in questo file andranno tutte le convenzioni di sviluppo
+
+ES: indentazione, nomi delle variabili, nomi delle classi...
