@@ -18,4 +18,9 @@ class MainTest {
     public void terzoTest() {
         assertTrue(true);
     }
+
+    @Test
+    public void quartoTest() {
+        assertTrue(true);
+    }
 }
