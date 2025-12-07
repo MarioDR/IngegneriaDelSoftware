@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="SoftEng">
+  <ClassDiagramComponents>
+    <Class name="Utente" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="1070.0" yPosition="84.0">
+      <Fields>
+        <Field name="nome" type="String" visibility="private"/>
+        <Field name="cognome" type="String" visibility="private"/>
+        <Field name="matricola" type="String" visibility="private"/>
+        <Field name="email" type="String" visibility="private"/>
+        <Field name="listaPrestiti" type="List&lt;Prestito&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nome"/>
+          <Argument type="String" name="cognome"/>
+          <Argument type="String" name="matricola"/>
+          <Argument type="String" name="email"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setNome" returnType="String" visibility="public">
+          <Argument type="String" name="nome"/>
+        </Method>
+        <Method name="setCognome" returnType="String" visibility="public">
+          <Argument type="String" name="cognome"/>
+        </Method>
+        <Method name="setMatricola" returnType="String" visibility="public">
+          <Argument type="String" name="matricola"/>
+        </Method>
+        <Method name="setEmail" returnType="String" visibility="public">
+          <Argument type="String" name="email"/>
+        </Method>
+        <Method name="getNome" returnType="String" visibility="public"/>
+        <Method name="getCognome" returnType="String" visibility="public"/>
+        <Method name="getMatricola" returnType="String" visibility="public"/>
+        <Method name="getEmail" returnType="String" visibility="public"/>
+        <Method name="getListaPrestiti" returnType="List&lt;Prestito&gt;" visibility="public"/>
+        <Method name="addPrestito" returnType="Prestito" visibility="public">
+          <Argument type="Prestito" name="prestito"/>
+        </Method>
+        <Method name="removePrestito" returnType="Prestito" visibility="public">
+          <Argument type="Prestito" name="p"/>
+        </Method>
+        <Method name="toCSV" returnType="String" visibility="public"/>
+        <Method name="hasMaxNumPrestiti" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Libro" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="287.0" yPosition="43.0">
+      <Fields>
+        <Field name="titolo" type="String" visibility="private"/>
+        <Field name="listaAutori" type="List&lt;String&gt;" visibility="private"/>
+        <Field name="annoDiPubblicazione" type="LocalDate" visibility="private"/>
+        <Field name="ISBN" type="String" visibility="private" isFinal="true"/>
+        <Field name="numeroCopie" type="int" visibility="private"/>
+        <Field name="valore" type="float" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="titolo"/>
+          <Argument type="String" name="autori"/>
+          <Argument type="LocalDate" name="annoDiPubblicazione"/>
+          <Argument type="String" name="ISBN"/>
+          <Argument type="int" name="numeroCopie"/>
+          <Argument type="float" name="valore"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="setTitolo" returnType="String" visibility="public">
+          <Argument type="String" name="titolo"/>
+        </Method>
+        <Method name="setAnnoDiPubblicazione" returnType="LocalDate" visibility="public">
+          <Argument type="LocalDate" name="annoDiPubblicazione"/>
+        </Method>
+        <Method name="setNumeroCopie" returnType="int" visibility="public">
+          <Argument type="int" name="numeroCopie"/>
+        </Method>
+        <Method name="getTitolo" returnType="String" visibility="public"/>
+        <Method name="getAnnoDiPubblicazione" returnType="LocalDate" visibility="public"/>
+        <Method name="getISBN" returnType="String" visibility="public"/>
+        <Method name="getNumeroCopie" returnType="int" visibility="public"/>
+        <Method name="getListaAutori" returnType="List&lt;String&gt;" visibility="public"/>
+        <Method name="toCSV" returnType="String" visibility="public"/>
+        <Method name="presta" returnType="boolean" visibility="public"/>
+        <Method name="restituisci" returnType="void" visibility="public"/>
+        <Method name="setValore" returnType="float" visibility="public">
+          <Argument type="float" name="valore"/>
+        </Method>
+        <Method name="getValore" returnType="float" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Prestito" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="1144.0" yPosition="609.0">
+      <Fields>
+        <Field name="utenteAssegnatario" type="Utente" visibility="private" isFinal="true"/>
+        <Field name="libroPrestato" type="Libro" visibility="private" isFinal="true"/>
+        <Field name="dataPrevistaRestituzione" type="LocalDate" visibility="private" isFinal="true"/>
+        <Field name="dataInizioPrestito" type="LocalDate" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Utente" name="utente"/>
+          <Argument type="Libro" name="libro"/>
+          <Argument type="int" name="anno"/>
+          <Argument type="int" name="mese"/>
+          <Argument type="int" name="dayOfMonth"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getUtenteAssegnatario" returnType="Utente" visibility="public"/>
+        <Method name="getLibroPrestato" returnType="Libro" visibility="public"/>
+        <Method name="isInRitardo" returnType="boolean" visibility="public"/>
+        <Method name="toCSV" returnType="String" visibility="public"/>
+        <Method name="getGiorniDiRitardo" returnType="int" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Restituzione" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="984.0" yPosition="968.0">
+      <Fields>
+        <Field name="prestitoDaRestituire" type="Prestito" visibility="private"/>
+        <Field name="dataEffettivaRestituzione" type="LocalDate" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Prestito" name="p"/>
+          <Argument type="int" name="year"/>
+          <Argument type="int" name="month"/>
+          <Argument type="int" name="dayOfMonth"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getRitardoDefinitivo" returnType="int" visibility="public"/>
+        <Method name="isRestituitoInRitardo" returnType="boolean" visibility="public"/>
+        <Method name="getDataRestituzione" returnType="LocalDate" visibility="public"/>
+        <Method name="getPrestito" returnType="Prestito" visibility="public"/>
+        <Method name="toCSV" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="UtenteDuplicatoException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="2288.0" yPosition="346.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="msg"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="LimitePrestitiException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="1740.0" yPosition="685.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="msg"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="LibroNonDisponibileException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="2525.0" yPosition="639.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="msg"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="LibroDuplicatoException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="2214.0" yPosition="904.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+        <Constructor visibility="public">
+          <Argument type="String" name="msg"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="GestoreUtenti" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="201.0" yPosition="550.0">
+      <Fields>
+        <Field name="listaUtenti" type="ObservableList&lt;Utente&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="GestorePrestiti" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="503.0" yPosition="904.0">
+      <Fields>
+        <Field name="listaPrestitiAttivi" type="ObservableList&lt;Prestito&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Interface name="Checkable" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="884.0" yPosition="609.0">
+      <Methods>
+        <Method name="isValid" returnType="boolean" visibility="public"/>
+      </Methods>
+    </Interface>
+    <Class name="GestoreLibri" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="201.0" yPosition="1025.0">
+      <Fields>
+        <Field name="listaLibri" type="ObservableList&lt;Libro&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Interface name="Manager&lt;T&gt;" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="140.0" yPosition="775.0">
+      <Methods>
+        <Method name="add" returnType="T" visibility="public">
+          <Argument type="T" name="object"/>
+        </Method>
+        <Method name="remove" returnType="T" visibility="public">
+          <Argument type="T" name="object"/>
+        </Method>
+        <Method name="getCollection" returnType="ObservableList&lt;T&gt;" visibility="public"/>
+        <Method name="search" returnType="T" visibility="public">
+          <Argument type="T" name="object"/>
+        </Method>
+        <Method name="contains" returnType="T" visibility="public">
+          <Argument type="T" name="object"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Class name="GestoreRestituzioni" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="503.0" yPosition="734.0">
+      <Fields>
+        <Field name="listaRestituzioni" type="ObservableList&lt;Restituzione&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="BadLoginException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="1724.0" yPosition="506.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="BadLoginException" returnType="String" visibility="public">
+          <Argument type="String" name="msg"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModificaUtenteErrataException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="2490.0" yPosition="488.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="ModificaUtenteErrataException" returnType="String" visibility="public">
+          <Argument type="String" name="msg"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="IllegalCloseException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="2490.0" yPosition="847.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="IllegalCloseException" returnType="String" visibility="public">
+          <Argument type="String" name="msg"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="LibroNonValidoException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="1899.0" yPosition="835.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="LibroNonValidoException" returnType="String" visibility="public">
+          <Argument type="String" name="msg"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PrestitoNonValidoException" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="1938.0" yPosition="346.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="PrestitoNonValidoException" returnType="String" visibility="public">
+          <Argument type="String" name="msg"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GeneratoreStatistiche" package="gruppo15.ingegneriadelsoftware.model" visibility="public" xPosition="599.0" yPosition="1103.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="valorePerPrestito" returnType="void" visibility="public"/>
+        <Method name="utentiDormienti" returnType="ObservableList&lt;Utente&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Exception" package="" visibility="public" xPosition="2160.0" yPosition="627.0">
+      <Fields/>
+      <Constructors/>
+      <Methods/>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.PrestitoNonValidoException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.LibroDuplicatoException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.UtenteDuplicatoException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.BadLoginException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.LibroNonDisponibileException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.ModificaUtenteErrataException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.IllegalCloseException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.LimitePrestitiException" target="Exception"/>
+    <IsRelation name="is" source="gruppo15.ingegneriadelsoftware.model.LibroNonValidoException" target="Exception"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
