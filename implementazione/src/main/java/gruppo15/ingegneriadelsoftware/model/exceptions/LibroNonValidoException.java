@@ -14,9 +14,20 @@ package gruppo15.ingegneriadelsoftware.model.exceptions;
 
 public class LibroNonValidoException extends ValidationException {
 
+    /**
+     * Costruttore di default che crea una nuova LibroNonValidoException
+     * con un messaggio di errore
+     */
+    
     public LibroNonValidoException() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    /**
+     * Costruttore che accetta un messaggio specifico
+     * 
+     * @param[in] msg Il messaggio che descrive l'errore
+     */
 
     public String LibroNonValidoException(String msg) {
         throw new UnsupportedOperationException("Not supported yet.");

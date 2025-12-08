@@ -14,8 +14,7 @@ package gruppo15.ingegneriadelsoftware.model.exceptions;
 public class BadLoginException extends Exception {
 
     /**
-     * Costruttore di default che crea una nuova BadLoginException con un
-     * messaggio di errore
+     * Costruttore di default che crea una nuova BadLoginException con un messaggio di errore
      */
     
     public BadLoginException() {
@@ -25,7 +24,7 @@ public class BadLoginException extends Exception {
     /**
      * Costruttore che accetta un messaggio specifico
      * 
-     * @param[inout] msg Il messaggio che descrive l'errore di login
+     * @param[in] msg Il messaggio che descrive l'errore di login
      */
 
     public String BadLoginException(String msg) {
