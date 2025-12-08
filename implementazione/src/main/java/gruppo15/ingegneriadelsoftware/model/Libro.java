@@ -9,7 +9,9 @@ import java.util.List;
  * 
  * Le informazioni gestite includono i metadati bibliografici (Titolo, Autori, Anno, ISBN)
  * e lo stato dell'inventario (copie disponibili).
+ * Viene implementata l'interface Checkable per il metodo isValid
  * 
+ * @see Checkable 
  * @author Gruppo15
  * @version 1.0
  */
@@ -48,53 +50,123 @@ public class Libro implements Checkable {
     }
     
         /**
-     *  METODI SETTER
+     *  @brief Metodo setter
      * 
-     * vengono impostati il titolo, annoDiPubblicazione, numeroCopie e il valore del libro.
+     * viene impostato il titolo
+     * 
+     * @param[inout] titolo
      *  
      */
     public String setTitolo(String titolo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+     /**
+     * @brief Metodo setter
+     * 
+     * viene impostata la data di pubblicazione
+     * 
+     * @param[inout] dataDiPubblicazione
+     *  
+     */
     public LocalDate setAnnoDiPubblicazione(LocalDate annoDiPubblicazione) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+     /**
+     * @brief Metodo setter
+     * 
+     * viene impostato il numero copie
+     * 
+     * @param[inout] numeroCopie
+     *  
+     */
     public int setNumeroCopie(int numeroCopie) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+     /**
+     * @brief Metodo setter
+     * 
+     * viene impostato il valore del del libro
+     * 
+     * @param[inout] valore
+     *  
+     */
     public float setValore(float valore) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    /**
-     *  METODI GETTER
+     /**
+     * @brief Metodo getter
      * 
-     * vengono restituiti il titolo, annoDiPubblicazione, ISBN, numeroCopie e il valore del libro.
-     *  
+     * viene restituito il titolo del libro
+     * 
+     * @param[out] titolo
+     * @return titolo
      */
+    
     public String getTitolo() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+     /**
+     * @brief Metodo getter
+     * 
+     * viene restituito la data di pubblicazione del libro
+     * 
+     * @param[out] annoDiPubblicazione
+     * @return annoDiPubblicazione
+     * 
+     */
+    
     public LocalDate getAnnoDiPubblicazione() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+     /**
+     * @brief Metodo getter
+     * 
+     * viene restituito l'ISBN del libro
+     * 
+     * @param[out] ISBN
+     * @return ISBN
+     */
+    
     public String getISBN() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+     
+    /**
+     * @brief Metodo getter
+     * 
+     * viene restituito il numero copie del libro
+     * 
+     * @param[out] numeroCopie
+     * @return il numero delle copie aggiornate
+     */
+    
     public int getNumeroCopie() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+     
+    /**
+     * @brief Metodo getter
+     * 
+     * viene restituita la lista degli autori del libro
+     * 
+     * @param[out] listaAutori
+     * @return una lista di string
+     */
+    
     public List<String> getListaAutori() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+     
+    /**
+     * @brief Metodo getter
+     * 
+     * viene restituito il valore in denaro del libro
+     * 
+     * @param[out] valore
+     * @return il valore in float 
+     */
+       
     public float getValore() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -146,7 +218,7 @@ public class Libro implements Checkable {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     /**
-     * Converte i dati in una stringa
+     * @brief Converte i dati in una stringa
      * 
      * @return Una stringa che contiene titolo, autori, ISBN e numeroCopie
      */

@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 
 /**
  * @file GestorePrestiti.java
- * @breaf Gestore principale per la collezione dei prestiti
+ * @brief Gestore principale per la collezione dei prestiti
  * 
  * La classe GestorePrestiti consente la collezione di più oggetti prestito. Viene
  * implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista
