@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<SplitPane dividerPositions="0.29797979797979796" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+  <items>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="214.0">
+         <children>
+            <MenuBar layoutY="2.0" prefHeight="25.0" prefWidth="175.0">
+              <menus>
+                  <Menu mnemonicParsing="false" text="UTENTI">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#visualizzaListaUtenti" text="Lista utenti" />
+                        <MenuItem mnemonicParsing="false" onAction="#aggiungiUtente" text="Aggiungi utente" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="CATALOGO">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#visualizzaListaLibri" text="Visualizza catalogo" />
+                        <MenuItem mnemonicParsing="false" onAction="#aggiungiLibro" text="Aggiungi libro" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="PRESTITI E RESTITUZIONI">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#visualizzaListaPrestiti" text="Prestiti attivi" />
+                        <MenuItem mnemonicParsing="false" onAction="#aggiungiPrestito" text="Aggiungi prestito" />
+                        <MenuItem mnemonicParsing="false" onAction="#visualizzaRestituzioni" text="Storico restituzioni" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="STATISTICHE ">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#visualizzaStatistiche" text="Visualizza statistiche" />
+                    </items>
+                  </Menu>
+              </menus>
+            </MenuBar>
+         </children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="336.0" />
+  </items>
+</SplitPane>
