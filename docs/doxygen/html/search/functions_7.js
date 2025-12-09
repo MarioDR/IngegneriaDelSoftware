@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['remove_0',['remove',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_libri.html#ac2a12e73b51b8620b5796ca9516d873d',1,'gruppo15.ingegneriadelsoftware.model.GestoreLibri.remove()'],['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_prestiti.html#a558841e752f0c81f6faa8161d0ffa11c',1,'gruppo15.ingegneriadelsoftware.model.GestorePrestiti.remove()'],['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_restituzioni.html#ab576d4b4d6554937887f40d5a29bdfc6',1,'gruppo15.ingegneriadelsoftware.model.GestoreRestituzioni.remove()'],['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_utenti.html#a3314891deadce9e32bc78524268e978f',1,'gruppo15.ingegneriadelsoftware.model.GestoreUtenti.remove()'],['../interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager.html#a970f5151b627e4e70d0ef8cd2e5a2ebc',1,'gruppo15.ingegneriadelsoftware.model.Manager.remove()']]],
+  ['removeprestito_1',['removePrestito',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente.html#ae3f6190b1b5524aa4953b8ac58431d4b',1,'gruppo15::ingegneriadelsoftware::model::Utente']]],
+  ['restituzione_2',['Restituzione',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione.html#a43924a47d58aea302444963368abcfab',1,'gruppo15::ingegneriadelsoftware::model::Restituzione']]],
+  ['rimuovicopia_3',['rimuoviCopia',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#af66805f61c689c3139edc39eccdfc887',1,'gruppo15::ingegneriadelsoftware::model::Libro']]]
+];

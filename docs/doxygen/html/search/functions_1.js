@@ -1,0 +1,4 @@
+var searchData=
+[
+  ['contains_0',['contains',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_libri.html#a2f761a526e3b887600054e01eb309bb3',1,'gruppo15.ingegneriadelsoftware.model.GestoreLibri.contains()'],['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_prestiti.html#aaf6023167374e2d912cd37b8497cee6b',1,'gruppo15.ingegneriadelsoftware.model.GestorePrestiti.contains()'],['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_restituzioni.html#a5d31d133b38e3743f06e78af1c636a93',1,'gruppo15.ingegneriadelsoftware.model.GestoreRestituzioni.contains()'],['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_utenti.html#a88c14e54c1d0c519ea1d1254da26f28b',1,'gruppo15.ingegneriadelsoftware.model.GestoreUtenti.contains()'],['../interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager.html#a508ab46f0f8d738abf4176f09493a9de',1,'gruppo15.ingegneriadelsoftware.model.Manager.contains()']]]
+];
