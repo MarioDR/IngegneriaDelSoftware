@@ -1,15 +1,14 @@
 package gruppo15.ingegneriadelsoftware.model;
 
-import gruppo15.ingegneriadelsoftware.model.exceptions.LibroNonValidoException;
-import javafx.collections.ObservableList;
+import java.util.List;
 
 /**
  * @file GestoreLibri.java
  * @brief Gestore principale per la collezione dei libri
+ * @invariant la collezione deve essere sempre in uno stato coerente con il file CSV
  * 
  * La classe GestoreLibri consente la collezione di più oggetti di tipo Libro. Viene
- * implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista
- * dei libri.
+ * implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista dei libri.
  * 
  * @see Libro
  * @see Manager
@@ -19,7 +18,7 @@ import javafx.collections.ObservableList;
 
 public class GestoreLibri implements Manager<Libro> {
 
-    private ObservableList<Libro> listaLibri;
+    private List<Libro> listaLibri;
     /**
      * @brief Costruttore della classe GestoreLibri
      * 
@@ -30,39 +29,39 @@ public class GestoreLibri implements Manager<Libro> {
     }
     
     
-     /**
-     * @brief Aggiunge un libro alla collezione
+    /**
+     * Aggiunge un nuovo libro nella collezione gestita.
      * 
-     * @pre L'oggetto deve essere valido 
-     * @postL'oggetto viene aggiunto con successo alla collezione
-     * @param object
-     * @return Lista con il nuovo libro aggiunto
-     * @throws LibroNonValidoExeption nel caso di errore
-     * 
+     * @pre Il libro non deve essere presente nella collezione
+     * @pre Il libro deve rispettare tutte le caratteristiche lessicali dei suoi attributi
+     * @post Il libro viene inserito correttamente
+     * @param object Il libro da inserire
+     * @return Il libro aggiunto
      */
     
     @Override
-    public Libro add(Libro object) throws LibroNonValidoException {
+    public Libro add(Libro object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
     /**
-     * @brief Rimuove un prestito dalla collezione
+     * Rimuove un libro dalla collezione gestita.
      * 
-     * @pre L'oggetto deve essere presente nella collezione
-     * @post L'oggetto viene rimosso
-     * @param object
-     * @return Lista aggiornata
+     * @post Il libro viene rimosso dalla collezione se presente
+     * @param objectIl Il libro da rimuovere
+     * @return Il libro rimosso
      */
+    
     @Override
     public Libro remove(Libro object){
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
-     * Cerca un libro all'interno della collezione
-     * @param object
-     * @return L'oggetto Libro se è presente,
-     * {@code Null} se il Libro non è nella lista
+     * Cerca un libro nella collezione gestita.
+     * 
+     * @param object Il libro da cercare
+     * @return Il libro se è presente o {@code Null} se Il libro non è presente
      */
     
     @Override
@@ -71,40 +70,38 @@ public class GestoreLibri implements Manager<Libro> {
     }
     
     /**
-     * @brief METODO GET della lista
+     * Restituisce la collezione nello stato attuale.
      * 
-     * Restituisce la lista di libri.
-     * 
-     * @return Lista di libri aggiornata
-     * 
+     * @return La lista aggiornata
      */
     
     @Override
-    public ObservableList<Libro> getList(){
+    public List<Libro> getList(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
-     * @brief Verifica se un Libro è presente nella collezione
+     * Verifica se il libro è presente nella collezione.
      * 
-     * @param object
-     * @return {@code true} se il Libro è presente,
-     * {@code false} se il Libro non è presente
+     * @param object il libro da cercare
+     * @return  {@code true} se è presente
+     *          {@code false} se non è presente
      */
     
     @Override
     public boolean contains(Libro object){
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
     /**
-     * @brief metodo per ricerca di libri nella collezione
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
      * 
-     * @param object
-     * @return una lista di libri((((((((((((((DA COMPLETARE))))))))))))))
-     * 
+     * @param regex il prefisso usato per la ricerca
+     * @return La lista di tutti i libri trovati corrispondenti al pattern. Se nessun libro viene trovato restituisce {@code Null}
      */
+    
     @Override
-    public ObservableList<Libro> startsWith(String regex) {
+    public List<Libro> startsWith(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

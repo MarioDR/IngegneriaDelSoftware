@@ -4,9 +4,10 @@ import java.time.LocalDate;
 
 /**
  * @file Restituzione.java
- * @brief Registra la data di restituzione del libro
+ * @brief Rappresenta la cessazione di un prestito
+ * @invariant Ogni prestito in questa lista non potrà mai essere nella lista dei prestiti attivi e viceversa
  * 
- * La classe Restituzione salva la data in cui è stato restituito un libro
+ * La classe Restituzione rappresenta l'entità prestito quando viene cessato.
  * 
  * @see Prestito
  * @author Gruppo15
@@ -20,44 +21,22 @@ public class Restituzione {
     private final LocalDate dataEffettivaRestituzione;
     
     /**
-     * Costruttore della classe Restituzione
+     * Costruttore della classe Restituzione.
      * 
      * @param p L'oggetto prestito che viene restituito
-     * @param year Anno in cui viene restituito
-     * @param month Mese in cui viene restituito
-     * @param dayOfMonth Giorno in cui viene restituito
+     * @param dataEffettivaRestituzione La data in cui è stata effettuata la restituzione
      */
 
-    public Restituzione(Prestito p, int year, int month, int dayOfMonth) {
+    public Restituzione(Prestito p, LocalDate dataEffettivaRestituzione) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    /**
-     * Calcola il ritardo definitivo facendo un confronto con la data di inizio 
-     * prestito con quella attuale
-     * 
-     * @return Numero di giorni di ritardo
-     */
-
-    public int getRitardoDefinitivo() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    // =========================================================
+    // METODI GETTER
+    // =========================================================
     
-    /**
-     * Verifica se un libro è stato restituito in ritardo o no
-     * 
-     * @return {@code true} se il libro è stato restituito in ritardo
-     * {@code false} se il libro non è stato restituito in ritardo
-     */
-
-    public boolean isRestituitoInRitardo() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    /**
-     * METODO GETTER
-     * 
-     * Restituisce la data di restituzione del libro
+    /** 
+     * Restituisce la data di restituzione del libro.
      * 
      * @return Data di restituzione
      */
@@ -67,9 +46,7 @@ public class Restituzione {
     }
     
     /**
-     * METODO GETTER
-     * 
-     * Restituisce l'oggetto prestito
+     * Restituisce l'oggetto prestito.
      * 
      * @return Prestito 
      */
@@ -78,10 +55,35 @@ public class Restituzione {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    // =========================================================
+    // ALTRI METODI
+    // =========================================================
+    
     /**
-     * Converte i dati in una stringa
+     * Calcola il ritardo definitivo facendo un confronto con la data prevista di restituzione con quella attuale.
      * 
-     * @return Una stringa che contiene i dati della restituzione del prestito
+     * @return Numero di giorni di ritardo (positivi se in ritardo, negativi se in anticipo)
+     */
+
+    public int getRitardoDefinitivo() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * Verifica se un libro è stato restituito in ritardo o no.
+     * 
+     * @return  {@code true} se il libro è stato restituito in ritardo
+     *          {@code false} se il libro non è stato restituito in ritardo
+     */
+
+    public boolean isRestituitoInRitardo() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * Converte i dati in una stringa CSV.
+     * 
+     * @return Una stringa che contiene i dati del prestito restituito e la data effettiva di restituzione
      */
 
     public String toCSV() {

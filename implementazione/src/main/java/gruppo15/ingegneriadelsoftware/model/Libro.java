@@ -1,28 +1,28 @@
 package gruppo15.ingegneriadelsoftware.model;
 
-import gruppo15.ingegneriadelsoftware.model.exceptions.LibroNonDisponibileException;
 import java.time.LocalDate;
 import java.util.List;
+
 /**
  * @file Libro.java
- * @brief Rappresenta un libro registrato nel sistema con la gestione 
+ * @brief Rappresenta un libro registrato nel sistema con le sue caratteristiche
+ * @invariant la data di pubblicazione deve essere precedente a quella al momento della registrazione (implementabile graficamente)
  * 
  * Le informazioni gestite includono i metadati bibliografici (Titolo, Autori, Anno, ISBN)
  * e lo stato dell'inventario (copie disponibili).
- * Viene implementata l'interface Checkable per il metodo isValid
  * 
- * @see Checkable 
  * @author Gruppo15
  * @version 1.0
  */
-public class Libro implements Checkable {
+
+public class Libro {
 
     ///Attributi fondamentali per la rappresentazione di un libro
     private String titolo;
 
     private List<String> listaAutori;
 
-    private LocalDate annoDiPubblicazione;
+    private LocalDate dataDiPubblicazione;
 
     private final String ISBN;
 
@@ -33,11 +33,11 @@ public class Libro implements Checkable {
     private float valore;
 
     /**
-     * @brief Costruttore della classe libro
+     * Costruttore della classe libro.
      * 
      * @param titolo titolo libro
-     * @param autori il nome di tutti gli autori che hanno lavorato al libro
-     * @param annoDiPubblicazione un tipo LocalDate che serve a rappresentare la data di pubblicazione
+     * @param autori il nome di tutti gli autori che hanno lavorato al libro (separati da virgole)
+     * @param dataDiPubblicazione un tipo LocalDate che serve a rappresentare la data di pubblicazione
      * @param ISBN è il codice identificativo del libro che serve a distinguere un libro da un altro
      * @param numeroCopie un intero che rappresenta il numero di copie di un titolo presente nel catalogo
      * @param valore rappresenta il valore in denaro del libro 
@@ -45,100 +45,97 @@ public class Libro implements Checkable {
      */
     
     //NON SONO SICURO DEI TIPI DEL COSTRUTTORE
-    public Libro(String titolo, String autori, LocalDate annoDiPubblicazione, String ISBN, int numeroCopie, float valore) {
+    public Libro(String titolo, String autori, LocalDate dataDiPubblicazione, String ISBN, int numeroCopie, float valore) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-        /**
-     *  @brief Metodo setter
+    // =========================================================
+    // METODI SETTER
+    // =========================================================
+    
+    /**
+     * Imposta il titolo.
      * 
-     * viene impostato il titolo
-     * 
-     * @param[inout] titolo
+     * @param titolo titolo del libro
      *  
      */
+    
     public String setTitolo(String titolo) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-     /**
-     * @brief Metodo setter
+    
+    /**
+     * Imposta la data di pubblicazione.
      * 
-     * viene impostata la data di pubblicazione
-     * 
-     * @param[inout] dataDiPubblicazione
+     * @param dataDiPubblicazione la data di pubblicazione del libro
      *  
      */
-    public LocalDate setAnnoDiPubblicazione(LocalDate annoDiPubblicazione) {
+    
+    public LocalDate setDataDiPubblicazione(LocalDate dataDiPubblicazione) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-     /**
-     * @brief Metodo setter
+    
+    /**
+     * Imposta il numero copie.
      * 
-     * viene impostato il numero copie
-     * 
-     * @param[inout] numeroCopie
+     * @param numeroCopie il numero di copie disponibili del libro
      *  
      */
+    
     public int setNumeroCopie(int numeroCopie) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-     /**
-     * @brief Metodo setter
+    
+    /**
+     * Imposta il valore del libro.
      * 
-     * viene impostato il valore del del libro
-     * 
-     * @param[inout] valore
+     * @param valore il valore commerciale del libro
      *  
      */
+    
     public float setValore(float valore) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
-     /**
-     * @brief Metodo getter
+    // =========================================================
+    // METODI GETTER
+    // =========================================================
+    
+    /**
+     * Restituisce il titolo del libro.
      * 
-     * viene restituito il titolo del libro
-     * 
-     * @param[out] titolo
-     * @return titolo
+     * @return il titolo del libro
      */
     
     public String getTitolo() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-     /**
-     * @brief Metodo getter
+    
+    /**
+     * Restituisce la data di pubblicazione del libro.
      * 
-     * viene restituito la data di pubblicazione del libro
-     * 
-     * @param[out] annoDiPubblicazione
-     * @return annoDiPubblicazione
+     * @return la data di pubblicazione del libro
      * 
      */
     
     public LocalDate getAnnoDiPubblicazione() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-     /**
-     * @brief Metodo getter
+    
+    /**
+     * Restituisce l'ISBN del libro.
      * 
-     * viene restituito l'ISBN del libro
-     * 
-     * @param[out] ISBN
-     * @return ISBN
+     * @return l'ISBN del libro
      */
     
     public String getISBN() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
      
-    /**
-     * @brief Metodo getter
+    /** 
+     * Restituisce il numero copie del libro.
      * 
-     * viene restituito il numero copie del libro
-     * 
-     * @param[out] numeroCopie
-     * @return il numero delle copie aggiornate
+     * @return il numero copie del libro
      */
     
     public int getNumeroCopie() {
@@ -146,12 +143,9 @@ public class Libro implements Checkable {
     }
      
     /**
-     * @brief Metodo getter
+     * Restituisce la lista degli autori del libro.
      * 
-     * viene restituita la lista degli autori del libro
-     * 
-     * @param[out] listaAutori
-     * @return una lista di string
+     * @return la lista degli autori del libro
      */
     
     public List<String> getListaAutori() {
@@ -159,68 +153,55 @@ public class Libro implements Checkable {
     }
      
     /**
-     * @brief Metodo getter
+     * Restituisce il valore in denaro del libro.
      * 
-     * viene restituito il valore in denaro del libro
-     * 
-     * @param[out] valore
-     * @return il valore in float 
+     * @return il valore in denaro del libro
      */
        
     public float getValore() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+    // =========================================================
+    // ALTRI METODI
+    // =========================================================
+    
     /**
-     * @brief metodo che presta un libro
+     * Incrementa di 1 il numero di copie del libro. (usato per le restituzioni)
      * 
-     * serve a tracciare la disponibilità di un libro gestendo il numero copie
-     * @pre numeroCopie deve essere > 0
-     * @post numeroCopie sara diminuito 
-     * @param[inout] numeroCopie
-     * @return (@code true) se c'erano copie disponibili
-     * (@code false) se il numeoro di copie disponibili era 0 
-     * @throws LibroNonDisponibileExeption Se il numero di copie non è > 0
-     * 
+     * @post numeroCopie sarà aumentato di 1
      */
-    public boolean presta() throws LibroNonDisponibileException {
+    
+    public void aggiungiCopia() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     /**
-     * @brief metodo che restituisce un libro
+     * Incrementa di un certo numero il numero di copie del libro. (usato per le aggiunte al catalogo)
      * 
-     * serve gestire il numeroCopie di un libro nella restituzione
-     * @pre il libro deve essere stato prestato
+     * @post numeroCopie sarà aumentato di 'copie'
+     * @param copie il numero di copie da aggiungere al totale
+     */
+    
+    public void aggiungiCopie(int copie) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * Rimuove una copia tra quelle disponibili.
+     * 
+     * @pre il numero di copie disponibili deve essere > 0
      * @post numeroCopie sara aumentato 
-     * @param[inout] numeroCopie
-     *  
-     * 
      */
-    public void restituisci() {
+    
+    public void rimuoviCopia() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
+
     /**
-     * @brief Verifica se i dati inseriti sono corretti
+     * Converte i dati in una stringa CSV.
      * 
-     * La validità viene definita da:
-     * Campo titolo, campo autori e campo ISBN non devono essere vuoti;
-     * L'ISBN deve essere univoco per ogni libro
-     * Il numeroCopie deve essere >= 0
-     * Il valore non può essere negativo
-     * 
-     * @return {code true}se le condizioni sono verificate,
-     * {@code false} se le condizioni non sono inserite correttamente
-     */
-    @Override
-    public boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    /**
-     * @brief Converte i dati in una stringa
-     * 
-     * @return Una stringa che contiene titolo, autori, ISBN e numeroCopie
+     * @return Una stringa CSV che contiene titolo, autori, ISBN, numeroCopie e valore
      */
     public String toCSV() {
         throw new UnsupportedOperationException("Not supported yet.");

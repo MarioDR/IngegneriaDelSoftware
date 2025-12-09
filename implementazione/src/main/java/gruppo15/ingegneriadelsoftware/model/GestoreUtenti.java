@@ -1,15 +1,14 @@
 package gruppo15.ingegneriadelsoftware.model;
 
-import gruppo15.ingegneriadelsoftware.model.exceptions.UtenteNonValidoException;
-import javafx.collections.ObservableList;
+import java.util.List;
 
 /**
  * @file GestoreUtenti.java
  * @brief Gestore principale per la collezione degli utenti
+ * @invariant la collezione deve essere sempre in uno stato coerente con il file CSV
  * 
  * La classe GestoreUtenti consente la collezione di più oggetti utente. Viene
- * implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista 
- * degli utenti
+ * implementata anche l'interfaccia Manager per gestire le operazioni sulla lista degli utenti.
  * 
  * @see Utente
  * @see Manager
@@ -21,7 +20,7 @@ public class GestoreUtenti implements Manager<Utente> {
 
     /// Lista degli utenti
     
-    private ObservableList<Utente> listaUtenti;
+    private List<Utente> listaUtenti;
 
     /**
      * Costruttore della classe GestoreUtenti
@@ -34,27 +33,26 @@ public class GestoreUtenti implements Manager<Utente> {
     }
     
     /**
-     * Aggiunge un nuovo utente nella collezione
+     * Aggiunge un nuovo utente nella collezione.
      * 
      * @pre L'utente non deve già esistere nella lista
-     * @post L'utente viene inserito
-     * @param object
-     * @return observableList aggiornata
-     * @throws UtenteNonValidoException se l'utente è gia inserito o non è valido
+     * @pre L'utente deve avere tutti gli attributi sintatticamente corretti
+     * @post L'utente viene inserito correttamente
+     * @param object L'utente da inserire
+     * @return La lista aggiornata degli utenti
      */
     
     @Override
-    public Utente add(Utente object) throws UtenteNonValidoException {
+    public Utente add(Utente object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
-     * Rimuove un utente dalla collezione
+     * Rimuove un utente dalla collezione.
      * 
-     * @pre L'utente deve essere già presente nella lista
-     * @post L'utente viene rimosso
-     * @param object
-     * @return observableList aggiornata
+     * @post L'utente viene rimosso se presente
+     * @param object L'utente da rimuovere.
+     * @return La lista aggiornata degli utenti
      */
     
     @Override
@@ -76,24 +74,22 @@ public class GestoreUtenti implements Manager<Utente> {
     }
     
     /**
-     * METODO GETTER
+     * Restituisce la lista di tutti gli utenti.
      * 
-     * Restituisce la lista di tutti gli utenti
-     * 
-     * @return Lista utenti
+     * @return La lista degli utenti
      */
     
     @Override
-    public ObservableList<Utente> getList(){
+    public List<Utente> getList(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
-     * Verifica se l'utente è già presente nella lista
+     * Verifica se l'utente è già presente nella lista.
      * 
-     * @param object
-     * @return {@code true} se è già presente,
-     * {@code false} se non è presente
+     * @param object L'utente da cercare
+     * @return  {@code true} se è già presente,
+     *          {@code false} se non è presente
      */
     
     @Override
@@ -101,8 +97,15 @@ public class GestoreUtenti implements Manager<Utente> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    /**
+     * Ritorna una lista degli utenti che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * 
+     * @param regex il prefisso usato per la ricerca
+     * @return La lista di tutti gli utenti trovati corrispondenti al pattern. Se nessun oggetto viene trovato restituisce {@code Null}
+     */
+    
     @Override
-    public ObservableList<Utente> startsWith(String regex) {
+    public List<Utente> startsWith(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

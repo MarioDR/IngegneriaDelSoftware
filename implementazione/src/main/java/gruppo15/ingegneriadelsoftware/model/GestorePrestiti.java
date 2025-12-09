@@ -1,15 +1,14 @@
 package gruppo15.ingegneriadelsoftware.model;
 
-import gruppo15.ingegneriadelsoftware.model.exceptions.PrestitoNonValidoException;
-import javafx.collections.ObservableList;
+import java.util.List;
 
 /**
  * @file GestorePrestiti.java
  * @brief Gestore principale per la collezione dei prestiti
+ * @invariant la collezione deve essere sempre in uno stato coerente con il file CSV
  * 
  * La classe GestorePrestiti consente la collezione di più oggetti prestito. Viene
- * implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista
- * dei prestiti
+ * implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista dei prestiti.
  * 
  * @see Prestito
  * @see Manager
@@ -19,7 +18,7 @@ import javafx.collections.ObservableList;
 
 public class GestorePrestiti implements Manager<Prestito> {
 
-    private ObservableList<Prestito> listaPrestitiAttivi;
+    private List<Prestito> listaPrestitiAttivi;
     
     /**
      * Costruttore della classe GestorePrestiti
@@ -32,27 +31,26 @@ public class GestorePrestiti implements Manager<Prestito> {
     }
     
     /**
-     * Aggiunge un prestito nella collezione
+     * Aggiunge un nuovo prestito nella collezione gestita.
      * 
-     * @pre L'oggetto non deve essere già presente nella lista
-     * @post L'oggetto viene aggiunto nella lista
-     * @param object
-     * @return Lista con il nuovo prestito
-     * @throws PrestitoNonValidoException se il prestito è già esistente nella lista
+     * @pre Il prestito non deve essere presente nella collezione
+     * @pre Il prestito deve rispettare tutte le caratteristiche lessicali dei suoi attributi
+     * @post Il prestito viene inserito correttamente
+     * @param object Il prestito da inserire
+     * @return Il prestito aggiunto
      */
     
     @Override
-    public Prestito add(Prestito object) throws PrestitoNonValidoException {
+    public Prestito add(Prestito object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
-     * Rimuove un prestito dalla collezione
+     * Rimuove un prestito dalla collezione gestita.
      * 
-     * @pre L'oggetto deve essere presente nella lista
-     * @post L'oggetto viene rimosso
-     * @param object
-     * @return Lista aggiornata
+     * @post Il prestito viene rimosso dalla collezione se presente
+     * @param objectIl Il prestito da rimuovere
+     * @return Il prestito rimosso
      */
     
     @Override
@@ -61,10 +59,10 @@ public class GestorePrestiti implements Manager<Prestito> {
     }
     
     /**
-     * Cerca un prestito all'interno della collezione
-     * @param object
-     * @return L'oggetto Prestito se è presente,
-     * {@code Null} se il prestito non è nella lista
+     * Cerca un prestito nella collezione gestita.
+     * 
+     * @param object Il prestito da cercare
+     * @return Il prestito se è presente o {@code Null} se Il prestito non è presente
      */
     
     @Override
@@ -73,24 +71,22 @@ public class GestorePrestiti implements Manager<Prestito> {
     }
     
     /**
-     * METODO GETTER
+     * Restituisce la collezione nello stato attuale.
      * 
-     * Restituisce la lista dei prestiti
-     * 
-     * @return Lista dei prestiti aggiornata
+     * @return La lista aggiornata
      */
     
     @Override
-    public ObservableList<Prestito> getList(){
+    public List<Prestito> getList(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
-     * Verifica se un prestito è presente nella lista
+     * Verifica se il prestito è presente nella collezione.
      * 
-     * @param object
-     * @return {@code true} se il prestito è presente,
-     * {@code false} se il prestito non è presente
+     * @param object il prestito da cercare
+     * @return  {@code true} se è presente
+     *          {@code false} se non è presente
      */
     
     @Override
@@ -98,8 +94,15 @@ public class GestorePrestiti implements Manager<Prestito> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    /**
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * 
+     * @param regex il prefisso usato per la ricerca
+     * @return La lista di tutti i prestiti trovati corrispondenti al pattern. Se nessun prestito viene trovato restituisce {@code Null}
+     */
+    
     @Override
-    public ObservableList<Prestito> startsWith(String regex) {
+    public List<Prestito> startsWith(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

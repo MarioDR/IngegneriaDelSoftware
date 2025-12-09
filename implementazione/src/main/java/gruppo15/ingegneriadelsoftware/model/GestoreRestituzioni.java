@@ -1,13 +1,14 @@
 package gruppo15.ingegneriadelsoftware.model;
 
-import javafx.collections.ObservableList;
+import java.util.List;
 
 /**
  * @file GestoreRestituzioni.java
  * @brief Gestore principale per la collezione delle restituzioni
+ * @invariant la collezione deve essere sempre in uno stato coerente con il file CSV
  * 
  * La classe GestoreRestituzioni consente la collezione di più oggetti Restituzione
- * Viene implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista
+ * Viene implementata anche l'interfaccia Manager che gestisce le operazioni sulla lista.
  * 
  * @see Restituzione
  * @see Manager
@@ -17,7 +18,7 @@ import javafx.collections.ObservableList;
 
 public class GestoreRestituzioni implements Manager<Restituzione>{
 
-    private ObservableList<Restituzione> listaRestituzioni;
+    private List<Restituzione> listaRestituzioni;
     
     /**
      * Costruttore della classe GestoreRestituzioni
@@ -30,12 +31,13 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     }
     
     /**
-     * Aggiunge una restituzione nella collezione
+     * Aggiunge una restituzione nella collezione gestita.
      * 
-     * @pre L'oggetto non deve essere già presente nella lista
-     * @post L'oggetto viene aggiunto nella lista
-     * @param object
-     * @return Lista con la nuova restituzione
+     * @pre La restituzione non deve essere presente nella collezione
+     * @pre La restituzione deve rispettare tutte le caratteristiche lessicali dei suoi attributi
+     * @post La restituzione viene inserita correttamente
+     * @param object La restituzione da inserire
+     * @return La restituzione aggiunta
      */
     
     @Override
@@ -44,12 +46,11 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     }
     
     /**
-     * Rimuove una restituzione dalla collezione
+     * Rimuove una restituzione dalla collezione gestita.
      * 
-     * @pre L'oggetto deve essere presente nella lista
-     * @post L'oggetto viene rimosso
-     * @param object
-     * @return Lista aggiornata
+     * @post La restituzione viene rimosso dalla collezione se presente
+     * @param objectIl La restituzione da rimuovere
+     * @return La restituzione rimossa
      */
     
     @Override
@@ -58,10 +59,10 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     }
     
     /**
-     * Cerca una restituzione all'interno della collezione
-     * @param object
-     * @return L'oggetto Restituzione se è presente,
-     * {@code Null} se non è nella lista
+     * Cerca una restituzione nella collezione gestita.
+     * 
+     * @param object La restituzione da cercare
+     * @return La restituzione se è presente o {@code Null} se la restituzione non è presente
      */
     
     @Override
@@ -70,24 +71,22 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     }
     
     /**
-     * METODO GETTER
+     * Restituisce la collezione nello stato attuale.
      * 
-     * Restituisce la lista con le restituzioni
-     * 
-     * @return Lista delle restituzioni aggiornata
+     * @return La lista aggiornata
      */
     
     @Override
-    public ObservableList<Restituzione> getList(){
+    public List<Restituzione> getList(){
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**
-     * Verifica se una restituzione è presente nella lista
+     * Verifica se la restituzione è presente nella collezione.
      * 
-     * @param object
-     * @return {@code true} se è presente,
-     * {@code false} se non è presente
+     * @param object la restituzione da cercare
+     * @return  {@code true} se è presente
+     *          {@code false} se non è presente
      */
     
     @Override
@@ -95,8 +94,15 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    /**
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * 
+     * @param regex il prefisso usato per la ricerca
+     * @return La lista di tutte le restituzioni trovate corrispondenti al pattern. Se nessuna restituzione viene trovata restituisce {@code Null}
+     */
+    
     @Override
-    public ObservableList<Restituzione> startsWith(String regex) {
+    public List<Restituzione> startsWith(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
