@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<SplitPane dividerPositions="0.3" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo15.ingegneriadelsoftware.controller.ScenaMenuController">
+    
+    <items>
+        <AnchorPane fx:id="sinistraSplitPane" minHeight="0.0" minWidth="0.0" prefWidth="187.0">
+            <VBox prefHeight="142.0" prefWidth="188.0" AnchorPane.bottomAnchor="249.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <children>
+                    <Accordion prefHeight="149.0" prefWidth="188.0" VBox.vgrow="ALWAYS">
+                        <panes>
+                            <TitledPane accessibleRole="HYPERLINK" contentDisplay="CENTER" prefWidth="188.0" snapToPixel="false" text="UTENTI">
+                                <content>
+                                    <VBox alignment="TOP_LEFT" spacing="5.0"> 
+                                        <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Lista Utenti" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font></Hyperlink>
+                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Utente" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                                    </VBox>
+                                </content>
+                            </TitledPane>
+                            <TitledPane text="CATALOGO">
+                                <content>
+                                    <VBox alignment="TOP_LEFT" spacing="5.0">
+                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Visualizza Catalogo" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Libro" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                                    </VBox>
+                                </content>
+                            </TitledPane>
+                            <TitledPane text="PRESTITI E RESTITUZIONI">
+                                <content>
+                                    <VBox alignment="TOP_LEFT" spacing="5.0">
+                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Prestiti Attivi" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Prestito" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Storico Restituzioni" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                                    </VBox>
+                                </content>
+                            </TitledPane>
+                            <TitledPane prefHeight="82.0" prefWidth="188.0" text="STATISTICHE" wrapText="true">
+                                <content>
+                                    <VBox alignment="TOP_LEFT" spacing="5.0">
+                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Visualizza Statistiche" textFill="#7d6a6a">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Hyperlink>
+                                    </VBox>
+                                </content>
+                            </TitledPane>
+                        </panes>
+                    </Accordion>
+                </children>
+            </VBox>
+        </AnchorPane>
+        
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+    </items>
+</SplitPane>
