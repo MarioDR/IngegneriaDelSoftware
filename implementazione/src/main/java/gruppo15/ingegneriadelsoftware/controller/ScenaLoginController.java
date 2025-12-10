@@ -44,17 +44,16 @@ public class ScenaLoginController {
                 // Chiama il metodo statico per caricare ScenaMenu.fxml
                 // e sostituire la radice della Scene corrente.
                 App.setRoot("ScenaMenu"); 
-                
-            } catch (IOException e) {
+            } 
+            catch (IOException e) {
                 // Gestione dell'errore nel caso il file ScenaMenu.fxml non venga trovato
                 e.printStackTrace();
                 labelErroreLogin.setText("Errore nel caricamento della scena principale. Controllare i file FXML.");
             }
-            
-        } else {
+        } 
+        else {
             // Credenziali errate
             labelErroreLogin.setText("❌ Credenziali non valide. Riprovare.");
         }
     }
-    
 }

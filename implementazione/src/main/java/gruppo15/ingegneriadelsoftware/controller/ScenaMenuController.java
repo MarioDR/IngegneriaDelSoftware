@@ -5,45 +5,36 @@
  */
 package gruppo15.ingegneriadelsoftware.controller;
 
+import gruppo15.ingegneriadelsoftware.view.App;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
  * @author fgrim
  */
 public class ScenaMenuController {
+    @FXML
+    private AnchorPane sinistraSplitPane;
+    @FXML
+    private Button logout_button;
+    @FXML
+    private AnchorPane destraSplitPane;
 
     @FXML
-    private void visualizzaListaUtenti(ActionEvent event) {
+    private void clickLogoutButton(ActionEvent event) {
+        // 2. Cambio di Scena
+        try {
+            // Chiama il metodo statico per caricare ScenaMenu.fxml
+            // e sostituire la radice della Scene corrente.
+            App.setRoot("ScenaLogin"); 
+        } 
+        catch (IOException e) {
+            // Gestione dell'errore nel caso il file ScenaMenu.fxml non venga trovato
+            e.printStackTrace();
+        }
     }
-
-    @FXML
-    private void aggiungiUtente(ActionEvent event) {
-    }
-
-    @FXML
-    private void visualizzaListaLibri(ActionEvent event) {
-    }
-
-    @FXML
-    private void aggiungiLibro(ActionEvent event) {
-    }
-
-    @FXML
-    private void visualizzaListaPrestiti(ActionEvent event) {
-    }
-
-    @FXML
-    private void aggiungiPrestito(ActionEvent event) {
-    }
-
-    @FXML
-    private void visualizzaRestituzioni(ActionEvent event) {
-    }
-
-    @FXML
-    private void visualizzaStatistiche(ActionEvent event) {
-    }
-    
 }
