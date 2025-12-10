@@ -20,9 +20,11 @@ public class ScenaMenuController {
     @FXML
     private AnchorPane sinistraSplitPane;
     @FXML
-    private Button logout_button;
-    @FXML
     private AnchorPane destraSplitPane;
+    @FXML
+    private Button logout_button1;
+    @FXML
+    private Button settings_button;
 
     @FXML
     private void clickLogoutButton(ActionEvent event) {
@@ -36,5 +38,9 @@ public class ScenaMenuController {
             // Gestione dell'errore nel caso il file ScenaMenu.fxml non venga trovato
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void clickSettingsButton(ActionEvent event) {
     }
 }
