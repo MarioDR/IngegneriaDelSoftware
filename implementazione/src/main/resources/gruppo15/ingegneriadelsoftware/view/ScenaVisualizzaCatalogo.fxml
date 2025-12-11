@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<SplitPane dividerPositions="0.3" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo15.ingegneriadelsoftware.controller.VisualizzaUtentiController">
+<SplitPane dividerPositions="0.3" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo15.ingegneriadelsoftware.controller.ScenaVisualizzaCatalogoController">
    <items>
       <AnchorPane fx:id="sinistraSplitPane" minHeight="0.0" minWidth="0.0" prefWidth="187.0">
          <children>
@@ -107,7 +107,7 @@
                         <Button fx:id="settings_button" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clickSettingsButton" prefHeight="51.0" prefWidth="64.0" style="-fx-background-color: white;" text="| | |" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Button fx:id="logout_button1" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                        <Button fx:id="logout_button" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: center;">
                                  <image>

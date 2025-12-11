@@ -5,8 +5,12 @@
  */
 package gruppo15.ingegneriadelsoftware.controller;
 
+import gruppo15.ingegneriadelsoftware.view.App;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,6 +52,11 @@ public class ScenaPrestitiAttiviController implements Initializable {
 
     @FXML
     private void clickLogoutButton(ActionEvent event) {
+        try {
+            App.setRoot("ScenaLogin");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @FXML
