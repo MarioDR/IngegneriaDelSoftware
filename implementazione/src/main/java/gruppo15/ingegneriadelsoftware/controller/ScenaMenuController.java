@@ -37,6 +37,8 @@ public class ScenaMenuController {
     private Hyperlink menuAggiungiLibro;
     @FXML
     private Hyperlink menuVisualizzaCatalogo;
+    @FXML
+    private Hyperlink menuAggiungiPrestito;
 
     @FXML
     private void clickLogoutButton(ActionEvent event) {
@@ -80,7 +82,7 @@ public class ScenaMenuController {
         try {
             App.setRoot("ScenaAggiungiLibro");
         } catch (IOException ex) {
-            Logger.getLogger(ScenaMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -89,7 +91,16 @@ public class ScenaMenuController {
         try {
             App.setRoot("ScenaVisualizzaCatalogo");
         } catch (IOException ex) {
-            Logger.getLogger(ScenaMenuController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void aggiungiPrestito(ActionEvent event) {
+                try {
+            App.setRoot("ScenaAggiungiPrestito");
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
     
