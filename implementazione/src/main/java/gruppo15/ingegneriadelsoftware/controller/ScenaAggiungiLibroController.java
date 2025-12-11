@@ -11,24 +11,36 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
- * @author pierc
+ * @author mario
  */
-public class VisualizzaUtentiController implements Initializable {
+public class ScenaAggiungiLibroController implements Initializable {
 
     @FXML
-    private AnchorPane sinistraSplitPane;
-    @FXML
-    private Button logout_button1;
+    private Button logout_button;
     @FXML
     private Button settings_button;
     @FXML
-    private AnchorPane destraSplitPane;
+    private TextField usernameField;
+    @FXML
+    private TextField passwordField;
+    @FXML
+    private TextField usernameField1;
+    @FXML
+    private TextField usernameField11;
+    @FXML
+    private TextField usernameField112;
+    @FXML
+    private Label labelErroreLibro;
+    @FXML
+    private Button aggiungiButton;
+    @FXML
+    private Button annullaButton;
 
     /**
      * Initializes the controller class.
@@ -44,6 +56,14 @@ public class VisualizzaUtentiController implements Initializable {
 
     @FXML
     private void clickSettingsButton(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickAggiungi(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickAnnulla(ActionEvent event) {
     }
     
 }
