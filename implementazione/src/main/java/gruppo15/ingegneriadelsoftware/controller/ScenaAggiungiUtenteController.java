@@ -94,16 +94,16 @@ public class ScenaAggiungiUtenteController implements Initializable {
     }
 
     @FXML
-    private void listaUtenti(ActionEvent event) {
+    private void clickListaUtenti(ActionEvent event) {
         try {
             App.setRoot("VisualizzaUtenti");
         } catch (IOException ex) {
             ex.printStackTrace();
-        }
+        }       
     }
 
     @FXML
-    private void aggiungiUtente(ActionEvent event) {
+    private void clickAggiungiUtente(ActionEvent event) {
          try {
             App.setRoot("ScenaAggiungiUtente");
         } catch (IOException ex) {
@@ -112,7 +112,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     }
 
     @FXML
-    private void visualizzaCatalogo(ActionEvent event) {
+    private void clickVisualizzaCatalogo(ActionEvent event) {
         try {
             App.setRoot("ScenaVisualizzaCatalogo");
         } catch (IOException ex) {
@@ -121,7 +121,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     }
 
     @FXML
-    private void aggiungiLibro(ActionEvent event) {
+    private void clickAggiungiLibro(ActionEvent event) {
         try {
             App.setRoot("ScenaAggiungiLibro");
         } catch (IOException ex) {
@@ -130,7 +130,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     }
 
     @FXML
-    private void prestitiAttivi(ActionEvent event) {
+    private void clickPrestitiAttivi(ActionEvent event) {
         try {
             App.setRoot("ScenaPrestitiAttivi");
         } catch (IOException ex) {
@@ -139,7 +139,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     }
 
     @FXML
-    private void aggiungiPrestito(ActionEvent event) {
+    private void clickAggiungiPrestito(ActionEvent event) {
         try {
             App.setRoot("ScenaAggiungiPrestito");
         } catch (IOException ex) {
@@ -148,7 +148,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     }
 
     @FXML
-    private void storicoRestituzioni(ActionEvent event) {
+    private void clickStoricoRestituzioni(ActionEvent event) {
         try {
             App.setRoot("ScenaStoricoRestituzioni");
         } catch (IOException ex) {
@@ -157,8 +157,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     }
 
     @FXML
-    private void visualizzaStatistiche(ActionEvent event) {
-        
+    private void clickVisualizzaStatistiche(ActionEvent event) {
     }
     
 }
