@@ -17,6 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
 import javafx.scene.layout.AnchorPane;
 
@@ -30,8 +31,6 @@ public class ScenaStoricoRestituzioniController implements Initializable {
     @FXML
     private AnchorPane sinistraSplitPane;
     @FXML
-    private Button logout_button1;
-    @FXML
     private Button settings_button;
     @FXML
     private AnchorPane destraSplitPane;
@@ -43,6 +42,24 @@ public class ScenaStoricoRestituzioniController implements Initializable {
     private TableColumn<?, ?> colonnaISBN;
     @FXML
     private TableColumn<?, ?> colonnaDataPubblicazione;
+    @FXML
+    private Hyperlink menuListaUtenti;
+    @FXML
+    private Hyperlink menuAggiungiUtente;
+    @FXML
+    private Hyperlink menuVisualizzaCatalogo;
+    @FXML
+    private Hyperlink menuAggiungiLibro;
+    @FXML
+    private Hyperlink menuPrestitiAttivi;
+    @FXML
+    private Hyperlink menuAggiungiPrestito;
+    @FXML
+    private Hyperlink menuStoricoRestituzioni;
+    @FXML
+    private Hyperlink menuVisualizzaStatistiche;
+    @FXML
+    private Button logout_button;
 
     /**
      * Initializes the controller class.
@@ -64,6 +81,73 @@ public class ScenaStoricoRestituzioniController implements Initializable {
 
     @FXML
     private void clickSettingsButton(ActionEvent event) {
+    }
+
+    @FXML
+    private void clickListaUtenti(ActionEvent event) {
+        try {
+            App.setRoot("VisualizzaUtenti");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickAggiungiUtente(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiUtente");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickVisualizzaCatalogo(ActionEvent event) {
+        try {
+            App.setRoot("ScenaVisualizzaCatalogo");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickAggiungiLibro(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiLibro");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickPrestitiAttivi(ActionEvent event) {
+        try {
+            App.setRoot("ScenaPrestitiAttivi");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickAggiungiPrestito(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiPrestito");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickStoricoRestituzioni(ActionEvent event) {
+        try {
+            App.setRoot("ScenaStoricoRestituzioni");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickVisualizzaStatistiche(ActionEvent event) {
     }
     
 }
