@@ -1,5 +1,6 @@
 package gruppo15.ingegneriadelsoftware.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,7 +41,11 @@ public class Utente {
      */
 
     public Utente(String nome, String cognome, String matricola, String email) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.nome = nome;
+        this.cognome = cognome;
+        this.matricola = matricola;
+        this.email = email;
+        this.listaPrestiti = new ArrayList<>();
     }
     
     // =========================================================
@@ -54,7 +59,7 @@ public class Utente {
      */
     
     public void setNome(String nome) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.nome = nome;
     }
 
     /**
@@ -64,7 +69,7 @@ public class Utente {
      */
     
     public void setCognome(String cognome) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.cognome = cognome;
     }
 
     /**
@@ -74,7 +79,7 @@ public class Utente {
      */
     
     public void setMatricola(String matricola) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.matricola = matricola;
     }
 
     /**
@@ -84,7 +89,7 @@ public class Utente {
      */
     
     public void setEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.email = email;
     }
     
     // =========================================================
@@ -98,7 +103,7 @@ public class Utente {
      */
     
     public String getNome() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.nome;
     }
 
     /**
@@ -108,7 +113,7 @@ public class Utente {
      */
     
     public String getCognome() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.cognome;
     }
     
     /**
@@ -118,7 +123,7 @@ public class Utente {
      */
     
     public String getMatricola() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.matricola;
     }
     
     /**
@@ -128,7 +133,7 @@ public class Utente {
      */
     
     public String getEmail() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.email;
     }
     
     /**
@@ -138,7 +143,7 @@ public class Utente {
      */
 
     public List<Prestito> getListaPrestiti() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.listaPrestiti;
     }
     
     // =========================================================
@@ -150,25 +155,30 @@ public class Utente {
      * 
      * @pre L'utente destinatario del prestito deve essere questa istanza
      * @pre L'ID del prestito deve essere diverso da tutti gli ID dei prestiti attualmente collegati a questa istanza
+     * @pre Questo utente non può avere più di 3 prestiti attivi
      * @post Il prestito viene aggiunto alla lista dei prestiti dell'utente
      * @param prestito Il prestito che si vuole aggiungere all'utente
      * @return La lista dei prestiti aggiornata
      */
 
-    public Prestito addPrestito(Prestito prestito) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Prestito> addPrestito(Prestito prestito) {
+        if(prestito != null)
+            this.listaPrestiti.add(prestito);
+        
+        return this.listaPrestiti;
     }
     
     /**
      * Rimuove un prestito dalla lista prestiti dell'utente.
      * 
-     * @post Il prestito viene rimosso dalla lista dei prestiti dell'utente
+     * @post Il prestito viene rimosso dalla lista dei prestiti dell'utente, se presente
      * @param p Il prestito da rimuovere dalla lista dei prestiti dell'utente
      * @return La lista dei prestiti aggiornata
      */
 
-    public Prestito removePrestito(Prestito p) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Prestito> removePrestito(Prestito p) {
+        this.listaPrestiti.remove(p);
+        return this.listaPrestiti;
     }
     
     /**
@@ -179,16 +189,35 @@ public class Utente {
      */
     
     public boolean hasMaxNumPrestiti() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.listaPrestiti.size() == 3;
     }
     
     /**
-     * Converte i dati in una stringa CSV.
+     * Controlla se un oggetto è uguale a questa istanza (due utenti sono uguali se hanno la stessa matricola e la stessa emai)
+     * 
+     * @return  {@code true} se i due utenti hanno la stessa matricola e la stessa email
+     *          {@code false} in tutti gli atri casi
+     */
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o == null)
+            return false;
+        if(o.getClass() != this.getClass())
+            return false;
+        
+        Utente o2 = (Utente)o;
+        
+        return o2.getMatricola().equalsIgnoreCase(this.getMatricola()) && o2.getEmail().equalsIgnoreCase(this.getEmail());
+    }
+    
+    /**
+     * Converte i dati in una stringa CSV. L'ordine è: nome, cognome, matricola, email.
      * 
      * @return Una stringa che contiene Nome, Cognome, Matricola, Email e ID dei prestiti in formato CSV
      */
     
     public String toCSV() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.nome + "," + this.cognome + "," + this.matricola + "," + this.email;
     }
 }

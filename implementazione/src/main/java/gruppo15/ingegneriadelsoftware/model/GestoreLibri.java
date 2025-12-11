@@ -40,7 +40,7 @@ public class GestoreLibri implements Manager<Libro> {
      */
     
     @Override
-    public Libro add(Libro object) {
+    public List<Libro> add(Libro object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
@@ -53,22 +53,10 @@ public class GestoreLibri implements Manager<Libro> {
      */
     
     @Override
-    public Libro remove(Libro object){
+    public List<Libro> remove(Libro object){
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    /**
-     * Cerca un libro nella collezione gestita.
-     * 
-     * @param object Il libro da cercare
-     * @return Il libro se è presente o {@code Null} se Il libro non è presente
-     */
-    
-    @Override
-    public Libro search(Libro object){
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
+
     /**
      * Restituisce la collezione nello stato attuale.
      * 
@@ -90,18 +78,23 @@ public class GestoreLibri implements Manager<Libro> {
     
     @Override
     public boolean contains(Libro object){
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(Libro l : this.listaLibri) {
+            if(l.equals(object))
+                return true;
+        }
+        
+        return false;
     }
     
     /**
-     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
      * @param regex il prefisso usato per la ricerca
      * @return La lista di tutti i libri trovati corrispondenti al pattern. Se nessun libro viene trovato restituisce {@code Null}
      */
     
     @Override
-    public List<Libro> startsWith(String regex) {
+    public List<Libro> containsString(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

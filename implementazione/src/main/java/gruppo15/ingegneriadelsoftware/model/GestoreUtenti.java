@@ -43,7 +43,7 @@ public class GestoreUtenti implements Manager<Utente> {
      */
     
     @Override
-    public Utente add(Utente object) {
+    public List<Utente> add(Utente object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
@@ -56,20 +56,7 @@ public class GestoreUtenti implements Manager<Utente> {
      */
     
     @Override
-    public Utente remove(Utente object){
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    /**
-     * Cerca un utente specifico nella collezione
-     * 
-     * @param object
-     * @return {@code Object} se l'utente è stato trovato,
-     * {@code Null} se l'utente non esiste
-     */
-    
-    @Override
-    public Utente search(Utente object){
+    public List<Utente> remove(Utente object){
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
@@ -98,14 +85,14 @@ public class GestoreUtenti implements Manager<Utente> {
     }
     
     /**
-     * Ritorna una lista degli utenti che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
      * @param regex il prefisso usato per la ricerca
      * @return La lista di tutti gli utenti trovati corrispondenti al pattern. Se nessun oggetto viene trovato restituisce {@code Null}
      */
     
     @Override
-    public List<Utente> startsWith(String regex) {
+    public List<Utente> containsString(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

@@ -27,8 +27,9 @@ public class Restituzione {
      * @param dataEffettivaRestituzione La data in cui è stata effettuata la restituzione
      */
 
-    public Restituzione(Prestito p, LocalDate dataEffettivaRestituzione) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Restituzione(Prestito p) {
+        this.prestitoDaRestituire = p;
+        this.dataEffettivaRestituzione = LocalDate.now();
     }
     
     // =========================================================
@@ -42,7 +43,7 @@ public class Restituzione {
      */
 
     public LocalDate getDataRestituzione() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.dataEffettivaRestituzione;
     }
     
     /**
@@ -51,8 +52,8 @@ public class Restituzione {
      * @return Prestito 
      */
 
-    public Prestito getPrestito() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Prestito getPrestitoDaRestituire() {
+        return this.prestitoDaRestituire;
     }
     
     // =========================================================
@@ -65,8 +66,8 @@ public class Restituzione {
      * @return Numero di giorni di ritardo (positivi se in ritardo, negativi se in anticipo)
      */
 
-    public int getRitardoDefinitivo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public long getRitardoDefinitivo() {
+        return this.dataEffettivaRestituzione.toEpochDay() - this.prestitoDaRestituire.getDataPrevistaRestituzione().toEpochDay();
     }
     
     /**
@@ -77,16 +78,35 @@ public class Restituzione {
      */
 
     public boolean isRestituitoInRitardo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.dataEffettivaRestituzione.isAfter(this.prestitoDaRestituire.getDataPrevistaRestituzione());
     }
     
     /**
-     * Converte i dati in una stringa CSV.
+     * Converte i dati in una stringa CSV. L'ordine è: tutti gli attributi del prestito e la data effettiva di restituzione
      * 
      * @return Una stringa che contiene i dati del prestito restituito e la data effettiva di restituzione
      */
-
+    
+    /**
+     * Controlla se un oggetto è uguale a questa istanza (due restituzioni sono uguali se i due prestiti restituiti hanno lo stesso ID)
+     * 
+     * @return  {@code true} se i due prestiti da restituire hanno lo stesso ID
+     *          {@code false} in tutti gli atri casi
+     */
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o == null)
+            return false;
+        if(o.getClass() != this.getClass())
+            return false;
+        
+        Restituzione o2 = (Restituzione)o;
+        
+        return o2.prestitoDaRestituire.equals(this.getPrestitoDaRestituire());
+    }
+    
     public String toCSV() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.prestitoDaRestituire.toCSV() + "," + this.dataEffettivaRestituzione;
     }
 }

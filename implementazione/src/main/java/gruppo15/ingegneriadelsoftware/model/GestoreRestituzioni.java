@@ -41,7 +41,7 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
      */
     
     @Override
-    public Restituzione add(Restituzione object) {
+    public List<Restituzione> add(Restituzione object) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
@@ -54,19 +54,7 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
      */
     
     @Override
-    public Restituzione remove(Restituzione object){
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    /**
-     * Cerca una restituzione nella collezione gestita.
-     * 
-     * @param object La restituzione da cercare
-     * @return La restituzione se è presente o {@code Null} se la restituzione non è presente
-     */
-    
-    @Override
-    public Restituzione search(Restituzione object){
+    public List<Restituzione> remove(Restituzione object){
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
@@ -95,14 +83,14 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     }
     
     /**
-     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
      * @param regex il prefisso usato per la ricerca
      * @return La lista di tutte le restituzioni trovate corrispondenti al pattern. Se nessuna restituzione viene trovata restituisce {@code Null}
      */
     
     @Override
-    public List<Restituzione> startsWith(String regex) {
+    public List<Restituzione> containsString(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

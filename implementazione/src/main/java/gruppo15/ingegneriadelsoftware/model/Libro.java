@@ -1,7 +1,10 @@
 package gruppo15.ingegneriadelsoftware.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @file Libro.java
@@ -46,7 +49,14 @@ public class Libro {
     
     //NON SONO SICURO DEI TIPI DEL COSTRUTTORE
     public Libro(String titolo, String autori, LocalDate dataDiPubblicazione, String ISBN, int numeroCopie, float valore) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.titolo = titolo;
+        this.dataDiPubblicazione = dataDiPubblicazione;
+        this.ISBN = ISBN;
+        this.numeroCopie = numeroCopie;
+        this.valore = valore;
+        
+        //questa istruzione converte una stringa CSV in una lista di stringhe, trimmando opportunamente anche gli spazi
+        this.listaAutori = Arrays.stream(autori.split(",")).map(String::trim).collect(Collectors.toList()); 
     }
     
     // =========================================================
@@ -60,8 +70,8 @@ public class Libro {
      *  
      */
     
-    public String setTitolo(String titolo) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
     
     /**
@@ -71,8 +81,8 @@ public class Libro {
      *  
      */
     
-    public LocalDate setDataDiPubblicazione(LocalDate dataDiPubblicazione) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setDataDiPubblicazione(LocalDate dataDiPubblicazione) {
+        this.dataDiPubblicazione = dataDiPubblicazione;
     }
     
     /**
@@ -82,8 +92,8 @@ public class Libro {
      *  
      */
     
-    public int setNumeroCopie(int numeroCopie) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setNumeroCopie(int numeroCopie) {
+        this.numeroCopie = numeroCopie;
     }
     
     /**
@@ -93,8 +103,8 @@ public class Libro {
      *  
      */
     
-    public float setValore(float valore) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setValore(float valore) {
+        this.valore = valore;
     }
     
     // =========================================================
@@ -108,7 +118,7 @@ public class Libro {
      */
     
     public String getTitolo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.titolo;
     }
     
     /**
@@ -118,8 +128,8 @@ public class Libro {
      * 
      */
     
-    public LocalDate getAnnoDiPubblicazione() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public LocalDate getDataDiPubblicazione() {
+        return this.dataDiPubblicazione;
     }
     
     /**
@@ -129,7 +139,7 @@ public class Libro {
      */
     
     public String getISBN() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.ISBN;
     }
      
     /** 
@@ -139,7 +149,7 @@ public class Libro {
      */
     
     public int getNumeroCopie() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.numeroCopie;
     }
      
     /**
@@ -149,7 +159,7 @@ public class Libro {
      */
     
     public List<String> getListaAutori() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.listaAutori;
     }
      
     /**
@@ -159,7 +169,7 @@ public class Libro {
      */
        
     public float getValore() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.valore;
     }
     
     // =========================================================
@@ -173,7 +183,7 @@ public class Libro {
      */
     
     public void aggiungiCopia() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.numeroCopie++;
     }
 
     /**
@@ -184,7 +194,7 @@ public class Libro {
      */
     
     public void aggiungiCopie(int copie) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.numeroCopie += copie;
     }
     
     /**
@@ -195,15 +205,39 @@ public class Libro {
      */
     
     public void rimuoviCopia() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.numeroCopie--;
     }
 
     /**
-     * Converte i dati in una stringa CSV.
+     * Controlla se un oggetto è uguale a questa istanza (due libri sono uguali se hanno lo stesso ISBN)
+     * 
+     * @return  {@code true} se i due libri hanno lo stesso ISBN
+     *          {@code false} in tutti gli atri casi
+     */
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o == null)
+            return false;
+        if(o.getClass() != this.getClass())
+            return false;
+        
+        Libro o2 = (Libro)o;
+        
+        return o2.getISBN().equalsIgnoreCase(this.getISBN());
+    }
+    
+    /**
+     * Converte i dati in una stringa CSV. L'ordine è: titolo, ISBN, numeroCopie, valore e tutti gli autori
      * 
      * @return Una stringa CSV che contiene titolo, autori, ISBN, numeroCopie e valore
      */
     public String toCSV() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        String s = this.titolo + "," + this.ISBN + "," + this.numeroCopie + "," + this.valore;
+        
+        for(String a : this.listaAutori)
+            s += ("," + a);
+        
+        return s;
     }
 }

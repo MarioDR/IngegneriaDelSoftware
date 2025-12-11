@@ -1,5 +1,6 @@
 package gruppo15.ingegneriadelsoftware.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class GestorePrestiti implements Manager<Prestito> {
      */
 
     public GestorePrestiti() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.listaPrestitiAttivi = new ArrayList<>();
     }
     
     /**
@@ -37,12 +38,15 @@ public class GestorePrestiti implements Manager<Prestito> {
      * @pre Il prestito deve rispettare tutte le caratteristiche lessicali dei suoi attributi
      * @post Il prestito viene inserito correttamente
      * @param object Il prestito da inserire
-     * @return Il prestito aggiunto
+     * @return La lista aggiornata
      */
     
     @Override
-    public Prestito add(Prestito object) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Prestito> add(Prestito object) {
+        if(object != null)
+            this.listaPrestitiAttivi.add(object);
+        
+        return this.listaPrestitiAttivi;
     }
     
     /**
@@ -50,24 +54,13 @@ public class GestorePrestiti implements Manager<Prestito> {
      * 
      * @post Il prestito viene rimosso dalla collezione se presente
      * @param objectIl Il prestito da rimuovere
-     * @return Il prestito rimosso
+     * @return La lista aggiornata
      */
     
     @Override
-    public Prestito remove(Prestito object){
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    /**
-     * Cerca un prestito nella collezione gestita.
-     * 
-     * @param object Il prestito da cercare
-     * @return Il prestito se è presente o {@code Null} se Il prestito non è presente
-     */
-    
-    @Override
-    public Prestito search(Prestito object){
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Prestito> remove(Prestito object){
+        this.listaPrestitiAttivi.remove(object);
+        return this.listaPrestitiAttivi;
     }
     
     /**
@@ -78,7 +71,7 @@ public class GestorePrestiti implements Manager<Prestito> {
     
     @Override
     public List<Prestito> getList(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.listaPrestitiAttivi;
     }
     
     /**
@@ -91,18 +84,23 @@ public class GestorePrestiti implements Manager<Prestito> {
     
     @Override
     public boolean contains(Prestito object){
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(Prestito p : this.listaPrestitiAttivi) {
+            if(p.equals(object))
+                return true;
+        }
+        
+        return false;
     }
     
     /**
-     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
      * @param regex il prefisso usato per la ricerca
      * @return La lista di tutti i prestiti trovati corrispondenti al pattern. Se nessun prestito viene trovato restituisce {@code Null}
      */
     
     @Override
-    public List<Prestito> startsWith(String regex) {
+    public List<Prestito> containsString(String regex) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

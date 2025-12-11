@@ -23,29 +23,20 @@ public interface Manager<T> {
      * @pre l'oggetto deve rispettare tutte le caratteristiche lessicali dei suoi attributi
      * @post L'oggetto viene inserito correttamente
      * @param object l'oggetto da inserire
-     * @return L'oggetto aggiunto
+     * @return La lista aggiornata
      */
     
-    public T add(T object);
+    public List<T> add(T object);
     
     /**
      * Rimuove un oggetto dalla collezione gestita.
      * 
      * @post L'oggetto viene rimosso dalla collezione se presente
      * @param object l'oggetto da rimuovere
-     * @return L'oggetto T rimosso
+     * @return La lista aggiornata
      */
     
-    public T remove(T object);
-    
-    /**
-     * Cerca un oggetto nella collezione gestita.
-     * 
-     * @param object l'oggetto da cercare
-     * @return L'oggetto T se è presente o {@code Null} se l'oggetto non è presente
-     */
-    
-    public T search(T object);
+    public List<T> remove(T object);
     
     /**
      * Restituisce la collezione nello stato attuale.
@@ -66,11 +57,11 @@ public interface Manager<T> {
     public boolean contains(T object);
     
     /**
-     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
      * @param regex il prefisso usato per la ricerca
      * @return La lista di tutti gli oggetti trovati corrispondenti al pattern. Se nessun oggetto viene trovato restituisce {@code Null}
      */
     
-    public List<T> startsWith(String regex);
+    public List<T> containsString(String regex);
 }

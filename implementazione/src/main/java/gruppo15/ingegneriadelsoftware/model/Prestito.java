@@ -41,8 +41,12 @@ public class Prestito {
      * @param dataPrevistaRestituzione La data prevista di restituzione
      */
 
-    public Prestito(Utente utente, Libro libro, LocalDate dataPrevistaRestituzione) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Prestito(Utente utenteAssegnatario, Libro libroPrestato, LocalDate dataPrevistaRestituzione) {
+        this.utenteAssegnatario = utenteAssegnatario;
+        this.libroPrestato = libroPrestato;
+        this.dataPrevistaRestituzione = dataPrevistaRestituzione;
+        this.dataInizioPrestito = LocalDate.now();
+        this.ID = cont++;
     }
     
     // =========================================================
@@ -56,7 +60,7 @@ public class Prestito {
      */
 
     public Utente getUtenteAssegnatario() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.utenteAssegnatario;
     }
     
     /**
@@ -66,7 +70,7 @@ public class Prestito {
      */
 
     public Libro getLibroPrestato() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.libroPrestato;
     }
     
     /**
@@ -75,8 +79,8 @@ public class Prestito {
      * @return L'ID del prestito 
      */
     
-    public Libro getID() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public int getID() {
+        return this.ID;
     }
 
     /**
@@ -86,7 +90,7 @@ public class Prestito {
      */
     
     public LocalDate getDataPrevistaRestituzione() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.dataPrevistaRestituzione;
     }
 
     /**
@@ -96,7 +100,7 @@ public class Prestito {
      */
     
     public LocalDate getDataInizioPrestito() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.dataInizioPrestito;
     }
     
     // =========================================================
@@ -111,7 +115,7 @@ public class Prestito {
      */
     
     public boolean isInRitardo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return LocalDate.now().isAfter(this.dataPrevistaRestituzione);
     }
     
     /**
@@ -120,17 +124,36 @@ public class Prestito {
      * @return Numero di giorni di ritardo (positivi se è in ritardo, negativi se è in anticipo) 
      */
 
-    public int getGiorniDiRitardo() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public long getGiorniDiRitardo() {
+        return LocalDate.now().toEpochDay() - this.dataPrevistaRestituzione.toEpochDay();           
     }
     
     /**
-     * Converte i dati in una stringa CSV.
+     * Controlla se un oggetto è uguale a questa istanza (due prestiti sono uguali se hanno lo stesso ID)
+     * 
+     * @return  {@code true} se i due prestiti hanno lo stesso ID
+     *          {@code false} in tutti gli atri casi
+     */
+    
+    @Override
+    public boolean equals(Object o) {
+        if(o == null)
+            return false;
+        if(o.getClass() != this.getClass())
+            return false;
+        
+        Prestito o2 = (Prestito)o;
+        
+        return o2.getID() == this.getID();
+    }
+    
+    /**
+     * Converte i dati in una stringa CSV. L'ordine è: tutti gli attributi dell'utente, tutti gli attributi del libro, data di inizio e data previta di fine.
      * 
      * @return Una stringa che contiene i dati dell'utente, quelli del libro e le due date di inizio e fine prevista
      */
     
     public String toCSV() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.utenteAssegnatario.toCSV() + "," + this.libroPrestato.toCSV() + "," + this.dataInizioPrestito + "," + this.dataPrevistaRestituzione;
     }
 }
