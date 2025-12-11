@@ -7,9 +7,12 @@ package gruppo15.ingegneriadelsoftware.controller;
 
 import gruppo15.ingegneriadelsoftware.view.App;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -25,6 +28,10 @@ public class ScenaMenuController {
     private Button logout_button1;
     @FXML
     private Button settings_button;
+    @FXML
+    private Hyperlink menuListaUtenti;
+    @FXML
+    private Hyperlink menuAggiungiUtente;
 
     @FXML
     private void clickLogoutButton(ActionEvent event) {
@@ -43,4 +50,18 @@ public class ScenaMenuController {
     @FXML
     private void clickSettingsButton(ActionEvent event) {
     }
+
+    @FXML
+    private void visualizzaListaUtenti(ActionEvent event) {
+    }
+
+    @FXML
+    private void aggiungiUtente(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiUtente");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+    
 }

@@ -16,18 +16,18 @@
     
     <items>
         <AnchorPane fx:id="sinistraSplitPane" minHeight="0.0" minWidth="0.0" prefWidth="187.0">
-            <VBox prefHeight="145.0" prefWidth="188.0" AnchorPane.bottomAnchor="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="168.0" prefWidth="188.0" AnchorPane.bottomAnchor="332.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
                     <Accordion prefHeight="149.0" prefWidth="188.0" VBox.vgrow="ALWAYS">
                         <panes>
                             <TitledPane accessibleRole="HYPERLINK" contentDisplay="CENTER" prefWidth="188.0" snapToPixel="false" text="UTENTI">
                                 <content>
                                     <VBox alignment="TOP_LEFT" spacing="5.0"> 
-                                        <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Lista Utenti" textFill="#7d6a6a">
+                                        <Hyperlink fx:id="menuListaUtenti" alignment="CENTER" onAction="#visualizzaListaUtenti" prefHeight="26.0" prefWidth="192.0" text="Lista Utenti" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Hyperlink>
-                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Utente" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuAggiungiUtente" alignment="CENTER" onAction="#aggiungiUtente" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Utente" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -87,7 +87,7 @@
                     </Accordion>
                 </children>
             </VBox>
-         <VBox alignment="BOTTOM_CENTER" layoutX="-6.666666666666667" layoutY="-2.6666666666666665" prefHeight="477.3333333333333" prefWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <VBox alignment="BOTTOM_CENTER" layoutX="-6.666666666666667" layoutY="425.0" prefHeight="53.0" prefWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="425.0">
             <children>
                <BorderPane prefHeight="37.0" prefWidth="188.0">
                   <right>
