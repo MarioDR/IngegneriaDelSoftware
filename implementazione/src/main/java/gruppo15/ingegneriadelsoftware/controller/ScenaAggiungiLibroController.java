@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -45,6 +46,22 @@ public class ScenaAggiungiLibroController implements Initializable {
     private Button aggiungiButton;
     @FXML
     private Button annullaButton;
+    @FXML
+    private Hyperlink menuListaUtenti;
+    @FXML
+    private Hyperlink menuAggiungiUtente;
+    @FXML
+    private Hyperlink menuVisualizzaCatalogo;
+    @FXML
+    private Hyperlink menuAggiungiLibro;
+    @FXML
+    private Hyperlink menuPrestitiAttivi;
+    @FXML
+    private Hyperlink menuAggiungiPrestito;
+    @FXML
+    private Hyperlink menuStoricoRestituzioni;
+    @FXML
+    private Hyperlink menuVisualizzaStatistiche;
 
     /**
      * Initializes the controller class.
@@ -59,7 +76,7 @@ public class ScenaAggiungiLibroController implements Initializable {
         try {
             App.setRoot("ScenaLogin");
         } catch (IOException ex) {
-            Logger.getLogger(ScenaAggiungiLibroController.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
     }
 
@@ -73,6 +90,73 @@ public class ScenaAggiungiLibroController implements Initializable {
 
     @FXML
     private void clickAnnulla(ActionEvent event) {
+    }
+
+    @FXML
+    private void listaUtenti(ActionEvent event) {
+        try {
+            App.setRoot("VisualizzaUtenti");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    @FXML
+    private void aggiungiUtente(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiUtente");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    @FXML
+    private void visualizzaCatalogo(ActionEvent event) {
+        try {
+            App.setRoot("ScenaVisualizzaCatalogo");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    @FXML
+    private void aggiungiLibro(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiLibro");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    @FXML
+    private void prestitiAttivi(ActionEvent event) {
+        try {
+            App.setRoot("ScenaPrestitiAttivi");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    @FXML
+    private void aggiungiPrestito(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiPrestito");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    @FXML
+    private void storicoRestituzioni(ActionEvent event) {
+        try {
+            App.setRoot("ScenaStoricoRestituzioni");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    @FXML
+    private void visualizzaStatistiche(ActionEvent event) {
     }
     
 }
