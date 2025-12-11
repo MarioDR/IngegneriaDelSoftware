@@ -54,7 +54,7 @@
                             <TitledPane text="PRESTITI E RESTITUZIONI">
                                 <content>
                                     <VBox alignment="TOP_LEFT" spacing="5.0">
-                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Prestiti Attivi" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuPrestitiAttivi" alignment="CENTER" onAction="#prestitiAttivi" prefHeight="26.0" prefWidth="192.0" text="Prestiti Attivi" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>

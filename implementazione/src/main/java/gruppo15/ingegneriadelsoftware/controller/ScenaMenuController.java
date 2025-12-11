@@ -38,6 +38,8 @@ public class ScenaMenuController {
     @FXML
     private Hyperlink menuVisualizzaCatalogo;
     @FXML
+    private Hyperlink menuPrestitiAttivi;
+    @FXML
     private Hyperlink menuAggiungiPrestito;
 
     @FXML
@@ -97,8 +99,17 @@ public class ScenaMenuController {
 
     @FXML
     private void aggiungiPrestito(ActionEvent event) {
-                try {
+        try {
             App.setRoot("ScenaAggiungiPrestito");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void prestitiAttivi(ActionEvent event) {
+        try {
+            App.setRoot("ScenaPrestitiAttivi");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
