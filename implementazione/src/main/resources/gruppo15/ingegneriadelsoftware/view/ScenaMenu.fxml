@@ -64,7 +64,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Hyperlink>
-                              <Hyperlink alignment="CENTER" prefHeight="26.0" prefWidth="192.0" text="Storico Restituzioni" textFill="#7d6a6a">
+                              <Hyperlink fx:id="scenaStoricoRestituzioni" alignment="CENTER" onAction="#storicoRestituzioni" prefHeight="26.0" prefWidth="192.0" text="Storico Restituzioni" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>

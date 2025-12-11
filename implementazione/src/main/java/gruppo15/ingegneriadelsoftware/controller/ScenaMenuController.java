@@ -41,6 +41,8 @@ public class ScenaMenuController {
     private Hyperlink menuPrestitiAttivi;
     @FXML
     private Hyperlink menuAggiungiPrestito;
+    @FXML
+    private Hyperlink scenaStoricoRestituzioni;
 
     @FXML
     private void clickLogoutButton(ActionEvent event) {
@@ -110,6 +112,15 @@ public class ScenaMenuController {
     private void prestitiAttivi(ActionEvent event) {
         try {
             App.setRoot("ScenaPrestitiAttivi");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void storicoRestituzioni(ActionEvent event) {
+        try {
+            App.setRoot("ScenaStoricoRestituzioni");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

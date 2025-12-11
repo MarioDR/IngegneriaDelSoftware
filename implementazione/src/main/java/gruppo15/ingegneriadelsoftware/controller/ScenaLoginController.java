@@ -37,7 +37,7 @@ public class ScenaLoginController {
         // ----------------------------------------------------
         // 1. Validazione (Logica Fittizia)
         // ----------------------------------------------------
-        if (username.equals("biblio") && password.equals("pass")) {
+        if (username.equals("") && password.equals("")) {
             
             // 2. Cambio di Scena
             try {
