@@ -19,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -34,14 +36,6 @@ public class ScenaStoricoRestituzioniController implements Initializable {
     private Button settings_button;
     @FXML
     private AnchorPane destraSplitPane;
-    @FXML
-    private TableColumn<?, ?> colonnaTitolo;
-    @FXML
-    private TableColumn<?, ?> colonnaAutori;
-    @FXML
-    private TableColumn<?, ?> colonnaISBN;
-    @FXML
-    private TableColumn<?, ?> colonnaDataPubblicazione;
     @FXML
     private Hyperlink menuListaUtenti;
     @FXML
@@ -60,6 +54,20 @@ public class ScenaStoricoRestituzioniController implements Initializable {
     private Hyperlink menuVisualizzaStatistiche;
     @FXML
     private Button logout_button;
+    @FXML
+    private TextField barraRicercaRestituzioni;
+    @FXML
+    private TableView<?> tabellaRestituzioni;
+    @FXML
+    private TableColumn<?, ?> colonnaMatricola;
+    @FXML
+    private TableColumn<?, ?> colonnaEmail;
+    @FXML
+    private TableColumn<?, ?> colonnaISBN;
+    @FXML
+    private TableColumn<?, ?> colonnaDataRestituzione;
+    @FXML
+    private TableColumn<?, ?> colonnaRitardo;
 
     /**
      * Initializes the controller class.
@@ -86,7 +94,7 @@ public class ScenaStoricoRestituzioniController implements Initializable {
     @FXML
     private void clickListaUtenti(ActionEvent event) {
         try {
-            App.setRoot("VisualizzaUtenti");
+            App.setRoot("ScenaListaUtenti");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

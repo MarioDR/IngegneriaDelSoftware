@@ -126,12 +126,12 @@
          <children>
             <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField prefHeight="31.0" prefWidth="424.0" promptText="Cerca per Titolo o ISBN...">
+                  <TextField fx:id="barraRicercaCatalogo" prefHeight="31.0" prefWidth="424.0" promptText="Cerca per Titolo o ISBN...">
                      <VBox.margin>
                         <Insets bottom="15.0" left="20.0" right="20.0" top="25.0" />
                      </VBox.margin>
                   </TextField>
-                  <TableView prefHeight="354.0" prefWidth="444.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tabellaCatalogo" prefHeight="354.0" prefWidth="444.0" VBox.vgrow="ALWAYS">
                      <columns>
                         <TableColumn fx:id="colonnaTitolo" prefWidth="99.0" text="Titolo" />
                         <TableColumn fx:id="colonnaAutori" minWidth="0.0" prefWidth="111.66668701171875" text="Autore/i" />

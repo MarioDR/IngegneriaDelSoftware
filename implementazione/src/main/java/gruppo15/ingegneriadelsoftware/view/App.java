@@ -18,6 +18,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("ScenaLogin"), 640, 480);
+        stage.setTitle("MyBiblioUNISA");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();

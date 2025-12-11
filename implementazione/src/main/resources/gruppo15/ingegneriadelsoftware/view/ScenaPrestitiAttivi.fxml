@@ -107,7 +107,7 @@
                         <Button fx:id="settings_button" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clickSettingsButton" prefHeight="51.0" prefWidth="64.0" style="-fx-background-color: white;" text="| | |" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Button fx:id="logout_button1" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                        <Button fx:id="logout_button" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: center;">
                                  <image>
@@ -126,18 +126,18 @@
          <children>
             <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField prefHeight="31.0" prefWidth="424.0" promptText="Cerca per Matricola o ISBN...">
+                  <TextField fx:id="barraRicercaPrestiti" prefHeight="31.0" prefWidth="424.0" promptText="Cerca per Matricola o ISBN...">
                      <VBox.margin>
                         <Insets bottom="15.0" left="20.0" right="20.0" top="25.0" />
                      </VBox.margin>
                   </TextField>
-                  <TableView prefHeight="354.0" prefWidth="444.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tabellaPrestitiAttivi" prefHeight="354.0" prefWidth="444.0" VBox.vgrow="ALWAYS">
                      <columns>
-                        <TableColumn fx:id="colonnaTitolo" prefWidth="99.0" text="Matricola" />
-                        <TableColumn fx:id="colonnaAutori" minWidth="0.0" prefWidth="111.66668701171875" text="Email" />
+                        <TableColumn fx:id="colonnaMatricola" prefWidth="99.0" text="Matricola" />
+                        <TableColumn fx:id="colonnaEmail" minWidth="0.0" prefWidth="111.66668701171875" text="Email" />
                         <TableColumn fx:id="colonnaISBN" prefWidth="97.3333740234375" text="ISBN" />
-                        <TableColumn fx:id="colonnaDataPubblicazione" prefWidth="138.6666259765625" text="Data prevista restituzione" />
-                        <TableColumn prefWidth="75.0" text="Ritardo" />
+                        <TableColumn fx:id="colonnaDataPrevistaRestituzione" prefWidth="138.6666259765625" text="Data prevista restituzione" />
+                        <TableColumn fx:id="colonnaRitardo" prefWidth="75.0" text="Ritardo" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -25,17 +25,7 @@ import javafx.scene.control.TextField;
 public class ScenaAggiungiUtenteController implements Initializable {
 
     @FXML
-    private Button logout_button1;
-    @FXML
     private Button settings_button;
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private TextField usernameField1;
-    @FXML
-    private TextField usernameField11;
     @FXML
     private Button aggiungiButton;
     @FXML
@@ -58,6 +48,16 @@ public class ScenaAggiungiUtenteController implements Initializable {
     private Hyperlink menuVisualizzaStatistiche;
     @FXML
     private Label labelErroreUtente;
+    @FXML
+    private Button logout_button;
+    @FXML
+    private TextField nomeField;
+    @FXML
+    private TextField cognomeField;
+    @FXML
+    private TextField matricolaField;
+    @FXML
+    private TextField emailField;
 
     /**
      * Initializes the controller class.
@@ -96,7 +96,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     @FXML
     private void clickListaUtenti(ActionEvent event) {
         try {
-            App.setRoot("VisualizzaUtenti");
+            App.setRoot("ScenaListaUtenti");
         } catch (IOException ex) {
             ex.printStackTrace();
         }       

@@ -23,11 +23,11 @@
                             <TitledPane accessibleRole="HYPERLINK" contentDisplay="CENTER" prefWidth="188.0" snapToPixel="false" text="UTENTI">
                                 <content>
                                     <VBox alignment="TOP_LEFT" spacing="5.0"> 
-                                        <Hyperlink fx:id="menuListaUtenti" alignment="CENTER" onAction="#visualizzaListaUtenti" prefHeight="26.0" prefWidth="192.0" text="Lista Utenti" textFill="#7d6a6a">
+                                        <Hyperlink fx:id="menuListaUtenti" alignment="CENTER" onAction="#clickListaUtenti" prefHeight="26.0" prefWidth="192.0" text="Lista Utenti" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font></Hyperlink>
-                              <Hyperlink fx:id="menuAggiungiUtente" alignment="CENTER" onAction="#aggiungiUtente" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Utente" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuAggiungiUtente" alignment="CENTER" onAction="#clickAggiungiUtente" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Utente" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -38,12 +38,12 @@
                             <TitledPane prefHeight="132.0" prefWidth="188.0" text="CATALOGO">
                                 <content>
                                     <VBox alignment="TOP_LEFT" spacing="5.0">
-                              <Hyperlink fx:id="menuVisualizzaCatalogo" alignment="CENTER" onAction="#visualizzaCatalogo" prefHeight="26.0" prefWidth="192.0" text="Visualizza Catalogo" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuVisualizzaCatalogo" alignment="CENTER" onAction="#clickVisualizzaCatalogo" prefHeight="26.0" prefWidth="192.0" text="Visualizza Catalogo" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Hyperlink>
-                              <Hyperlink fx:id="menuAggiungiLibro" alignment="CENTER" onAction="#aggiungiLibro" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Libro" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuAggiungiLibro" alignment="CENTER" onAction="#clickAggiungiLibro" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Libro" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -54,17 +54,17 @@
                             <TitledPane text="PRESTITI E RESTITUZIONI">
                                 <content>
                                     <VBox alignment="TOP_LEFT" spacing="5.0">
-                              <Hyperlink fx:id="menuPrestitiAttivi" alignment="CENTER" onAction="#prestitiAttivi" prefHeight="26.0" prefWidth="192.0" text="Prestiti Attivi" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuPrestitiAttivi" alignment="CENTER" onAction="#clickPrestitiAttivi" prefHeight="26.0" prefWidth="192.0" text="Prestiti Attivi" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Hyperlink>
-                              <Hyperlink fx:id="menuAggiungiPrestito" alignment="CENTER" onAction="#aggiungiPrestito" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Prestito" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuAggiungiPrestito" alignment="CENTER" onAction="#clickAggiungiPrestito" prefHeight="26.0" prefWidth="192.0" text="Aggiungi Prestito" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Hyperlink>
-                              <Hyperlink fx:id="scenaStoricoRestituzioni" alignment="CENTER" onAction="#storicoRestituzioni" prefHeight="26.0" prefWidth="192.0" text="Storico Restituzioni" textFill="#7d6a6a">
+                              <Hyperlink fx:id="menuStoricoRestituzioni" alignment="CENTER" onAction="#clickStoricoRestituzioni" prefHeight="26.0" prefWidth="192.0" text="Storico Restituzioni" textFill="#7d6a6a">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -94,7 +94,7 @@
                      <Button fx:id="settings_button" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clickSettingsButton" prefHeight="51.0" prefWidth="64.0" style="-fx-background-color: white;" text="| | |" BorderPane.alignment="CENTER" />
                   </right>
                   <left>
-                     <Button fx:id="logout_button1" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                     <Button fx:id="logout_button" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                         <graphic>
                            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                               <image>

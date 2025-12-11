@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,16 +31,6 @@ public class ScenaAggiungiLibroController implements Initializable {
     private Button logout_button;
     @FXML
     private Button settings_button;
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private TextField usernameField1;
-    @FXML
-    private TextField usernameField11;
-    @FXML
-    private TextField usernameField112;
     @FXML
     private Label labelErroreLibro;
     @FXML
@@ -62,6 +53,18 @@ public class ScenaAggiungiLibroController implements Initializable {
     private Hyperlink menuStoricoRestituzioni;
     @FXML
     private Hyperlink menuVisualizzaStatistiche;
+    @FXML
+    private TextField titoloField;
+    @FXML
+    private TextField autoreField;
+    @FXML
+    private TextField ISBNField;
+    @FXML
+    private DatePicker dataPubblicazioneField;
+    @FXML
+    private TextField numeroCopieField;
+    @FXML
+    private TextField valoreField;
 
     /**
      * Initializes the controller class.
@@ -95,7 +98,7 @@ public class ScenaAggiungiLibroController implements Initializable {
     @FXML
     private void clickListaUtenti(ActionEvent event) {
         try {
-            App.setRoot("VisualizzaUtenti");
+            App.setRoot("ScenaListaUtenti");
         } catch (IOException ex) {
             ex.printStackTrace();            
         }

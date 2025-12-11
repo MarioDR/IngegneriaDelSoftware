@@ -108,7 +108,7 @@
                         <Button fx:id="settings_button" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clickSettingsButton" prefHeight="51.0" prefWidth="64.0" style="-fx-background-color: white;" text="| | |" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Button fx:id="logout_button1" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                        <Button fx:id="logout_button" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: center;">
                                  <image>
@@ -145,7 +145,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" prefWidth="100.0">
+                        <TextField fx:id="matricolaField" prefWidth="100.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -162,7 +162,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="passwordField" prefHeight="25.0" prefWidth="171.0" />
+                        <TextField fx:id="ISBNField" prefHeight="25.0" prefWidth="171.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -175,18 +175,13 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <DatePicker maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="345.0" />
+                        <DatePicker fx:id="dataRestituzioneField" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="345.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </VBox>
-                  <VBox prefHeight="74.0" prefWidth="321.0">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </VBox>
-                  <Label fx:id="labelErroreUtente" alignment="CENTER" prefHeight="17.0" prefWidth="422.0">
+                  <Label fx:id="labelErrorePrestito" alignment="CENTER" prefHeight="17.0" prefWidth="422.0">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

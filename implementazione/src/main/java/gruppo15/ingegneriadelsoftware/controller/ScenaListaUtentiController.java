@@ -16,6 +16,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
@@ -24,12 +26,10 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author pierc
  */
-public class VisualizzaUtentiController implements Initializable {
+public class ScenaListaUtentiController implements Initializable {
 
     @FXML
     private AnchorPane sinistraSplitPane;
-    @FXML
-    private Button logout_button1;
     @FXML
     private Button settings_button;
     @FXML
@@ -50,6 +50,20 @@ public class VisualizzaUtentiController implements Initializable {
     private Hyperlink menuStoricoRestituzioni;
     @FXML
     private Hyperlink menuVisualizzaStatistiche;
+    @FXML
+    private Button logout_button;
+    @FXML
+    private TextField barraRicercaUtenti;
+    @FXML
+    private TableView<?> tabellaUtenti;
+    @FXML
+    private TableColumn<?, ?> colonnaNome;
+    @FXML
+    private TableColumn<?, ?> colonnaCognome;
+    @FXML
+    private TableColumn<?, ?> colonnaMatricola;
+    @FXML
+    private TableColumn<?, ?> colonnaEmail;
 
     /**
      * Initializes the controller class.
@@ -76,7 +90,7 @@ public class VisualizzaUtentiController implements Initializable {
     @FXML
     private void clickListaUtenti(ActionEvent event) {
         try {
-            App.setRoot("VisualizzaUtenti");
+            App.setRoot("ScenaListaUtenti");
         } catch (IOException ex) {
             ex.printStackTrace();            
         }

@@ -26,8 +26,6 @@ public class ScenaMenuController {
     @FXML
     private AnchorPane destraSplitPane;
     @FXML
-    private Button logout_button1;
-    @FXML
     private Button settings_button;
     @FXML
     private Hyperlink menuListaUtenti;
@@ -42,7 +40,9 @@ public class ScenaMenuController {
     @FXML
     private Hyperlink menuAggiungiPrestito;
     @FXML
-    private Hyperlink scenaStoricoRestituzioni;
+    private Hyperlink menuStoricoRestituzioni;
+    @FXML
+    private Button logout_button;
 
     @FXML
     private void clickLogoutButton(ActionEvent event) {
@@ -62,9 +62,17 @@ public class ScenaMenuController {
     private void clickSettingsButton(ActionEvent event) {
     }
 
+    @FXML
+    private void clickListaUtenti(ActionEvent event) {
+        try {
+            App.setRoot("ScenaListaUtenti");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     @FXML
-    private void aggiungiUtente(ActionEvent event) {
+    private void clickAggiungiUtente(ActionEvent event) {
         try {
             App.setRoot("ScenaAggiungiUtente");
         } catch (IOException ex) {
@@ -73,25 +81,7 @@ public class ScenaMenuController {
     }
 
     @FXML
-    private void visualizzaListaUtenti(ActionEvent event) {
-        try {
-            App.setRoot("VisualizzaUtenti");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void aggiungiLibro(ActionEvent event) {
-        try {
-            App.setRoot("ScenaAggiungiLibro");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void visualizzaCatalogo(ActionEvent event) {
+    private void clickVisualizzaCatalogo(ActionEvent event) {
         try {
             App.setRoot("ScenaVisualizzaCatalogo");
         } catch (IOException ex) {
@@ -100,16 +90,16 @@ public class ScenaMenuController {
     }
 
     @FXML
-    private void aggiungiPrestito(ActionEvent event) {
+    private void clickAggiungiLibro(ActionEvent event) {
         try {
-            App.setRoot("ScenaAggiungiPrestito");
+            App.setRoot("ScenaAggiungiLibro");
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
     @FXML
-    private void prestitiAttivi(ActionEvent event) {
+    private void clickPrestitiAttivi(ActionEvent event) {
         try {
             App.setRoot("ScenaPrestitiAttivi");
         } catch (IOException ex) {
@@ -118,7 +108,16 @@ public class ScenaMenuController {
     }
 
     @FXML
-    private void storicoRestituzioni(ActionEvent event) {
+    private void clickAggiungiPrestito(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiPrestito");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void clickStoricoRestituzioni(ActionEvent event) {
         try {
             App.setRoot("ScenaStoricoRestituzioni");
         } catch (IOException ex) {

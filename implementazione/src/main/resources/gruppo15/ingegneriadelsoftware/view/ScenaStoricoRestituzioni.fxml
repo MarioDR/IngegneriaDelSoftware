@@ -126,18 +126,18 @@
          <children>
             <VBox spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <TextField prefHeight="31.0" prefWidth="424.0" promptText="Cerca per Matricola o ISBN...">
+                  <TextField fx:id="barraRicercaRestituzioni" prefHeight="31.0" prefWidth="424.0" promptText="Cerca per Matricola o ISBN...">
                      <VBox.margin>
                         <Insets bottom="15.0" left="20.0" right="20.0" top="25.0" />
                      </VBox.margin>
                   </TextField>
-                  <TableView prefHeight="354.0" prefWidth="444.0" VBox.vgrow="ALWAYS">
+                  <TableView fx:id="tabellaRestituzioni" prefHeight="354.0" prefWidth="444.0" VBox.vgrow="ALWAYS">
                      <columns>
-                        <TableColumn fx:id="colonnaTitolo" prefWidth="99.0" text="Matricola" />
-                        <TableColumn fx:id="colonnaAutori" minWidth="0.0" prefWidth="111.66668701171875" text="Email" />
+                        <TableColumn fx:id="colonnaMatricola" prefWidth="99.0" text="Matricola" />
+                        <TableColumn fx:id="colonnaEmail" minWidth="0.0" prefWidth="111.66668701171875" text="Email" />
                         <TableColumn fx:id="colonnaISBN" prefWidth="97.3333740234375" text="ISBN" />
-                        <TableColumn fx:id="colonnaDataPubblicazione" prefWidth="138.6666259765625" text="Data restituzione" />
-                        <TableColumn prefWidth="75.0" text="Ritardo" />
+                        <TableColumn fx:id="colonnaDataRestituzione" prefWidth="138.6666259765625" text="Data restituzione" />
+                        <TableColumn fx:id="colonnaRitardo" prefWidth="75.0" text="Ritardo" />
                      </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

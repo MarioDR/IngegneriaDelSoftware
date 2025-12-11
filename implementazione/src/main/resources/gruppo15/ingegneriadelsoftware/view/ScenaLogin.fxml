@@ -8,14 +8,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo15.ingegneriadelsoftware.controller.ScenaLoginController">
+<AnchorPane id="AnchorPane" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gruppo15.ingegneriadelsoftware.controller.ScenaLoginController">
     <children>
-        <Label alignment="CENTER" layoutY="42.0" prefHeight="29.0" prefWidth="672.0" text="BENVENUTO!" AnchorPane.topAnchor="42.0">
-         <font>
-            <Font name="System Bold Italic" size="32.0" />
-         </font>
-      </Label>
-      <VBox layoutX="126.0" layoutY="147.0" prefHeight="239.0" prefWidth="422.0" AnchorPane.bottomAnchor="14.333333333333314" AnchorPane.leftAnchor="126.0" AnchorPane.rightAnchor="125.33333333333326" AnchorPane.topAnchor="147.0">
+      <VBox alignment="CENTER" layoutY="64.0" prefHeight="47.0" prefWidth="640.0" AnchorPane.bottomAnchor="369.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="64.0">
+         <children>
+              <Label alignment="CENTER" prefHeight="29.0" prefWidth="329.0" text="BENVENUTO!">
+               <font>
+                  <Font name="System Bold Italic" size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutY="150.0" prefHeight="245.0" prefWidth="640.0" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
          <children>
             <VBox prefHeight="74.0" prefWidth="321.0">
                <children>
@@ -31,7 +35,7 @@
                   </TextField>
                </children>
                <VBox.margin>
-                  <Insets left="50.0" right="50.0" />
+                  <Insets left="100.0" right="100.0" />
                </VBox.margin>
             </VBox>
             <VBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="321.0">
@@ -44,12 +48,12 @@
                     <TextField fx:id="passwordField" prefHeight="25.0" prefWidth="171.0" />
                </children>
                <VBox.margin>
-                  <Insets left="50.0" right="50.0" />
+                  <Insets left="100.0" right="100.0" />
                </VBox.margin>
             </VBox>
-              <Label fx:id="labelErroreLogin" alignment="CENTER" prefHeight="17.0" prefWidth="330.0">
+              <Label fx:id="labelErroreLogin" alignment="CENTER" prefHeight="17.0" prefWidth="200.0">
                <VBox.margin>
-                  <Insets left="45.0" top="10.0" />
+                  <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
             </Label>
             <Button fx:id="loginButtonAccedi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#clickAccedi" prefHeight="47.0" prefWidth="112.0" text="ACCEDI" textAlignment="CENTER">
@@ -57,7 +61,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
                <VBox.margin>
-                  <Insets left="150.0" top="10.0" />
+                  <Insets />
                </VBox.margin>
             </Button>
          </children>

@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -27,15 +28,7 @@ import javafx.scene.control.TextField;
 public class ScenaAggiungiPrestitoController implements Initializable {
 
     @FXML
-    private Button logout_button1;
-    @FXML
     private Button settings_button;
-    @FXML
-    private TextField usernameField;
-    @FXML
-    private TextField passwordField;
-    @FXML
-    private Label labelErroreUtente;
     @FXML
     private Button aggiungiButton;
     @FXML
@@ -56,6 +49,16 @@ public class ScenaAggiungiPrestitoController implements Initializable {
     private Hyperlink menuStoricoRestituzioni;
     @FXML
     private Hyperlink menuVisualizzaStatistiche;
+    @FXML
+    private Button logout_button;
+    @FXML
+    private TextField matricolaField;
+    @FXML
+    private TextField ISBNField;
+    @FXML
+    private DatePicker dataRestituzioneField;
+    @FXML
+    private Label labelErrorePrestito;
 
     /**
      * Initializes the controller class.
@@ -90,7 +93,7 @@ public class ScenaAggiungiPrestitoController implements Initializable {
     @FXML
     private void clickListaUtenti(ActionEvent event) {
         try {
-            App.setRoot("VisualizzaUtenti");
+            App.setRoot("ScenaListaUtenti");
         } catch (IOException ex) {
             ex.printStackTrace();
         }

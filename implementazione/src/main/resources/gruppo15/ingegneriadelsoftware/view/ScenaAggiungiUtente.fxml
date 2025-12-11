@@ -107,7 +107,7 @@
                         <Button fx:id="settings_button" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#clickSettingsButton" prefHeight="51.0" prefWidth="64.0" style="-fx-background-color: white;" text="| | |" BorderPane.alignment="CENTER" />
                      </right>
                      <left>
-                        <Button fx:id="logout_button1" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+                        <Button fx:id="logout_button" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#clickLogoutButton" prefHeight="51.0" prefWidth="56.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
                            <graphic>
                               <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" style="-fx-image: center;">
                                  <image>
@@ -143,7 +143,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField" prefWidth="100.0">
+                        <TextField fx:id="nomeField" prefWidth="100.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -160,7 +160,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="passwordField" prefHeight="25.0" prefWidth="171.0" />
+                        <TextField fx:id="cognomeField" prefHeight="25.0" prefWidth="171.0" />
                      </children>
                      <VBox.margin>
                         <Insets />
@@ -173,7 +173,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField1" prefWidth="100.0">
+                        <TextField fx:id="matricolaField" prefWidth="100.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -190,7 +190,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="usernameField11" prefWidth="100.0">
+                        <TextField fx:id="emailField" prefWidth="100.0">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
