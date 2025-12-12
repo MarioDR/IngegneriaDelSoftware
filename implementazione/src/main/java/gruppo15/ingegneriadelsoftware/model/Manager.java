@@ -59,9 +59,9 @@ public interface Manager<T> {
     /**
      * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
-     * @param regex il prefisso usato per la ricerca
-     * @return La lista di tutti gli oggetti trovati corrispondenti al pattern. Se nessun oggetto viene trovato restituisce {@code Null}
+     * @param pattern il prefisso usato per la ricerca
+     * @return La lista di tutti gli oggetti trovati corrispondenti al pattern.
      */
     
-    public List<T> containsString(String regex);
+    public List<T> containsString(String pattern);
 }

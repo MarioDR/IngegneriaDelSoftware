@@ -1,6 +1,8 @@
 package gruppo15.ingegneriadelsoftware.model;
 
 import java.time.LocalDate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @file Restituzione.java
@@ -14,7 +16,7 @@ import java.time.LocalDate;
  * @version 1.0
  */
 
-public class Restituzione {
+public class Restituzione implements Searchable {
 
     private Prestito prestitoDaRestituire;
 
@@ -82,10 +84,18 @@ public class Restituzione {
     }
     
     /**
-     * Converte i dati in una stringa CSV. L'ordine è: tutti gli attributi del prestito e la data effettiva di restituzione
+     * Verifica se l'elemento ha almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
-     * @return Una stringa che contiene i dati del prestito restituito e la data effettiva di restituzione
+     * @param pattern la stringa usata per la ricerca
+     * @return  {@code true} se l'oggetto corrisponde al pattern
+     *          {@code false} in ogni altro caso
      */
+    
+    @Override
+    public boolean containsPattern(String pattern) {        
+        // Possiamo rimandare il risultato di questa operazione alla containsPattern del prestito da restituire
+        return this.prestitoDaRestituire.containsPattern(pattern);
+    }
     
     /**
      * Controlla se un oggetto è uguale a questa istanza (due restituzioni sono uguali se i due prestiti restituiti hanno lo stesso ID)
@@ -105,6 +115,12 @@ public class Restituzione {
         
         return o2.prestitoDaRestituire.equals(this.getPrestitoDaRestituire());
     }
+    
+    /**
+     * Converte i dati in una stringa CSV. L'ordine è: tutti gli attributi del prestito e la data effettiva di restituzione
+     * 
+     * @return Una stringa che contiene i dati del prestito restituito e la data effettiva di restituzione
+     */
     
     public String toCSV() {
         return this.prestitoDaRestituire.toCSV() + "," + this.dataEffettivaRestituzione;

@@ -1,6 +1,7 @@
 package gruppo15.ingegneriadelsoftware.model;
 
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 /**
  * @file Prestito.java
@@ -17,7 +18,7 @@ import java.time.LocalDate;
  * @version 1.0
  */
 
-public class Prestito {
+public class Prestito implements Searchable {
     private static int cont = 1;
     
     private final int ID;
@@ -126,6 +127,20 @@ public class Prestito {
 
     public long getGiorniDiRitardo() {
         return LocalDate.now().toEpochDay() - this.dataPrevistaRestituzione.toEpochDay();           
+    }
+    
+    /**
+     * Verifica se l'elemento ha almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
+     * 
+     * @param pattern la stringa usata per la ricerca
+     * @return  {@code true} se l'oggetto corrisponde al pattern
+     *          {@code false} in ogni altro caso
+     */
+    
+    @Override
+    public boolean containsPattern(String pattern) {
+        // Possiamo delegare il risultato dell'elaborazione alla classe utente e alla classe libro
+        return this.utenteAssegnatario.containsPattern(pattern) || this.libroPrestato.containsPattern(pattern);
     }
     
     /**

@@ -1,5 +1,6 @@
 package gruppo15.ingegneriadelsoftware.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,12 +88,19 @@ public class GestoreUtenti implements Manager<Utente> {
     /**
      * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
-     * @param regex il prefisso usato per la ricerca
-     * @return La lista di tutti gli utenti trovati corrispondenti al pattern. Se nessun oggetto viene trovato restituisce {@code Null}
+     * @param pattern il prefisso usato per la ricerca
+     * @return La lista di tutti gli utenti trovati corrispondenti al pattern
      */
     
     @Override
-    public List<Utente> containsString(String regex) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Utente> containsString(String pattern) {
+        ArrayList a = new ArrayList<Libro>();
+        
+        for(Utente u : this.listaUtenti) {
+            if(u.containsPattern(pattern))
+                a.add(u);
+        }
+        
+        return a;
     }
 }

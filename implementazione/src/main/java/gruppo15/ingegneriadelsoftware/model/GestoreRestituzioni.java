@@ -1,6 +1,9 @@
 package gruppo15.ingegneriadelsoftware.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @file GestoreRestituzioni.java
@@ -27,7 +30,7 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
      */
 
     public GestoreRestituzioni() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.listaRestituzioni = new ArrayList<>();
     }
     
     /**
@@ -37,25 +40,29 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
      * @pre La restituzione deve rispettare tutte le caratteristiche lessicali dei suoi attributi
      * @post La restituzione viene inserita correttamente
      * @param object La restituzione da inserire
-     * @return La restituzione aggiunta
+     * @return La lista aggiornata
      */
     
     @Override
     public List<Restituzione> add(Restituzione object) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(object != null)
+            this.listaRestituzioni.add(object);
+        
+        return this.listaRestituzioni;
     }
     
     /**
      * Rimuove una restituzione dalla collezione gestita.
      * 
      * @post La restituzione viene rimosso dalla collezione se presente
-     * @param objectIl La restituzione da rimuovere
-     * @return La restituzione rimossa
+     * @param object Il La restituzione da rimuovere
+     * @return La lista aggiornata
      */
     
     @Override
     public List<Restituzione> remove(Restituzione object){
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.listaRestituzioni.remove(object);
+        return this.listaRestituzioni;
     }
     
     /**
@@ -66,7 +73,7 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     
     @Override
     public List<Restituzione> getList(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.listaRestituzioni;
     }
     
     /**
@@ -79,18 +86,30 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     
     @Override
     public boolean contains(Restituzione object){
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(Restituzione r : this.listaRestituzioni) {
+            if(r.equals(object))
+                return true;
+        }
+        
+        return false;
     }
     
     /**
      * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
-     * @param regex il prefisso usato per la ricerca
-     * @return La lista di tutte le restituzioni trovate corrispondenti al pattern. Se nessuna restituzione viene trovata restituisce {@code Null}
+     * @param pattern il prefisso usato per la ricerca
+     * @return La lista di tutte le restituzioni trovate corrispondenti al pattern
      */
     
     @Override
-    public List<Restituzione> containsString(String regex) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Restituzione> containsString(String pattern) {
+        ArrayList a = new ArrayList<Restituzione>();
+
+        for(Restituzione r : this.listaRestituzioni) {
+            if(r.getPrestitoDaRestituire().containsPattern(pattern))
+                a.add(r);
+        }
+        
+        return a;
     }
 }

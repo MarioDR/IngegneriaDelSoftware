@@ -95,12 +95,19 @@ public class GestorePrestiti implements Manager<Prestito> {
     /**
      * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
-     * @param regex il prefisso usato per la ricerca
-     * @return La lista di tutti i prestiti trovati corrispondenti al pattern. Se nessun prestito viene trovato restituisce {@code Null}
+     * @param pattern il prefisso usato per la ricerca
+     * @return La lista di tutti i prestiti trovati corrispondenti al pattern
      */
     
     @Override
-    public List<Prestito> containsString(String regex) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Prestito> containsString(String pattern) {
+        ArrayList a = new ArrayList<Libro>();
+        
+        for(Prestito p : this.listaPrestitiAttivi) {
+            if(p.containsPattern(pattern))
+                a.add(p);
+        }
+        
+        return a;
     }
 }

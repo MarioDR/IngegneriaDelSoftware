@@ -1,6 +1,9 @@
 package gruppo15.ingegneriadelsoftware.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @file GestoreLibri.java
@@ -18,14 +21,16 @@ import java.util.List;
 
 public class GestoreLibri implements Manager<Libro> {
 
-    private List<Libro> listaLibri;
+    private final List<Libro> listaLibri;
+    
     /**
      * @brief Costruttore della classe GestoreLibri
      * 
      * Inizializza la lista dei prestiti come una observableList vuota
      */
+    
     public GestoreLibri() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.listaLibri = new ArrayList<>();
     }
     
     
@@ -36,25 +41,29 @@ public class GestoreLibri implements Manager<Libro> {
      * @pre Il libro deve rispettare tutte le caratteristiche lessicali dei suoi attributi
      * @post Il libro viene inserito correttamente
      * @param object Il libro da inserire
-     * @return Il libro aggiunto
+     * @return La lista aggiornata
      */
     
     @Override
     public List<Libro> add(Libro object) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(object != null)
+            this.listaLibri.add(object);
+        
+        return this.listaLibri;
     }
     
     /**
      * Rimuove un libro dalla collezione gestita.
      * 
      * @post Il libro viene rimosso dalla collezione se presente
-     * @param objectIl Il libro da rimuovere
-     * @return Il libro rimosso
+     * @param object Il Il libro da rimuovere
+     * @return La lista aggiornata
      */
     
     @Override
     public List<Libro> remove(Libro object){
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.listaLibri.remove(object);
+        return this.listaLibri;
     }
 
     /**
@@ -65,7 +74,7 @@ public class GestoreLibri implements Manager<Libro> {
     
     @Override
     public List<Libro> getList(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.listaLibri;
     }
     
     /**
@@ -89,12 +98,19 @@ public class GestoreLibri implements Manager<Libro> {
     /**
      * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
      * 
-     * @param regex il prefisso usato per la ricerca
-     * @return La lista di tutti i libri trovati corrispondenti al pattern. Se nessun libro viene trovato restituisce {@code Null}
+     * @param pattern il prefisso usato per la ricerca
+     * @return La lista di tutti i libri trovati corrispondenti al pattern
      */
     
     @Override
-    public List<Libro> containsString(String regex) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public List<Libro> containsString(String pattern) {
+        ArrayList a = new ArrayList<Libro>();
+        
+        for(Libro l : this.listaLibri) {
+            if(l.containsPattern(pattern))
+                a.add(l);
+        }
+        
+        return a;
     }
 }

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  * @version 1.0
  */
 
-public class Libro {
+public class Libro implements Searchable {
 
     ///Attributi fondamentali per la rappresentazione di un libro
     private String titolo;
@@ -94,6 +94,17 @@ public class Libro {
     
     public void setNumeroCopie(int numeroCopie) {
         this.numeroCopie = numeroCopie;
+    }
+    
+    /**
+     * Imposta e riempe la lista degli autori con una nuova lista di autori separata da virgole
+     * 
+     * @param autori la nuova lista di autori separati da virgola
+     *  
+     */
+    
+    public void setListaAutori(String autori) {
+        this.listaAutori = Arrays.stream(autori.split(",")).map(String::trim).collect(Collectors.toList());
     }
     
     /**
@@ -209,6 +220,39 @@ public class Libro {
     }
 
     /**
+     * Verifica se l'elemento ha almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
+     * 
+     * @param pattern la stringa usata per la ricerca
+     * @return  {@code true} se l'oggetto corrisponde al pattern
+     *          {@code false} in ogni altro caso
+     */
+    
+    @Override
+    public boolean containsPattern(String pattern) {
+        if (pattern == null || pattern.trim().isEmpty())
+            return false;
+
+        // Il pattern di ricerca non deve contenere spazi all'inizio e alla fine
+        String patternRicerca = pattern.trim();
+
+        // 1. Verifica Titolo (usiamo contains per la ricerca flessibile)
+        if (this.getTitolo().toLowerCase().contains(patternRicerca.toLowerCase()))
+            return true;
+
+        // 2. Verifica ISBN (usiamo contains per ID)
+        if (this.getISBN().toLowerCase().contains(patternRicerca.toLowerCase()))
+            return true;
+
+        // 3. Verifica Autori
+        for (String autore : this.getListaAutori()) {
+            if (autore.toLowerCase().contains(patternRicerca.toLowerCase()))
+                return true;
+        }
+
+        return false;
+    }
+    
+    /**
      * Controlla se un oggetto è uguale a questa istanza (due libri sono uguali se hanno lo stesso ISBN)
      * 
      * @return  {@code true} se i due libri hanno lo stesso ISBN
@@ -230,7 +274,7 @@ public class Libro {
     /**
      * Converte i dati in una stringa CSV. L'ordine è: titolo, ISBN, numeroCopie, valore e tutti gli autori
      * 
-     * @return Una stringa CSV che contiene titolo, autori, ISBN, numeroCopie e valore
+     * @return Una stringa CSV che contiene titolo, ISBN, numeroCopie, valore e autori
      */
     public String toCSV() {
         String s = this.titolo + "," + this.ISBN + "," + this.numeroCopie + "," + this.valore;

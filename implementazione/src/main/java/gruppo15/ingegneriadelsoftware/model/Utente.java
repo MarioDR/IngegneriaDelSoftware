@@ -2,6 +2,8 @@ package gruppo15.ingegneriadelsoftware.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @file Utente.java
@@ -17,7 +19,7 @@ import java.util.List;
  * @version 1.0
  */
 
-public class Utente {
+public class Utente implements Searchable {
 
     /// Dati anagrafici dell'utente
     
@@ -190,6 +192,48 @@ public class Utente {
     
     public boolean hasMaxNumPrestiti() {
         return this.listaPrestiti.size() == 3;
+    }
+    
+    /**
+     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
+     * 
+     * @param pattern il prefisso usato per la ricerca
+     * @return La lista di tutte le restituzioni trovate corrispondenti al pattern
+     */
+    
+    /**
+     * Verifica se l'elemento ha almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
+     * 
+     * @param pattern la stringa usata per la ricerca
+     * @return  {@code true} se l'oggetto corrisponde al pattern
+     *          {@code false} in ogni altro caso
+     */
+    
+    @Override
+    public boolean containsPattern(String pattern) {
+        if (pattern == null || pattern.trim().isEmpty())
+            return false;
+
+        // Il pattern di ricerca non deve contenere spazi all'inizio e alla fine
+        String patternRicerca = pattern.trim();
+
+        // 1. Verifica Nome
+        if (this.getNome().toLowerCase().contains(patternRicerca.toLowerCase()))
+            return true;
+
+        // 2. Verifica Cognome
+        if (this.getCognome().toLowerCase().contains(patternRicerca.toLowerCase()))
+            return true;
+
+        // 3. Verifica Matricola
+        if (this.getMatricola().toLowerCase().contains(patternRicerca.toLowerCase()))
+            return true;
+        
+        // 4. Verifica Email
+        if (this.getEmail().toLowerCase().contains(patternRicerca.toLowerCase()))
+            return true;
+
+        return false;
     }
     
     /**
