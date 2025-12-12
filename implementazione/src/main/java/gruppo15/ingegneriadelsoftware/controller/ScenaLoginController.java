@@ -27,7 +27,11 @@ public class ScenaLoginController {
     @FXML
     private Label labelErroreLogin;
     @FXML
-    private Button loginButtonAccedi;
+    private Label labelErroreUtente;
+    @FXML
+    private Button aggiungiButton;
+    @FXML
+    private Button annullaButton;
 
     @FXML
     private void clickAccedi(ActionEvent event) {
@@ -55,5 +59,10 @@ public class ScenaLoginController {
             // Credenziali errate
             labelErroreLogin.setText("❌ Credenziali non valide. Riprovare.");
         }
+    }
+
+
+    @FXML
+    private void clickAnnulla(ActionEvent event) {
     }
 }
