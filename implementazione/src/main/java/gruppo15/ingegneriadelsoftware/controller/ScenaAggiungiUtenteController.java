@@ -5,6 +5,8 @@
  */
 package gruppo15.ingegneriadelsoftware.controller;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
+import gruppo15.ingegneriadelsoftware.model.Utente;
 import gruppo15.ingegneriadelsoftware.view.App;
 import java.io.IOException;
 import java.net.URL;
@@ -87,6 +89,48 @@ public class ScenaAggiungiUtenteController implements Initializable {
 
     @FXML
     private void clickAggiungi(ActionEvent event) {
+        try{
+            
+            String nome = nomeField.getText();
+            String cognome = cognomeField.getText();
+            String matricola = matricolaField.getText();
+            String email = emailField.getText();
+            
+            if (nome.isEmpty() || cognome.isEmpty() || matricola.isEmpty() || email.isEmpty()) {
+                labelErroreUtente.setText("Errore: Compila tutti i campi!");
+                labelErroreUtente.setStyle("-fx-text-fill: red;");
+                return;
+            }
+
+            // 4. Creazione Oggetto Libro
+            Utente nuovoUtente= new Utente(nome, cognome, matricola, email);
+
+            // 5. Salvataggio nel Gestore Condiviso (Singleton)
+            GestoreUtenti.getInstance().add(nuovoUtente);
+
+            // 6. Feedback Successo
+            labelErroreUtente.setText("Utente aggiunto con successo!");
+            labelErroreUtente.setStyle("-fx-text-fill: green;");
+            
+            // 7. Pulisco i campi per un nuovo inserimento
+            pulisciCampi(); 
+            
+        } catch (NumberFormatException e) {
+            // Gestione errore se Copie o Valore non sono numeri
+            labelErroreUtente.setText("Errore: La matricola deve essere un numero!");
+            labelErroreUtente.setStyle("-fx-text-fill: red;");
+        } catch (Exception e) {
+            // Altri errori generici
+            labelErroreUtente.setText("Errore: " + e.getMessage());
+            labelErroreUtente.setStyle("-fx-text-fill: red;");
+        }
+    }
+    
+     private void pulisciCampi() {
+        nomeField.clear();
+        cognomeField.clear();
+        matricolaField.clear();
+        emailField.clear();
     }
 
     @FXML

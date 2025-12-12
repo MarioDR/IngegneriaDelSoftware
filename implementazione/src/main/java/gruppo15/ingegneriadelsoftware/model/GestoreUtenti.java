@@ -22,6 +22,8 @@ public class GestoreUtenti implements Manager<Utente> {
     /// Lista degli utenti
     
     private List<Utente> listaUtenti;
+    
+    private static GestoreUtenti instance = null;
 
     /**
      * Costruttore della classe GestoreUtenti
@@ -30,8 +32,22 @@ public class GestoreUtenti implements Manager<Utente> {
      */
     
     public GestoreUtenti() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.listaUtenti = new ArrayList<>();
     }
+    
+    /**
+     * Crea una istanza di GestoreUtenti
+     * 
+     * @return La nuova istanza di GestoreUtenti o l'istanza creata in precedenza
+     */
+    
+    public static GestoreUtenti getInstance(){
+        if (instance == null){
+            instance = new GestoreUtenti();
+        }
+        return instance;
+    }
+    
     
     /**
      * Aggiunge un nuovo utente nella collezione.
@@ -45,7 +61,10 @@ public class GestoreUtenti implements Manager<Utente> {
     
     @Override
     public List<Utente> add(Utente object) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        if(object != null)
+            this.listaUtenti.add(object);
+        
+        return this.listaUtenti;
     }
     
     /**
@@ -58,7 +77,8 @@ public class GestoreUtenti implements Manager<Utente> {
     
     @Override
     public List<Utente> remove(Utente object){
-        throw new UnsupportedOperationException("Not supported yet.");
+        this.listaUtenti.remove(object);
+        return this.listaUtenti;
     }
     
     /**
@@ -69,7 +89,7 @@ public class GestoreUtenti implements Manager<Utente> {
     
     @Override
     public List<Utente> getList(){
-        throw new UnsupportedOperationException("Not supported yet.");
+        return this.listaUtenti;
     }
     
     /**
@@ -82,7 +102,12 @@ public class GestoreUtenti implements Manager<Utente> {
     
     @Override
     public boolean contains(Utente object){
-        throw new UnsupportedOperationException("Not supported yet.");
+        for(Utente u : this.listaUtenti) {
+            if(u.equals(object))
+                return true;
+        }
+        
+        return false;
     }
     
     /**

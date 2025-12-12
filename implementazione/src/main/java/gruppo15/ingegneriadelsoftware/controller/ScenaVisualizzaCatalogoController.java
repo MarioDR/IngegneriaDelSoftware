@@ -5,12 +5,21 @@
  */
 package gruppo15.ingegneriadelsoftware.controller;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
+import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.view.App;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,13 +46,13 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     @FXML
     private AnchorPane destraSplitPane;
     @FXML
-    private TableColumn<?, ?> colonnaTitolo;
+    private TableColumn<Libro, String> colonnaTitolo;
     @FXML
-    private TableColumn<?, ?> colonnaAutori;
+    private TableColumn<Libro, String> colonnaAutori;
     @FXML
-    private TableColumn<?, ?> colonnaISBN;
+    private TableColumn<Libro, String> colonnaISBN;
     @FXML
-    private TableColumn<?, ?> colonnaDataPubblicazione;
+    private TableColumn<Libro, LocalDate> colonnaDataPubblicazione;
     @FXML
     private Hyperlink menuListaUtenti;
     @FXML
@@ -63,7 +72,9 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     @FXML
     private TextField barraRicercaCatalogo;
     @FXML
-    private TableView<?> tabellaCatalogo;
+    private TableView<Libro> tabellaCatalogo;
+    
+    private ObservableList<Libro> listaLibri;
 
     /**
      * Initializes the controller class.
@@ -71,6 +82,63 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        listaLibri = FXCollections.observableArrayList();
+        // --- A. CONFIGURAZIONE COLONNE (Con Lambda) ---
+        
+        // Titolo
+        colonnaTitolo.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getTitolo()));
+        
+        // ISBN
+        colonnaISBN.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getISBN()));
+        
+        // Data (SimpleObjectProperty perché è un LocalDate, non una String)
+        colonnaDataPubblicazione.setCellValueFactory(r -> new SimpleObjectProperty(r.getValue().getDataDiPubblicazione()));
+        
+        // Autori (Trasforma la List<String> in una Stringa unica)
+        colonnaAutori.setCellValueFactory(r -> {
+            String elenco = String.join(", ", r.getValue().getListaAutori());
+            return new SimpleStringProperty(elenco);
+        });
+
+        // --- B. CARICAMENTO DATI ---
+        // Prendo i dati dal GestoreLibri (Singleton)
+        listaLibri.addAll(GestoreLibri.getInstance().getList());
+
+        // --- C. FILTRO E RICERCA ---
+        // Avvolgo la lista in una FilteredList
+        FilteredList<Libro> filteredData = new FilteredList<>(listaLibri, p -> true);
+
+        // Aggiungo il listener alla barra di ricerca
+        barraRicercaCatalogo.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(libro -> {
+                // Se la barra è vuota, mostra tutto
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Cerca nel titolo, ISBN o Autori
+                if (libro.getTitolo().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (libro.getISBN().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (libro.getListaAutori().toString().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }                
+                return false; // Non trovato
+            });
+        });
+
+        // --- D. ORDINAMENTO ---
+        // Avvolgo la FilteredList in una SortedList
+        SortedList<Libro> sortedData = new SortedList<>(filteredData);
+        
+        // Collego il comparatore della SortedList alla tabella (per cliccare sulle intestazioni)
+        sortedData.comparatorProperty().bind(tabellaCatalogo.comparatorProperty());
+
+        // --- E. SETTAGGIO FINALE ---
+        tabellaCatalogo.setItems(sortedData);
     }    
 
     @FXML

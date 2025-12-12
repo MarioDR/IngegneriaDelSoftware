@@ -21,6 +21,8 @@ public class GestorePrestiti implements Manager<Prestito> {
 
     private List<Prestito> listaPrestitiAttivi;
     
+     private static GestorePrestiti instance = null;
+    
     /**
      * Costruttore della classe GestorePrestiti
      * 
@@ -29,6 +31,19 @@ public class GestorePrestiti implements Manager<Prestito> {
 
     public GestorePrestiti() {
         this.listaPrestitiAttivi = new ArrayList<>();
+    }
+    
+    /**
+     * Crea una istanza di GestorePrestiti
+     * 
+     * @return La nuova istanza di GestorePrestiti o l'istanza creata in precedenza
+     */
+    
+    public static GestorePrestiti getInstance(){
+        if (instance == null){
+            instance = new GestorePrestiti();
+        }
+        return instance;
     }
     
     /**

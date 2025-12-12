@@ -5,12 +5,19 @@
  */
 package gruppo15.ingegneriadelsoftware.controller;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
+import gruppo15.ingegneriadelsoftware.model.Utente;
 import gruppo15.ingegneriadelsoftware.view.App;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,15 +62,17 @@ public class ScenaListaUtentiController implements Initializable {
     @FXML
     private TextField barraRicercaUtenti;
     @FXML
-    private TableView<?> tabellaUtenti;
+    private TableView<Utente> tabellaUtenti;
     @FXML
-    private TableColumn<?, ?> colonnaNome;
+    private TableColumn<Utente, String> colonnaNome;
     @FXML
-    private TableColumn<?, ?> colonnaCognome;
+    private TableColumn<Utente, String> colonnaCognome;
     @FXML
-    private TableColumn<?, ?> colonnaMatricola;
+    private TableColumn<Utente, String> colonnaMatricola;
     @FXML
-    private TableColumn<?, ?> colonnaEmail;
+    private TableColumn<Utente, String> colonnaEmail;
+    
+    private ObservableList<Utente> listaUtenti;
 
     /**
      * Initializes the controller class.
@@ -71,6 +80,62 @@ public class ScenaListaUtentiController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+         // --- A. CONFIGURAZIONE COLONNE (Con Lambda) ---
+        listaUtenti = FXCollections.observableArrayList();
+        
+        // Titolo
+        colonnaNome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getNome()));
+        
+        // ISBN
+        colonnaCognome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getCognome()));
+        
+        // Data (SimpleObjectProperty perché è un LocalDate, non una String)
+        colonnaMatricola.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getMatricola()));
+        
+        // Autori (Trasforma la List<String> in una Stringa unica)
+        colonnaEmail.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getEmail()));
+
+        // --- B. CARICAMENTO DATI ---
+        // Prendo i dati dal GestoreLibri (Singleton)
+        listaUtenti.addAll(GestoreUtenti.getInstance().getList());
+
+        // --- C. FILTRO E RICERCA ---
+        // Avvolgo la lista in una FilteredList
+        FilteredList<Utente> filteredData = new FilteredList<>(listaUtenti, p -> true);
+
+        // Aggiungo il listener alla barra di ricerca
+        barraRicercaUtenti.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(utente -> {
+                // Se la barra è vuota, mostra tutto
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                String lowerCaseFilter = newValue.toLowerCase();
+
+                // Cerca nel titolo, ISBN o Autori
+                if (utente.getNome().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (utente.getCognome().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (utente.getMatricola().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                } else if (utente.getEmail().toLowerCase().contains(lowerCaseFilter)) {
+                    return true;
+                }
+                return false; // Non trovato
+            });
+        });
+
+        // --- D. ORDINAMENTO ---
+        // Avvolgo la FilteredList in una SortedList
+        SortedList<Utente> sortedData = new SortedList<>(filteredData);
+        
+        // Collego il comparatore della SortedList alla tabella (per cliccare sulle intestazioni)
+        sortedData.comparatorProperty().bind(tabellaUtenti.comparatorProperty());
+
+        // --- E. SETTAGGIO FINALE ---
+        tabellaUtenti.setItems(sortedData);
     }    
 
     @FXML

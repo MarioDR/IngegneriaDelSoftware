@@ -5,9 +5,12 @@
  */
 package gruppo15.ingegneriadelsoftware.controller;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
+import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.view.App;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -72,6 +75,7 @@ public class ScenaAggiungiLibroController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        labelErroreLibro.setText("");
     }    
 
     @FXML
@@ -89,8 +93,58 @@ public class ScenaAggiungiLibroController implements Initializable {
 
     @FXML
     private void clickAggiungi(ActionEvent event) {
+        try{
+            
+            String titolo = titoloField.getText();
+            String autori = autoreField.getText();
+            String isbn = ISBNField.getText();
+            LocalDate dataPub = dataPubblicazioneField.getValue();
+            String copieStr = numeroCopieField.getText();
+            String valoreStr = valoreField.getText();
+            
+            if (titolo.isEmpty() || autori.isEmpty() || isbn.isEmpty() || dataPub == null || copieStr.isEmpty() || valoreStr.isEmpty()) {
+                labelErroreLibro.setText("Errore: Compila tutti i campi!");
+                labelErroreLibro.setStyle("-fx-text-fill: red;");
+                return;
+            }
+
+            // 3. Conversione Numerica (può generare eccezione se scrivo lettere)
+            int copie = Integer.parseInt(copieStr);
+            float valore = Float.parseFloat(valoreStr);
+
+            // 4. Creazione Oggetto Libro
+            Libro nuovoLibro = new Libro(titolo, autori, dataPub, isbn, copie, valore);
+
+            // 5. Salvataggio nel Gestore Condiviso (Singleton)
+            GestoreLibri.getInstance().add(nuovoLibro);
+
+            // 6. Feedback Successo
+            labelErroreLibro.setText("Libro aggiunto con successo!");
+            labelErroreLibro.setStyle("-fx-text-fill: green;");
+            
+            // 7. Pulisco i campi per un nuovo inserimento
+            pulisciCampi(); 
+            
+        } catch (NumberFormatException e) {
+            // Gestione errore se Copie o Valore non sono numeri
+            labelErroreLibro.setText("Errore: 'Copie' e 'Valore' devono essere numeri validi!");
+            labelErroreLibro.setStyle("-fx-text-fill: red;");
+        } catch (Exception e) {
+            // Altri errori generici
+            labelErroreLibro.setText("Errore: " + e.getMessage());
+            labelErroreLibro.setStyle("-fx-text-fill: red;");
+        }
     }
 
+    private void pulisciCampi() {
+        titoloField.clear();
+        autoreField.clear();
+        ISBNField.clear();
+        numeroCopieField.clear();
+        valoreField.clear();
+        dataPubblicazioneField.setValue(null);
+    }
+    
     @FXML
     private void clickAnnulla(ActionEvent event) {
     }

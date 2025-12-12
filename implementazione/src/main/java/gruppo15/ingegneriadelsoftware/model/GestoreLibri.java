@@ -23,6 +23,8 @@ public class GestoreLibri implements Manager<Libro> {
 
     private final List<Libro> listaLibri;
     
+    private static GestoreLibri instance = null;
+    
     /**
      * @brief Costruttore della classe GestoreLibri
      * 
@@ -33,6 +35,19 @@ public class GestoreLibri implements Manager<Libro> {
         this.listaLibri = new ArrayList<>();
     }
     
+    
+     /**
+     * Crea una istanza di GestoreLibri
+     * 
+     * @return La nuova istanza di GestoreLibri o l'istanza creata in precedenza
+     */
+    
+    public static GestoreLibri getInstance(){
+        if (instance == null){
+            instance = new GestoreLibri();
+        }
+        return instance;
+    }
     
     /**
      * Aggiunge un nuovo libro nella collezione gestita.
