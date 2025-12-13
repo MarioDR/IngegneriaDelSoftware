@@ -73,7 +73,7 @@ public class ScenaAggiungiPrestitoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        labelErrorePrestito.setText("");
     }    
 
     @FXML
@@ -122,18 +122,16 @@ public class ScenaAggiungiPrestitoController implements Initializable {
             }
 
             if(utente != null && libro != null && utente.hasMaxNumPrestiti() == false && libro.getNumeroCopie() > 0 ){
-                // 4. Creazione Oggetto Libro
+                // Creazione Oggetto Libro
                 Prestito nuovoPrestito= new Prestito(utente, libro, dataRestituzione);
                 libro.rimuoviCopia();
                 utente.addPrestito(nuovoPrestito);
-                // 5. Salvataggio nel Gestore Condiviso (Singleton)
+                // Salvataggio nel Gestore Condiviso
                 GestorePrestiti.getInstance().add(nuovoPrestito);
 
-                // 6. Feedback Successo
                 labelErrorePrestito.setText("Prestito aggiunto con successo!");
                 labelErrorePrestito.setStyle("-fx-text-fill: green;");
             
-                // 7. Pulisco i campi per un nuovo inserimento
                 pulisciCampi(); 
             }else{
                 labelErrorePrestito.setText("Errore: Prestito non valido");

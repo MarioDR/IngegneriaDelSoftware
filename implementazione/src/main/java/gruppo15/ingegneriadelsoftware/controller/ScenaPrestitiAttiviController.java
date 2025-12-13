@@ -83,11 +83,8 @@ public class ScenaPrestitiAttiviController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-                 // --- A. CONFIGURAZIONE COLONNE (Con Lambda) ---
-        listaPrestiti = FXCollections.observableArrayList();
         
-        // --- COLONNE CORRETTE ---
+        listaPrestiti = FXCollections.observableArrayList();
         
         // MATRICOLA: Entro nel prestito -> prendo l'utente -> prendo la matricola
         colonnaMatricola.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getUtenteAssegnatario().getMatricola()));
@@ -101,28 +98,18 @@ public class ScenaPrestitiAttiviController implements Initializable {
         // DATA: Questa è direttamente nel prestito
         colonnaDataPrevistaRestituzione.setCellValueFactory(r -> new SimpleObjectProperty<>(r.getValue().getDataPrevistaRestituzione()));
 
-        // RITARDO: Anche questo è nel prestito (se hai implementato il metodo)
-        // Usa asObject() per evitare problemi con i long primitivi
+        // RITARDO: Anche questo è nel prestito
         colonnaRitardo.setCellValueFactory(r -> new SimpleObjectProperty<>(r.getValue().getGiorniDiRitardo()));
-        
-        
-        // --- CARICAMENTO DATI ---
+         
+        // CARICAMENTO DATI
         listaPrestiti.addAll(GestorePrestiti.getInstance().getList());
         
-        // --- FILTRO ---
+        // FILTRO 
         FilteredList<Prestito> filteredData = new FilteredList<>(listaPrestiti, p -> true);
 
         barraRicercaPrestiti.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(prestito -> {
-                if (newValue == null || newValue.isEmpty()) return true;
-                
-                String lowerCaseFilter = newValue.toLowerCase();
-                
-                // Ricerca approfondita
-                if (prestito.getUtenteAssegnatario().getMatricola().toLowerCase().contains(lowerCaseFilter)) return true;
-                else if (prestito.getLibroPrestato().getISBN().toLowerCase().contains(lowerCaseFilter)) return true;
-                
-                return false;
+                return prestito.containsPattern(newValue);
             });
         });
 
@@ -131,7 +118,6 @@ public class ScenaPrestitiAttiviController implements Initializable {
         // Collego il comparatore della SortedList alla tabella (per cliccare sulle intestazioni)
         sortedData.comparatorProperty().bind(tabellaPrestitiAttivi.comparatorProperty());
 
-        // Imposta i dati nella tabella
         tabellaPrestitiAttivi.setItems(sortedData);
     }    
 

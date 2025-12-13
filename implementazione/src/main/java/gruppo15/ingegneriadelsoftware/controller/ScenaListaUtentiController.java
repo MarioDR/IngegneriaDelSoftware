@@ -79,63 +79,45 @@ public class ScenaListaUtentiController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-         // --- A. CONFIGURAZIONE COLONNE (Con Lambda) ---
+         
         listaUtenti = FXCollections.observableArrayList();
         
-        // Titolo
+        // Nome
         colonnaNome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getNome()));
         
-        // ISBN
+        // Cognome
         colonnaCognome.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getCognome()));
         
-        // Data (SimpleObjectProperty perché è un LocalDate, non una String)
+        // Matricola
         colonnaMatricola.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getMatricola()));
         
-        // Autori (Trasforma la List<String> in una Stringa unica)
+        // Email
         colonnaEmail.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getEmail()));
 
-        // --- B. CARICAMENTO DATI ---
-        // Prendo i dati dal GestoreLibri (Singleton)
+        // CARICAMENTO DATI
+        // Prendo i dati dal GestoreLibri 
         listaUtenti.addAll(GestoreUtenti.getInstance().getList());
 
-        // --- C. FILTRO E RICERCA ---
+        // FILTRO E RICERCA
         // Avvolgo la lista in una FilteredList
         FilteredList<Utente> filteredData = new FilteredList<>(listaUtenti, p -> true);
 
         // Aggiungo il listener alla barra di ricerca
         barraRicercaUtenti.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(utente -> {
-                // Se la barra è vuota, mostra tutto
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                // Cerca nel titolo, ISBN o Autori
-                if (utente.getNome().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (utente.getCognome().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (utente.getMatricola().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (utente.getEmail().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }
-                return false; // Non trovato
+                
+                return utente.containsPattern(newValue);
             });
         });
-
-        // --- D. ORDINAMENTO ---
+        
+        // ORDINAMENTO
         // Avvolgo la FilteredList in una SortedList
         SortedList<Utente> sortedData = new SortedList<>(filteredData);
         
         // Collego il comparatore della SortedList alla tabella (per cliccare sulle intestazioni)
         sortedData.comparatorProperty().bind(tabellaUtenti.comparatorProperty());
 
-        // --- E. SETTAGGIO FINALE ---
-        tabellaUtenti.setItems(sortedData);
+        tabellaUtenti.setItems(listaUtenti);
     }    
 
     @FXML

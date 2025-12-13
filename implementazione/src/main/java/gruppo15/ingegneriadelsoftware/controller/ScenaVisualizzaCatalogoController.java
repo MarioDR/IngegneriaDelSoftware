@@ -81,9 +81,8 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+   
         listaLibri = FXCollections.observableArrayList();
-        // --- A. CONFIGURAZIONE COLONNE (Con Lambda) ---
         
         // Titolo
         colonnaTitolo.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getTitolo()));
@@ -91,53 +90,37 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
         // ISBN
         colonnaISBN.setCellValueFactory(r -> new SimpleStringProperty(r.getValue().getISBN()));
         
-        // Data (SimpleObjectProperty perché è un LocalDate, non una String)
+        // Data di pubblicazione
         colonnaDataPubblicazione.setCellValueFactory(r -> new SimpleObjectProperty(r.getValue().getDataDiPubblicazione()));
         
-        // Autori (Trasforma la List<String> in una Stringa unica)
+        // Autori
         colonnaAutori.setCellValueFactory(r -> {
             String elenco = String.join(", ", r.getValue().getListaAutori());
             return new SimpleStringProperty(elenco);
         });
 
-        // --- B. CARICAMENTO DATI ---
+        // CARICAMENTO DATI
         // Prendo i dati dal GestoreLibri (Singleton)
         listaLibri.addAll(GestoreLibri.getInstance().getList());
 
-        // --- C. FILTRO E RICERCA ---
+        // FILTRO E RICERCA
         // Avvolgo la lista in una FilteredList
         FilteredList<Libro> filteredData = new FilteredList<>(listaLibri, p -> true);
 
         // Aggiungo il listener alla barra di ricerca
         barraRicercaCatalogo.textProperty().addListener((observable, oldValue, newValue) -> {
             filteredData.setPredicate(libro -> {
-                // Se la barra è vuota, mostra tutto
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                String lowerCaseFilter = newValue.toLowerCase();
-
-                // Cerca nel titolo, ISBN o Autori
-                if (libro.getTitolo().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (libro.getISBN().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                } else if (libro.getListaAutori().toString().toLowerCase().contains(lowerCaseFilter)) {
-                    return true;
-                }                
-                return false; // Non trovato
+               return libro.containsPattern(newValue);
             });
         });
 
-        // --- D. ORDINAMENTO ---
+        // ORDINAMENTO
         // Avvolgo la FilteredList in una SortedList
         SortedList<Libro> sortedData = new SortedList<>(filteredData);
         
         // Collego il comparatore della SortedList alla tabella (per cliccare sulle intestazioni)
         sortedData.comparatorProperty().bind(tabellaCatalogo.comparatorProperty());
 
-        // --- E. SETTAGGIO FINALE ---
         tabellaCatalogo.setItems(sortedData);
     }    
 

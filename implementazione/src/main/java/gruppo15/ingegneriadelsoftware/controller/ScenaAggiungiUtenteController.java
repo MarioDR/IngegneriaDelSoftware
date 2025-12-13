@@ -66,7 +66,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        labelErroreUtente.setText("");
     }    
 
     @FXML
@@ -102,17 +102,15 @@ public class ScenaAggiungiUtenteController implements Initializable {
                 return;
             }
 
-            // 4. Creazione Oggetto Libro
+            // Creazione Oggetto Libro
             Utente nuovoUtente= new Utente(nome, cognome, matricola, email);
 
-            // 5. Salvataggio nel Gestore Condiviso (Singleton)
+            // Salvataggio nel Gestore Condiviso
             GestoreUtenti.getInstance().add(nuovoUtente);
 
-            // 6. Feedback Successo
             labelErroreUtente.setText("Utente aggiunto con successo!");
             labelErroreUtente.setStyle("-fx-text-fill: green;");
             
-            // 7. Pulisco i campi per un nuovo inserimento
             pulisciCampi(); 
             
         } catch (NumberFormatException e) {
@@ -120,7 +118,6 @@ public class ScenaAggiungiUtenteController implements Initializable {
             labelErroreUtente.setText("Errore: La matricola deve essere un numero!");
             labelErroreUtente.setStyle("-fx-text-fill: red;");
         } catch (Exception e) {
-            // Altri errori generici
             labelErroreUtente.setText("Errore: " + e.getMessage());
             labelErroreUtente.setStyle("-fx-text-fill: red;");
         }

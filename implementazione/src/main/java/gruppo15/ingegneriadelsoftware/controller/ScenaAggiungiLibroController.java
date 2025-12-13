@@ -74,7 +74,6 @@ public class ScenaAggiungiLibroController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
         labelErroreLibro.setText("");
     }    
 
@@ -108,21 +107,19 @@ public class ScenaAggiungiLibroController implements Initializable {
                 return;
             }
 
-            // 3. Conversione Numerica (può generare eccezione se scrivo lettere)
+            // Conversione Numerica (può generare eccezione se scrivo lettere)
             int copie = Integer.parseInt(copieStr);
             float valore = Float.parseFloat(valoreStr);
 
-            // 4. Creazione Oggetto Libro
+            // Creazione Oggetto Libro
             Libro nuovoLibro = new Libro(titolo, autori, dataPub, isbn, copie, valore);
 
-            // 5. Salvataggio nel Gestore Condiviso (Singleton)
+            // Salvataggio nel Gestore Condiviso 
             GestoreLibri.getInstance().add(nuovoLibro);
 
-            // 6. Feedback Successo
             labelErroreLibro.setText("Libro aggiunto con successo!");
             labelErroreLibro.setStyle("-fx-text-fill: green;");
             
-            // 7. Pulisco i campi per un nuovo inserimento
             pulisciCampi(); 
             
         } catch (NumberFormatException e) {
@@ -130,7 +127,6 @@ public class ScenaAggiungiLibroController implements Initializable {
             labelErroreLibro.setText("Errore: 'Copie' e 'Valore' devono essere numeri validi!");
             labelErroreLibro.setStyle("-fx-text-fill: red;");
         } catch (Exception e) {
-            // Altri errori generici
             labelErroreLibro.setText("Errore: " + e.getMessage());
             labelErroreLibro.setStyle("-fx-text-fill: red;");
         }
