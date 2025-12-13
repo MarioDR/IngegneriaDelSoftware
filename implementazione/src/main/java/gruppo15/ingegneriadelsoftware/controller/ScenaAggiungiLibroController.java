@@ -143,6 +143,7 @@ public class ScenaAggiungiLibroController implements Initializable {
     
     @FXML
     private void clickAnnulla(ActionEvent event) {
+        pulisciCampi();
     }
 
     @FXML

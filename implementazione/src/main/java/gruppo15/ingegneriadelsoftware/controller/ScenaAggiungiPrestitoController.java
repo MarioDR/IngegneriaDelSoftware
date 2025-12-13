@@ -122,7 +122,7 @@ public class ScenaAggiungiPrestitoController implements Initializable {
             }
 
             if(utente != null && libro != null && utente.hasMaxNumPrestiti() == false && libro.getNumeroCopie() > 0 ){
-                // Creazione Oggetto Libro
+                // Creazione Oggetto Prestito
                 Prestito nuovoPrestito= new Prestito(utente, libro, dataRestituzione);
                 libro.rimuoviCopia();
                 utente.addPrestito(nuovoPrestito);
@@ -148,6 +148,7 @@ public class ScenaAggiungiPrestitoController implements Initializable {
 
     @FXML
     private void clickAnnulla(ActionEvent event) {
+        pulisciCampi();
     }
 
     @FXML

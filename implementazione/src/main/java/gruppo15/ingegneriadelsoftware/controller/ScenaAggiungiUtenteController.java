@@ -102,7 +102,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
                 return;
             }
 
-            // Creazione Oggetto Libro
+            // Creazione Oggetto Utente
             Utente nuovoUtente= new Utente(nome, cognome, matricola, email);
 
             // Salvataggio nel Gestore Condiviso
@@ -114,7 +114,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
             pulisciCampi(); 
             
         } catch (NumberFormatException e) {
-            // Gestione errore se Copie o Valore non sono numeri
+            // Gestione errore se Matricola non è un numero
             labelErroreUtente.setText("Errore: La matricola deve essere un numero!");
             labelErroreUtente.setStyle("-fx-text-fill: red;");
         } catch (Exception e) {
@@ -132,6 +132,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
 
     @FXML
     private void clickAnnulla(ActionEvent event) {
+        pulisciCampi();
     }
 
     @FXML
