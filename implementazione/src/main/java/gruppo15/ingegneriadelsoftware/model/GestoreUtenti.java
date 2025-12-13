@@ -28,15 +28,16 @@ public class GestoreUtenti implements Manager<Utente> {
     /**
      * Costruttore della classe GestoreUtenti
      * 
-     * Inizializza la lista degli utenti come una observableList vuota
+     * Inizializza la lista degli utenti come una lista vuota
      */
     
-    public GestoreUtenti() {
+    private GestoreUtenti() {
         this.listaUtenti = new ArrayList<>();
     }
     
     /**
-     * Crea una istanza di GestoreUtenti
+     * Crea una istanza di GestoreUtenti. Un oggetto di questa classe potrà essere creato solo con questo metodo.
+     * (Questo metodo ci assicura che può esistere solo un'istanza di questa classe).
      * 
      * @return La nuova istanza di GestoreUtenti o l'istanza creata in precedenza
      */
@@ -47,7 +48,6 @@ public class GestoreUtenti implements Manager<Utente> {
         }
         return instance;
     }
-    
     
     /**
      * Aggiunge un nuovo utente nella collezione.

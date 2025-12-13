@@ -21,20 +21,21 @@ public class GestorePrestiti implements Manager<Prestito> {
 
     private List<Prestito> listaPrestitiAttivi;
     
-     private static GestorePrestiti instance = null;
+    private static GestorePrestiti instance = null;
     
     /**
      * Costruttore della classe GestorePrestiti
      * 
-     * Inizializza la lista dei prestiti come una observableList vuota
+     * Inizializza la lista dei prestiti come una lista vuota
      */
 
-    public GestorePrestiti() {
+    private GestorePrestiti() {
         this.listaPrestitiAttivi = new ArrayList<>();
     }
     
     /**
-     * Crea una istanza di GestorePrestiti
+     * Crea una istanza di GestorePrestiti. Un oggetto di questa classe potrà essere creato solo con questo metodo.
+     * (Questo metodo ci assicura che può esistere solo un'istanza di questa classe).
      * 
      * @return La nuova istanza di GestorePrestiti o l'istanza creata in precedenza
      */

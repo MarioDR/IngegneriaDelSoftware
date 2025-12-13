@@ -1,8 +1,6 @@
 package gruppo15.ingegneriadelsoftware.model;
 
 import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @file Restituzione.java

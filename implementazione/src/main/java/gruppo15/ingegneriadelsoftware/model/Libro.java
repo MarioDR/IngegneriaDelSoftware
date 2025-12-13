@@ -1,7 +1,6 @@
 package gruppo15.ingegneriadelsoftware.model;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -200,6 +199,7 @@ public class Libro implements Searchable {
     /**
      * Incrementa di un certo numero il numero di copie del libro. (usato per le aggiunte al catalogo)
      * 
+     * @pre Il numero di copie deve essere un numero intero positivo diverso da {@code null}
      * @post numeroCopie sarà aumentato di 'copie'
      * @param copie il numero di copie da aggiungere al totale
      */

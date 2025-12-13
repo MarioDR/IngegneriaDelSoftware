@@ -2,8 +2,6 @@ package gruppo15.ingegneriadelsoftware.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @file GestoreLibri.java
@@ -28,16 +26,16 @@ public class GestoreLibri implements Manager<Libro> {
     /**
      * @brief Costruttore della classe GestoreLibri
      * 
-     * Inizializza la lista dei prestiti come una observableList vuota
+     * Inizializza la lista dei prestiti come una lista vuota
      */
     
-    public GestoreLibri() {
+    private GestoreLibri() {
         this.listaLibri = new ArrayList<>();
     }
     
-    
-     /**
-     * Crea una istanza di GestoreLibri
+    /**
+     * Crea una istanza di GestoreLibri. Un oggetto di questa classe potrà essere creato solo con questo metodo.
+     * (Questo metodo ci assicura che può esistere solo un'istanza di questa classe).
      * 
      * @return La nuova istanza di GestoreLibri o l'istanza creata in precedenza
      */

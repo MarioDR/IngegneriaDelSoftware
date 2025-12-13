@@ -2,8 +2,6 @@ package gruppo15.ingegneriadelsoftware.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @file Utente.java
@@ -191,15 +189,8 @@ public class Utente implements Searchable {
      */
     
     public boolean hasMaxNumPrestiti() {
-        return this.listaPrestiti.size() == 3;
+        return this.listaPrestiti.size() >= 3;
     }
-    
-    /**
-     * Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
-     * 
-     * @param pattern il prefisso usato per la ricerca
-     * @return La lista di tutte le restituzioni trovate corrispondenti al pattern
-     */
     
     /**
      * Verifica se l'elemento ha almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.

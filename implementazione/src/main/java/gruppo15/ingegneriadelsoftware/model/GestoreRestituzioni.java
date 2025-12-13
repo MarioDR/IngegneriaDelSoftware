@@ -2,8 +2,6 @@ package gruppo15.ingegneriadelsoftware.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @file GestoreRestituzioni.java
@@ -23,14 +21,30 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
 
     private List<Restituzione> listaRestituzioni;
     
+    private static GestoreRestituzioni instance = null;
+    
     /**
      * Costruttore della classe GestoreRestituzioni
      * 
-     * Inizializza la lista delle restituzioni come una observableList vuota
+     * Inizializza la lista delle restituzioni come una lista vuota
      */
 
-    public GestoreRestituzioni() {
+    private GestoreRestituzioni() {
         this.listaRestituzioni = new ArrayList<>();
+    }
+    
+    /**
+     * Crea una istanza di GestoreRestituzioni. Un oggetto di questa classe potrà essere creato solo con questo metodo.
+     * (Questo metodo ci assicura che può esistere solo un'istanza di questa classe).
+     * 
+     * @return La nuova istanza di GestoreLibri o l'istanza creata in precedenza
+     */
+    
+    public static GestoreRestituzioni getInstance(){
+        if (instance == null){
+            instance = new GestoreRestituzioni();
+        }
+        return instance;
     }
     
     /**

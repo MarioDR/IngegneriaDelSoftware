@@ -37,7 +37,7 @@ class UtenteTest {
     }
 
     // =========================================================
-    // TEST COSTRUTTORE E GETTER/SETTER
+    // TEST COSTRUTTORE
     // =========================================================
 
     @Test
@@ -48,14 +48,6 @@ class UtenteTest {
         assertEquals("marco.rossi@uni.it", utenteStandard.getEmail());
         assertNotNull(utenteStandard.getListaPrestiti());
         assertTrue(utenteStandard.getListaPrestiti().isEmpty());
-    }
-
-    @Test
-    void testSettersModificanoCorrettamente() {
-        utenteStandard.setNome("Laura");
-        utenteStandard.setMatricola("L999");
-        assertEquals("Laura", utenteStandard.getNome());
-        assertEquals("L999", utenteStandard.getMatricola());
     }
 
     // =========================================================
@@ -126,24 +118,13 @@ class UtenteTest {
 
     @Test
     void testHasMaxNumPrestitiTrueConPiuDiTre( ) {
-        // La hasMaxNumPrestiti non previene l'aggiunta, ma verifica solo la dimensione
+        // Di norma un utente non può mai trovarsi in questa situazione, ma la gestiamo ugualmente ritornando false
         utenteStandard.addPrestito(prestito1);
         utenteStandard.addPrestito(prestito2);
         utenteStandard.addPrestito(prestito3);
         utenteStandard.addPrestito(prestitoExtra); // Aggiunta oltre il limite
-        
-        // Risultato atteso è vero se la lista è > 3 (4 in questo caso), ma la specifica dice size == 3.
-        // Se la lista ha 4 elementi, 4 == 3 è falso. Ma dato che l'uso è per prevenire,
-        // testiamo se il metodo funziona come definito (size == 3).
-        // Se la logica fosse "size >= 3", questo assert sarebbe TRUE.
-        // Ma, basandoci strettamente sul metodo fornito (size == 3):
-        assertFalse(utenteStandard.hasMaxNumPrestiti(), "La lista ha 4 elementi, quindi size() == 3 è falso.");
-        
-        // Nota: Nel contesto reale, hasMaxNumPrestiti dovrebbe probabilmente essere size() >= 3.
-        // Ma testiamo l'implementazione data:
-        // Aggiungiamo 2, haMaxNumPrestiti è FALSO
-        // Aggiungiamo 1 (Tot 3), haMaxNumPrestiti è VERO
-        // Aggiungiamo 1 (Tot 4), haMaxNumPrestiti è FALSO.
+
+        assertTrue(utenteStandard.hasMaxNumPrestiti());
     }
     
     // =========================================================

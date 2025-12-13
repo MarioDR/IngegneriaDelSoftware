@@ -56,6 +56,12 @@ class LibroTest {
     }
     
     @Test
+    void testAggiungiCopie() {
+        libro.aggiungiCopie(3);
+        assertEquals(8, libro.getNumeroCopie());
+    }
+    
+    @Test
     void testRimuoviCopiaDecrementaDiUno() {
         libro.rimuoviCopia();
         assertEquals(4, libro.getNumeroCopie());
