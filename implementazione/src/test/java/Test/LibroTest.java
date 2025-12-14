@@ -93,8 +93,8 @@ class LibroTest {
         
         // Ricerche che non vanno a buon fine
         assertFalse(libro.containsPattern("Pippo"));
-        assertFalse(libro.containsPattern(""));
-        assertFalse(libro.containsPattern(" "));
+        assertTrue(libro.containsPattern(""));
+        assertTrue(libro.containsPattern(" "));
         assertFalse(libro.containsPattern("02 01"));
         assertFalse(libro.containsPattern("ignpatt"));
     }

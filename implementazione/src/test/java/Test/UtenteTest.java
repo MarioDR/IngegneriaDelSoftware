@@ -172,9 +172,9 @@ class UtenteTest {
     }
     
     @Test
-    void testContainsPatternRifiutaNullEmptyBlank() {
-        assertFalse(utenteStandard.containsPattern(null));
-        assertFalse(utenteStandard.containsPattern(""));
-        assertFalse(utenteStandard.containsPattern(" "));
+    void testContainsPatternAccettaNullEmptyBlank() {
+        assertTrue(utenteStandard.containsPattern(null));
+        assertTrue(utenteStandard.containsPattern(""));
+        assertTrue(utenteStandard.containsPattern(" "));
     }
 }

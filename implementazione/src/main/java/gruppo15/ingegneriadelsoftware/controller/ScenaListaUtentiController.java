@@ -117,7 +117,7 @@ public class ScenaListaUtentiController implements Initializable {
         // Collego il comparatore della SortedList alla tabella (per cliccare sulle intestazioni)
         sortedData.comparatorProperty().bind(tabellaUtenti.comparatorProperty());
 
-        tabellaUtenti.setItems(listaUtenti);
+        tabellaUtenti.setItems(sortedData);
     }    
 
 //============================================================================================================================

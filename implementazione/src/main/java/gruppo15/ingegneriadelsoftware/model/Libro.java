@@ -230,7 +230,7 @@ public class Libro implements Searchable {
     @Override
     public boolean containsPattern(String pattern) {
         if (pattern == null || pattern.trim().isEmpty())
-            return false;
+            return true;
 
         // Il pattern di ricerca non deve contenere spazi all'inizio e alla fine
         String patternRicerca = pattern.trim();
