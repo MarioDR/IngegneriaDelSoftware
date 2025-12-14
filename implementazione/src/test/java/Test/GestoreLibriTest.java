@@ -25,10 +25,10 @@ class GestoreLibriTest {
         gestore.getList().clear(); 
         
         // Creiamo oggetti Libro reali per i test
-        libroA = new Libro("Libro Zero", "Autore Uno", LocalDate.of(2020, 1, 1), "000A", 1, 10f);
-        libroB = new Libro("Libro Test", "Autore Due", LocalDate.of(2021, 1, 1), "000B", 5, 20f);
+        libroA = new Libro("Libro Zero", "Autore Uno", LocalDate.of(2020, 1, 1), "1234567890123", 1, 10f);
+        libroB = new Libro("Libro Test", "Autore Due", LocalDate.of(2021, 1, 1), "1234567890124", 5, 20f);
         // Libro C ha lo stesso ISBN di Libro B (dovrebbe essere considerato "uguale" in base a Libro.equals())
-        libroC = new Libro("Libro Diverso", "Autore Tre", LocalDate.of(2022, 1, 1), "000B", 2, 30f); 
+        libroC = new Libro("Libro Diverso", "Autore Tre", LocalDate.of(2022, 1, 1), "1234567890124", 2, 30f); 
     }
 
     // =========================================================
@@ -163,13 +163,16 @@ class GestoreLibriTest {
     }
     
     @Test
-    void testContainsStringRitornaListaVuotaPerPatternNullo() {
+    void testContainsStringRitornaTuttaLaListaPerPatternNullo() {
         gestore.add(libroA);
+        gestore.add(libroB);
         
         // Assumendo che Libro.containsPattern gestisca null/vuoto/blank ritornando false,
         // la lista finale dovrebbe essere vuota.
         List<Libro> risultati = gestore.containsString(null);
         
-        assertTrue(risultati.isEmpty());
+        assertEquals(2, risultati.size());
+        assertTrue(risultati.contains(libroA));
+        assertTrue(risultati.contains(libroB));
     }
 }

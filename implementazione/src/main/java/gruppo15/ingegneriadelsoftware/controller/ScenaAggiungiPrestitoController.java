@@ -7,19 +7,13 @@ import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
 import gruppo15.ingegneriadelsoftware.view.App;
-import static gruppo15.ingegneriadelsoftware.view.App.PATH_CATALOGO;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.stream.Collectors;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
@@ -140,34 +134,6 @@ public class ScenaAggiungiPrestitoController implements Initializable {
         dataRestituzioneField.setValue(null);
     }
     
-    /**
-    * Riscrive completamente i file utenti.csv e prestiti.csv con lo stato attuale delle collezioni.
-    * 
-    * @throws IOException Se il file non può essere riscritto.
-    */
-    
-    private void updateFileCSV() throws IOException {
-        Path csvPathLibri = Paths.get(PATH_CATALOGO);
-
-        // 1. Ottieni la lista delle righe CSV dalla collezione aggiornata
-        List<String> righeCSVLibri = GestoreLibri.getInstance().getList().stream()
-                                             .map(Libro::toCSV)
-                                             .collect(Collectors.toList());
-
-        // 2. Aggiungi l'intestazione all'inizio (se presente nel tuo file originale)
-        // La prima riga è vuota sempre.
-        righeCSVLibri.add(0, "");
-
-        // 3. Scrivi TUTTE le righe nel file, sovrascrivendo l'originale
-        Files.write(
-            csvPathLibri, 
-            righeCSVLibri, 
-            StandardOpenOption.WRITE, 
-            StandardOpenOption.TRUNCATE_EXISTING, 
-            StandardOpenOption.CREATE
-        );
-    }
-    
     // =========================================================
     // AZIONI DEI PULSANTI
     // =========================================================
@@ -213,7 +179,7 @@ public class ScenaAggiungiPrestitoController implements Initializable {
         }
         
         // Controlla se il libro selezionato ha copie ancora disponibili (controlliamo se è <= 0 per robustezza, basterebbe == 0)
-        if(libro != null && libro.getNumeroCopie() <= 0) {
+        if(libro != null && libro.getNumeroCopieRimanenti() <= 0) {
             App.mostraMessaggioTemporaneo(labelErrorePrestito, "Non ci sono copie disponibili del libro selezionato!", "red", 3);
             return;
         }
@@ -229,21 +195,8 @@ public class ScenaAggiungiPrestitoController implements Initializable {
         // Controlla se effettivamente l'utente e il libro sono stati trovati e agisce di conseguenza
         if(utente != null && libro != null){
             // Creazione Oggetto Prestito
-            Prestito nuovoPrestito = new Prestito(utente, libro, dataRestituzione);
+            Prestito nuovoPrestito = new Prestito(utente.getMatricola(), libro.getISBN(), dataRestituzione);
             
-            // Update dei valori sia nella struttura che nel file CSV per i libri
-            libro.rimuoviCopia();
-            
-            try {
-                updateFileCSV(); 
-            } catch(IOException e) {
-                App.mostraMessaggioTemporaneo(labelErrorePrestito, "Errore I/O: Impossibile salvare il nuovo prestito sul file!", "red", 3);
-                return;
-            }
-            
-            // Salvataggio nel Gestore Condiviso
-            GestorePrestiti.getInstance().add(nuovoPrestito);
-
             // Salvataggio del record sul file CSV corrispondente
             try (FileWriter writer = new FileWriter(App.PATH_PRESTITI, true)) {
                 // Aggiunge una nuova riga (newline) e il record CSV
@@ -254,6 +207,10 @@ public class ScenaAggiungiPrestitoController implements Initializable {
                 return;
             }
             
+            // Lo aggiungo al GestorePrestiti
+            GestorePrestiti.getInstance().add(nuovoPrestito);
+            
+            // Operazione conclusa con successo
             App.mostraMessaggioTemporaneo(labelErrorePrestito, "Prestito aggiunto con successo!", "green", 3);
             pulisciCampi(); 
         } else {

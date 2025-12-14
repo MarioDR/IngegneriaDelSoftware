@@ -1,18 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gruppo15.ingegneriadelsoftware.controller;
 
 import gruppo15.ingegneriadelsoftware.view.App;
+import static gruppo15.ingegneriadelsoftware.view.App.PATH_CREDENZIALI;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -27,37 +24,68 @@ public class ScenaLoginController {
     @FXML
     private Label labelErroreLogin;
     @FXML
-    private Label labelErroreUtente;
-    @FXML
     private Button aggiungiButton;
     @FXML
     private Button annullaButton;
 
+    /**
+     * Il metodo è collegato all'azione del pulsante 'Accedi' e tenta di autenticare l'utente.
+     * * @param event L'evento del click sul pulsante.
+     * @throws Exception Se si verifica un errore non gestito nel cambio di scena.
+     */
+    
     @FXML
-    private void clickAccedi(ActionEvent event) {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-
+    private void clickAccedi(ActionEvent event) throws Exception {
+        String usernameVera;
+        String passwordVera;
+        
         // ----------------------------------------------------
-        // 1. Validazione (Logica Fittizia)
+        // 1. Lettura e Validazione Credenziali da CSV
         // ----------------------------------------------------
-        if (username.equals("") && password.equals("")) {
+        try (BufferedReader br = new BufferedReader(new FileReader(PATH_CREDENZIALI))) {
             
-            // 2. Cambio di Scena
+            String line = br.readLine();
+            
+            // Gestione robusta: Controlla se il file è vuoto o se la riga letta è vuota
+            if (line == null || line.trim().isEmpty()) {
+                App.mostraMessaggioTemporaneo(labelErroreLogin, "❌ Errore: File credenziali vuoto o malformato.", "red", 3);
+                return;
+            }
+            
+            String values[] = line.split(",");
+            
+            // Gestione robusta: Controlla se ci sono almeno 2 campi
+            if (values.length < 2) {
+                App.mostraMessaggioTemporaneo(labelErroreLogin, "❌ Errore: Credenziali incomplete nel file CSV (servono username,password).", "red", 3);
+                return;
+            }
+            
+            // Estrazione sicura
+            usernameVera = values[0].trim();
+            passwordVera = values[1].trim();
+            
+        } catch (IOException e) {
+            App.mostraMessaggioTemporaneo(labelErroreLogin, "❌ Errore I/O: Impossibile trovare o leggere il file credenziali!", "red", 3);
+            return;
+        }
+        
+        // ----------------------------------------------------
+        // 2. Confronto e Login
+        // ----------------------------------------------------
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText().trim();
+        
+        if (username.equals(usernameVera) && password.equals(passwordVera)) {
+            // Credenziali valide: Cambio di Scena
             try {
-                // Chiama il metodo statico per caricare ScenaMenu.fxml
-                // e sostituire la radice della Scene corrente.
-                App.setRoot("ScenaMenu"); 
+                App.setRoot("ScenaMenu");
             } 
             catch (IOException e) {
-                // Gestione dell'errore nel caso il file ScenaMenu.fxml non venga trovato
-                e.printStackTrace();
-                labelErroreLogin.setText("Errore nel caricamento della scena principale. Controllare i file FXML.");
+                App.mostraMessaggioTemporaneo(labelErroreLogin, "❌ Errore nel caricamento della scena principale. Controllare i file FXML.", "red", 3);
             }
-        } 
-        else {
-            // Credenziali errate
-            labelErroreLogin.setText("❌ Credenziali non valide. Riprovare.");
+        } else {
+            // Credenziali non valide
+            App.mostraMessaggioTemporaneo(labelErroreLogin, "❌ Credenziali non valide. Riprovare.", "red", 3);
         }
     }
 

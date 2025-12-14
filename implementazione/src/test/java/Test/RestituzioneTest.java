@@ -1,5 +1,7 @@
 package Test;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
@@ -22,8 +24,16 @@ class RestituzioneTest {
     @BeforeEach
     void setUp() {
         // Oggetti di base necessari per creare un Prestito reale
-        utenteStandard = new Utente("Marco", "Neri", "U900", "m.neri@uni.it");
-        libroStandard = new Libro("Test Ritorno", "Autore", LocalDate.now(), "ISBN-RET", 1, 1f);
+        utenteStandard = new Utente("Marco", "Neri", "0123456789", "m.neri@uni.it");
+        libroStandard = new Libro("Test Ritorno", "Autore", LocalDate.now(), "1234567890123", 1, 1f);
+        
+        // Aggiungo il prestito e l'utente nei manager
+        // Aggiungo i prestiti e l'utente nei manager
+        GestoreUtenti.getInstance().getList().clear();
+        GestoreLibri.getInstance().getList().clear();
+        
+        GestoreUtenti.getInstance().add(utenteStandard);
+        GestoreLibri.getInstance().add(libroStandard);
     }
 
     // =========================================================
@@ -33,7 +43,7 @@ class RestituzioneTest {
     @Test
     void testCostruttoreInizializzazioneCorretta() {
         // Creiamo un prestito che sarà restituito (la sua dataInizio sarà oggi)
-        Prestito prestitoDaRestituire = new Prestito(utenteStandard, libroStandard, DATA_OGGI.plusDays(7));
+        Prestito prestitoDaRestituire = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(7));
         
         Restituzione restituzione = new Restituzione(prestitoDaRestituire);
         
@@ -50,7 +60,7 @@ class RestituzioneTest {
     void testIsRestituitoInRitardoQuandoInRitardo() {
         // 1. Prestito la cui restituzione era prevista N giorni fa
         LocalDate dataPrevista = DATA_OGGI.minusDays(GIORNI_RITARDO_TEST);
-        Prestito prestitoInRitardo = new Prestito(utenteStandard, libroStandard, dataPrevista);
+        Prestito prestitoInRitardo = new Prestito("0123456789", "1234567890123", dataPrevista);
         
         // 2. La Restituzione avviene OGGI (dopo la data prevista)
         Restituzione restituzione = new Restituzione(prestitoInRitardo);
@@ -65,7 +75,7 @@ class RestituzioneTest {
     void testIsRestituitoInRitardoQuandoInAnticipo() {
         // 1. Prestito la cui restituzione è prevista tra N giorni
         LocalDate dataPrevista = DATA_OGGI.plusDays(GIORNI_RITARDO_TEST);
-        Prestito prestitoInAnticipo = new Prestito(utenteStandard, libroStandard, dataPrevista);
+        Prestito prestitoInAnticipo = new Prestito("0123456789", "1234567890123", dataPrevista);
         
         // 2. La Restituzione avviene OGGI (prima della data prevista)
         Restituzione restituzione = new Restituzione(prestitoInAnticipo);
@@ -80,7 +90,7 @@ class RestituzioneTest {
     void testIsRestituitoInRitardoQuandoPuntuale() {
         // 1. Prestito la cui restituzione è prevista OGGI (lo stesso giorno della Restituzione)
         LocalDate dataPrevista = DATA_OGGI;
-        Prestito prestitoPuntuale = new Prestito(utenteStandard, libroStandard, dataPrevista);
+        Prestito prestitoPuntuale = new Prestito("0123456789", "1234567890123", dataPrevista);
         
         // 2. La Restituzione avviene OGGI
         Restituzione restituzione = new Restituzione(prestitoPuntuale);
@@ -98,7 +108,7 @@ class RestituzioneTest {
     @Test
     void testEqualsStessoPrestito() {
         // Due restituzioni sono uguali se si riferiscono allo stesso Prestito (stesso ID)
-        Prestito p1 = new Prestito(utenteStandard, libroStandard, DATA_OGGI.plusDays(7));
+        Prestito p1 = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(7));
         
         Restituzione r1 = new Restituzione(p1);
         Restituzione r2 = new Restituzione(p1); 
@@ -109,8 +119,8 @@ class RestituzioneTest {
     @Test
     void testEqualsPrestitiDiversi() {
         // Poiché il Prestito usa un ID incrementale, due chiamate a new Prestito creano due ID diversi
-        Prestito p1 = new Prestito(utenteStandard, libroStandard, DATA_OGGI.plusDays(7));
-        Prestito p2 = new Prestito(utenteStandard, libroStandard, DATA_OGGI.plusDays(7)); 
+        Prestito p1 = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(7));
+        Prestito p2 = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(7)); 
         
         Restituzione r1 = new Restituzione(p1);
         Restituzione r2 = new Restituzione(p2);
@@ -125,7 +135,7 @@ class RestituzioneTest {
         // Dobbiamo simulare che il Prestito (p1) risponda alla ricerca
         
         // La logica di containsPattern è delegata al Prestito, che a sua volta cerca in Utente/Libro
-        Prestito prestitoConNome = new Prestito(utenteStandard, libroStandard, DATA_OGGI.plusDays(7));
+        Prestito prestitoConNome = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(7));
         Restituzione restituzione = new Restituzione(prestitoConNome);
         
         // Cerchiamo il nome "Marco" (presente in utenteStandard)
@@ -141,7 +151,7 @@ class RestituzioneTest {
     @Test
     void testToCSVFormatoCorretto() {
         LocalDate dataPrevista = DATA_OGGI.plusDays(15);
-        Prestito prestito = new Prestito(utenteStandard, libroStandard, dataPrevista);
+        Prestito prestito = new Prestito("0123456789", "1234567890123", dataPrevista);
         Restituzione restituzione = new Restituzione(prestito);
         
         // Il toCSV deve essere: Prestito.toCSV() + "," + DataEffettivaRestituzione

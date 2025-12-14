@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 public class Restituzione implements Searchable {
 
-    private Prestito prestitoDaRestituire;
+    private final Prestito prestitoDaRestituire;
 
     private final LocalDate dataEffettivaRestituzione;
     

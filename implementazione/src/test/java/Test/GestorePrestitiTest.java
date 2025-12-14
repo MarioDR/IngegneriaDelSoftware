@@ -1,6 +1,8 @@
 package Test;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
 import gruppo15.ingegneriadelsoftware.model.GestorePrestiti;
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
@@ -25,22 +27,31 @@ class GestorePrestitiTest {
         gestore.getList().clear(); 
         
         // 2. Creazione di oggetti reali di supporto
-        Utente utenteA = new Utente("Gino", "Rossi", "G100", "gino@uni.it");
-        Utente utenteB = new Utente("Anna", "Verdi", "A200", "anna@uni.it");
-        Libro libro1 = new Libro("Software", "Sommerville", LocalDate.of(2010, 1, 1), "001A", 1, 10f);
-        Libro libro2 = new Libro("Hardware", "Tannenbaum", LocalDate.of(2015, 1, 1), "002B", 1, 20f);
+        Utente utenteA = new Utente("Gino", "Rossi", "0123456789", "gino@uni.it");
+        Utente utenteB = new Utente("Anna", "Verdi", "0123456780", "anna@uni.it");
+        Libro libro1 = new Libro("Software", "Sommerville", LocalDate.of(2010, 1, 1), "1234567890123", 1, 10f);
+        Libro libro2 = new Libro("Hardware", "Tannenbaum", LocalDate.of(2015, 1, 1), "1234567890124", 1, 20f);
         
         // 3. Creazione di Prestiti reali
         LocalDate dataFutura = LocalDate.now().plusDays(15);
         
+        // Aggiungo il prestito e l'utente nei manager
+        GestoreUtenti.getInstance().getList().clear();
+        GestoreLibri.getInstance().getList().clear();
+        
+        GestoreUtenti.getInstance().add(utenteA);
+        GestoreLibri.getInstance().add(libro1);
+        GestoreUtenti.getInstance().add(utenteB);
+        GestoreLibri.getInstance().add(libro2);
+        
         // Prestito A (ID X)
-        prestitoA = new Prestito(utenteA, libro1, dataFutura);
+        prestitoA = new Prestito("0123456789", "1234567890123", dataFutura);
         // Prestito B (ID Y)
-        prestitoB = new Prestito(utenteB, libro2, dataFutura);
+        prestitoB = new Prestito("0123456780", "1234567890124", dataFutura);
         // Prestito C ha lo stesso ID logico di A, ma ID diversi (dovrebbe fallire l'equals)
         // Nota: Poiché Prestito usa contatore statico, Prestito.equals si basa solo sull'ID
         // Qui creiamo un Prestito che non sarà MAI uguale ad A o B
-        prestitoC = new Prestito(utenteB, libro1, dataFutura);
+        prestitoC = new Prestito("0123456780", "1234567890123", dataFutura);
     }
 
     // =========================================================
@@ -137,11 +148,11 @@ class GestorePrestitiTest {
     
     @Test
     void testContainsStringTrovaCorrispondenzeInUtente() {
-        gestore.add(prestitoA); // Utente: Gino Rossi (G100)
-        gestore.add(prestitoB); // Utente: Anna Verdi (A200)
+        gestore.add(prestitoA); // Utente: Gino Rossi
+        gestore.add(prestitoB); // Utente: Anna Verdi 
         
-        // Cerca la matricola "200"
-        List<Prestito> risultati = gestore.containsString("200");
+        // Cerca la matricola "124"
+        List<Prestito> risultati = gestore.containsString("124");
         
         assertEquals(1, risultati.size());
         assertTrue(risultati.contains(prestitoB));

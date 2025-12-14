@@ -1,6 +1,8 @@
 package Test;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
 import gruppo15.ingegneriadelsoftware.model.GestoreRestituzioni;
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
@@ -26,18 +28,27 @@ class GestoreRestituzioniTest {
         gestore.getList().clear(); 
         
         // 2. Creazione di oggetti reali di supporto
-        Utente utenteMarco = new Utente("Marco", "Neri", "M555", "m.neri@uni.it");
-        Utente utenteLuca = new Utente("Luca", "Bianchi", "L666", "l.bianchi@uni.it");
-        Libro libro1 = new Libro("Fantasy", "Tolkien", LocalDate.of(1950, 1, 1), "FAN001", 1, 10f);
-        Libro libro2 = new Libro("Scienza", "Newton", LocalDate.of(1700, 1, 1), "SCI002", 1, 20f);
+        Utente utenteMarco = new Utente("Marco", "Neri", "0123456789", "m.neri@uni.it");
+        Utente utenteLuca = new Utente("Luca", "Bianchi", "0123456780", "l.bianchi@uni.it");
+        Libro libro1 = new Libro("Fantasy", "Tolkien", LocalDate.of(1950, 1, 1), "1234567890123", 1, 10f);
+        Libro libro2 = new Libro("Scienza", "Newton", LocalDate.of(1700, 1, 1), "1234567890124", 1, 20f);
         
         // 3. Creazione di Prestiti (necessari per le Restituzioni)
         LocalDate dataFutura = LocalDate.now().plusDays(15);
         
+        // Aggiungo il prestito e l'utente nei manager
+        GestoreUtenti.getInstance().getList().clear();
+        GestoreLibri.getInstance().getList().clear();
+        
+        GestoreUtenti.getInstance().add(utenteMarco);
+        GestoreLibri.getInstance().add(libro1);
+        GestoreUtenti.getInstance().add(utenteLuca);
+        GestoreLibri.getInstance().add(libro2);
+        
         // Prestito P1 (ID X)
-        Prestito prestitoP1 = new Prestito(utenteMarco, libro1, dataFutura);
+        Prestito prestitoP1 = new Prestito("0123456789", "1234567890123", dataFutura);
         // Prestito P2 (ID Y)
-        Prestito prestitoP2 = new Prestito(utenteLuca, libro2, dataFutura); 
+        Prestito prestitoP2 = new Prestito("0123456780", "1234567890124", dataFutura); 
         
         // 4. Creazione delle Restituzioni
         restituzioneA = new Restituzione(prestitoP1);
@@ -116,15 +127,15 @@ class GestoreRestituzioniTest {
 
     @Test
     void testContainsStringTrovaCorrispondenzeInUtente() {
-        gestore.add(restituzioneA); // Utente: Marco Neri (M555)
-        gestore.add(restituzioneB); // Utente: Luca Bianchi (L666)
+        gestore.add(restituzioneA); // Utente: Marco Neri
+        gestore.add(restituzioneB); // Utente: Luca Bianchi
         
-        // Cerca la matricola "M555"
-        List<Restituzione> risultati = gestore.containsString("M555");
-        
+        // Cerca la matricola "124"
+        List<Restituzione> risultati = gestore.containsString("124");
+
         assertEquals(1, risultati.size());
-        assertTrue(risultati.contains(restituzioneA));
-        assertFalse(risultati.contains(restituzioneB));
+        assertTrue(risultati.contains(restituzioneB));
+        assertFalse(risultati.contains(restituzioneA));
     }
     
     @Test

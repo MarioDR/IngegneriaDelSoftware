@@ -54,7 +54,7 @@
                   <Insets />
                </VBox.margin>
             </VBox>
-            <Label fx:id="labelErroreUtente" alignment="CENTER" prefHeight="17.0" prefWidth="422.0">
+            <Label fx:id="labelErroreLogin" alignment="CENTER" prefHeight="17.0" prefWidth="422.0">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

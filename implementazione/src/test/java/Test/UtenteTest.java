@@ -1,6 +1,8 @@
 package Test;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
 import gruppo15.ingegneriadelsoftware.model.GestorePrestiti;
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
@@ -30,17 +32,31 @@ class UtenteTest {
         gestore.getList().clear(); 
         
         // Inizializza un nuovo oggetto Utente per ogni test
-        utenteStandard = new Utente("Marco", "Rossi", "M123456", "marco.rossi@uni.it");
+        utenteStandard = new Utente("Marco", "Rossi", "0123456789", "marco.rossi@uni.it");
         
         // Creazione di Prestiti reali (necessari per testare addPrestito/hasMaxNumPrestiti)
-        Libro libroFittizio = new Libro("Titolo", "Autore", LocalDate.now(), "ISBN-TEST", 1, 10f);
+        Libro libroFittizio1 = new Libro("Titolo", "Autore", LocalDate.now(), "1234567890123", 1, 10f);
+        Libro libroFittizio2 = new Libro("Titolo", "Autore", LocalDate.now(), "1234567890124", 1, 10f);
+        Libro libroFittizio3 = new Libro("Titolo", "Autore", LocalDate.now(), "1234567890125", 1, 10f);
+        Libro libroFittizio4 = new Libro("Titolo", "Autore", LocalDate.now(), "1234567890126", 1, 10f);
+        
         LocalDate dataFutura = LocalDate.now().plusDays(30);
-
+        
+        // Aggiungo i prestiti e l'utente nei manager
+        GestoreUtenti.getInstance().getList().clear();
+        GestoreLibri.getInstance().getList().clear();
+        
+        GestoreUtenti.getInstance().add(utenteStandard);
+        GestoreLibri.getInstance().add(libroFittizio1);
+        GestoreLibri.getInstance().add(libroFittizio2);
+        GestoreLibri.getInstance().add(libroFittizio3);
+        GestoreLibri.getInstance().add(libroFittizio4);
+        
         // Creiamo istanze di Prestito reali (gli ID saranno incrementali)
-        prestito1 = new Prestito(utenteStandard, libroFittizio, dataFutura);
-        prestito2 = new Prestito(utenteStandard, libroFittizio, dataFutura);
-        prestito3 = new Prestito(utenteStandard, libroFittizio, dataFutura);
-        prestitoExtra = new Prestito(utenteStandard, libroFittizio, dataFutura);
+        prestito1 = new Prestito("0123456789", "1234567890123", dataFutura);
+        prestito2 = new Prestito("0123456789", "1234567890124", dataFutura);
+        prestito3 = new Prestito("0123456789", "1234567890125", dataFutura);
+        prestitoExtra = new Prestito("0123456789", "1234567890126", dataFutura);
     }
 
     // =========================================================
@@ -51,7 +67,7 @@ class UtenteTest {
     void testCostruttoreInizializzazioneCorretta() {
         assertEquals("Marco", utenteStandard.getNome());
         assertEquals("Rossi", utenteStandard.getCognome());
-        assertEquals("M123456", utenteStandard.getMatricola());
+        assertEquals("0123456789", utenteStandard.getMatricola());
         assertEquals("marco.rossi@uni.it", utenteStandard.getEmail());
     }
 
@@ -108,24 +124,21 @@ class UtenteTest {
     
     @Test
     void testEqualsMatricolaEmailCorrette() {
-        // Stessa matricola e email (uguali logicamente)
-        Utente utenteUguale = new Utente("Laura", "Verdi", "M123456", "marco.rossi@uni.it");
+        Utente utenteUguale = new Utente("Laura", "Verdi", "0123456789", "marco.rossi@uni.it");
         
         assertTrue(utenteStandard.equals(utenteUguale));
     }
 
     @Test
     void testEqualsMatricolaCorretta() {
-        // Stessa matricola e email (uguali logicamente)
-        Utente utenteUguale = new Utente("Laura", "Verdi", "M123456", "marco.rossi2@uni.it");
+        Utente utenteUguale = new Utente("Laura", "Verdi", "0123456789", "marco.rossi2@uni.it");
         
         assertTrue(utenteStandard.equals(utenteUguale));
     }
     
     @Test
     void testEqualsEmailCorretta() {
-        // Stessa matricola e email (uguali logicamente)
-        Utente utenteUguale = new Utente("Laura", "Verdi", "M123436", "marco.rossi@uni.it");
+        Utente utenteUguale = new Utente("Laura", "Verdi", "0123456788", "marco.rossi@uni.it");
         
         assertTrue(utenteStandard.equals(utenteUguale));
     }
@@ -133,14 +146,14 @@ class UtenteTest {
     @Test
     void testEqualsMatricolaEmailDiverse() {
         // Matricola diversa
-        Utente utenteDiverso = new Utente("Marco", "Rossi", "D456", "marco.rossi2@uni.it");
+        Utente utenteDiverso = new Utente("Marco", "Rossi", "0123456788", "marco.rossi2@uni.it");
         
         assertFalse(utenteStandard.equals(utenteDiverso));
     }
     
     @Test
     void testToCSVFormatoCorretto() {
-        String expectedCSV = "Marco,Rossi,M123456,marco.rossi@uni.it";
+        String expectedCSV = "Marco,Rossi,0123456789,marco.rossi@uni.it";
         assertEquals(expectedCSV, utenteStandard.toCSV());
     }
     

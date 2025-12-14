@@ -247,7 +247,7 @@ public class ScenaAggiungiLibroController implements Initializable {
                         // Arrivati a questo punto, la equals è andata a buon fine e gli altri campi sono compatibili
 
                         // Aggiornamento in Memoria
-                        l.aggiungiCopie(nuovoLibro.getNumeroCopie());
+                        l.aggiungiCopie(nuovoLibro.getNumeroCopieDiStock());
                         soloAggiuntaCopie = true; 
 
                         // **NOTA**: Qui il file CSV verrà aggiornato dopo il loop

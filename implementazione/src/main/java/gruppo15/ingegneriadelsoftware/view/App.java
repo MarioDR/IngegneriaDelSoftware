@@ -30,10 +30,6 @@ public class App extends Application {
     public static final String PATH_RESTITUZIONI = "./src/main/resources/gruppo15/ingegneriadelsoftware/archivio/restituzioni.csv";
     public static final String PATH_CREDENZIALI = "./src/main/resources/gruppo15/ingegneriadelsoftware/archivio/credenziali.csv";
     
-    //=======================================
-    // IN MANUTENZIONE
-    //=======================================
-    
     @Override
     public void start(Stage stage) throws IOException {
         // Fase di caricamento dell'archivio nei manager
@@ -43,10 +39,9 @@ public class App extends Application {
         caricaRestituzioniDaCSV();
         
         // Avvio della prima scena
-        scene = new Scene(loadFXML("ScenaLogin"));
+        scene = new Scene(loadFXML("ScenaLogin"), 640, 480);
         stage.setTitle("MyBiblioUNISA");
         stage.setScene(scene);
-        stage.setMaximized(true);
         stage.show();
     }
 
@@ -109,12 +104,16 @@ public class App extends Application {
             br.readLine(); 
             
             // Leggiamo le righe successive finché ci sono dati
-            while ((line = br.readLine()) != null && !line.equals("")) {
+            while ((line = br.readLine()) != null) {
                 
                 // 1. Spezzare la riga usando la virgola come delimitatore
                 String[] values = line.split(",");
-
+                
                 try {
+                    // Salta le righe non conformi
+                    if(values.length < 6)
+                        continue;
+                    
                     // I primi 5 valori sono i campi fissi: Titolo, ISBN, Copie, Valore, data di pubblicazione. 
                     String titolo = values[0].trim();
                     String isbn = values[1].trim();
@@ -132,7 +131,7 @@ public class App extends Application {
                     
                 } catch (NumberFormatException e) {
                     System.err.println("Errore di conversione numerica nella riga: " + line);
-                }
+                } 
             }
         } catch (IOException e) {
             System.err.println("Errore I/O durante la lettura del file CSV: " + e.getMessage());
@@ -148,10 +147,14 @@ public class App extends Application {
             br.readLine(); 
             
             // Leggiamo le righe successive finché ci sono dati
-            while ((line = br.readLine()) != null && !line.equals("")) {
+            while ((line = br.readLine()) != null) {
                 // Spezzare la riga usando la virgola come delimitatore
                 String[] values = line.split(",");
 
+                // Salta le righe non conformi
+                if(values.length != 4)
+                    continue;
+                    
                 // I 4 valori sono i campi fissi: Nome, Cognome, Matricola, Email. 
                 String nome = values[0].trim();
                 String cognome = values[1].trim();
@@ -177,37 +180,29 @@ public class App extends Application {
             br.readLine(); 
             
             // Leggiamo le righe successive finché ci sono dati
-            while ((line = br.readLine()) != null && !line.equals("")) {
+            while ((line = br.readLine()) != null) {
                 
                 // 1. Spezzare la riga usando la virgola come delimitatore
                 String[] values = line.split(",");
 
+                // Salta le righe non conformi
+                if(values.length != 5)
+                    continue;
+                
                 try {
                     // I primi 3 campi sono: ID, date di inizio e fine prevista
                     int ID = Integer.parseInt(values[0].trim());
                     LocalDate dataInizio = LocalDate.parse(values[1].trim());
                     LocalDate dataFine = LocalDate.parse(values[2].trim());
                     
-                    // I prossimi 4 valori sono i campi fissi dell'utente: Nome, Cognome, Matricola, Email. 
-                    String nome = values[3].trim();
-                    String cognome = values[4].trim();
-                    String matricola = values[5].trim();
-                    String email = values[6].trim();
+                    // Il prossimo valore è la matricola dell'utente
+                    String matricola = values[3].trim();
                     
-                    // I prossimi 5 valori sono i campi fissidel libro: Titolo, ISBN, Copie, Valore, data di pubblicazione. 
-                    String titolo = values[7].trim();
-                    String isbn = values[8].trim();
-                    int numeroCopie = Integer.parseInt(values[9].trim());
-                    float valore = Float.parseFloat(values[10].trim());
-                    LocalDate dataPubblicazione = LocalDate.parse(values[11].trim());
-                    
-                    // Ricostruisce la stringa degli autori (dal 12° elemento in poi)
-                    String autoriCSV = Arrays.stream(values, 12, values.length).collect(Collectors.joining(","));
+                    // Il prossimo valore è l'ISBN del libro
+                    String ISBN = values[4].trim();
                     
                     //costruzione dell'oggetto prestito
-                    Utente nuovoUtenteAssegnatario = new Utente(nome, cognome, matricola, email);
-                    Libro nuovoLibroPrestato = new Libro(titolo, autoriCSV, dataPubblicazione, isbn, numeroCopie, valore);
-                    Prestito nuovoPrestito = new Prestito(ID, nuovoUtenteAssegnatario, nuovoLibroPrestato, dataInizio, dataFine);
+                    Prestito nuovoPrestito = new Prestito(ID, matricola, ISBN, dataInizio, dataFine);
                     
                     // Aggiunta dell'oggetto al gestore
                     GestorePrestiti.getInstance().add(nuovoPrestito);
@@ -229,11 +224,15 @@ public class App extends Application {
             br.readLine(); 
             
             // Leggiamo le righe successive finché ci sono dati
-            while ((line = br.readLine()) != null && !line.equals("")) {
+            while ((line = br.readLine()) != null) {
                 
                 // 1. Spezzare la riga usando la virgola come delimitatore
                 String[] values = line.split(",");
 
+                // Salta le righe non conformi
+                if(values.length < 14)
+                    continue;
+                
                 try {
                     // I primi 4 campi sono: data effettiva di restituzione, ID prestito, date di inizio e fine prevista
                     LocalDate dataEffettiva = LocalDate.parse(values[0]);
@@ -241,26 +240,14 @@ public class App extends Application {
                     LocalDate dataInizio = LocalDate.parse(values[2].trim());
                     LocalDate dataFine = LocalDate.parse(values[3].trim());
                     
-                    // I prossimi 4 valori sono i campi fissi dell'utente: Nome, Cognome, Matricola, Email. 
-                    String nome = values[4].trim();
-                    String cognome = values[5].trim();
-                    String matricola = values[6].trim();
-                    String email = values[7].trim();
+                    // Il prossimo valore è la matricola dell'utente
+                    String matricola = values[3].trim();
                     
-                    // I prossimi 5 valori sono i campi fissidel libro: Titolo, ISBN, Copie, Valore, data di pubblicazione. 
-                    String titolo = values[8].trim();
-                    String isbn = values[9].trim();
-                    int numeroCopie = Integer.parseInt(values[10].trim());
-                    float valore = Float.parseFloat(values[11].trim());
-                    LocalDate dataPubblicazione = LocalDate.parse(values[12].trim());
-                    
-                    // Ricostruisce la stringa degli autori (dal 13° elemento in poi)
-                    String autoriCSV = Arrays.stream(values, 13, values.length).collect(Collectors.joining(","));
+                    // Il prossimo valore è l'ISBN del libro
+                    String ISBN = values[4].trim();
                     
                     //costruzione dell'oggetto restituzione
-                    Utente nuovoUtenteAssegnatario = new Utente(nome, cognome, matricola, email);
-                    Libro nuovoLibroPrestato = new Libro(titolo, autoriCSV, dataPubblicazione, isbn, numeroCopie, valore);
-                    Prestito prestitoRestituito = new Prestito(ID, nuovoUtenteAssegnatario, nuovoLibroPrestato, dataInizio, dataFine);
+                    Prestito prestitoRestituito = new Prestito(ID, matricola, ISBN, dataInizio, dataFine);
                     Restituzione nuovaRestituzione = new Restituzione(dataEffettiva, prestitoRestituito);
                     
                     // Aggiunta dell'oggetto al gestore

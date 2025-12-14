@@ -1,7 +1,6 @@
 package gruppo15.ingegneriadelsoftware.model;
 
 import java.time.LocalDate;
-import java.util.regex.Pattern;
 
 /**
  * @file Prestito.java
@@ -23,52 +22,80 @@ public class Prestito implements Searchable {
     
     private final int ID;
     
-    private final Utente utenteAssegnatario;
+    private Utente utenteAssegnatario = null;
 
-    private final Libro libroPrestato;
+    private Libro libroPrestato = null;
 
-    private final LocalDate dataPrevistaRestituzione;
+    private LocalDate dataPrevistaRestituzione;
 
-    private final LocalDate dataInizioPrestito;
+    private LocalDate dataInizioPrestito;
     
     /**
      * Costruttore della classe Prestito
      * 
      * Inizializza un nuovo prestito con la data di inizio uguale a quella attuale
-     * e la data di restituzione
+     * e la data di restituzione.
      * 
-     * @param utenteAssegnatario L'utente a cui è stato segnato il prestito
-     * @param libroPrestato Libro dato in prestito
+     * @pre matricola e ISBN devono essere validi
+     * @param matricolaUtenteAssegnatario La matricola dell'utente a cui è stato assegnato il prestito
+     * @param ISBNlibroPrestato L'ISBN del libro dato in prestito
      * @param dataPrevistaRestituzione La data prevista di restituzione
      */
 
-    public Prestito(Utente utenteAssegnatario, Libro libroPrestato, LocalDate dataPrevistaRestituzione) {
-        this.utenteAssegnatario = utenteAssegnatario;
-        this.libroPrestato = libroPrestato;
+    public Prestito(String matricolaUtenteAssegnatario, String ISBNlibroPrestato, LocalDate dataPrevistaRestituzione) {
+        //ricerchiamo l'utente e il libro corrispondente
+        for(Utente u : GestoreUtenti.getInstance().getList()) {
+            if(u.getMatricola().equals(matricolaUtenteAssegnatario)) {
+                this.utenteAssegnatario = u;
+                break;
+            }
+        }
+        
+        for(Libro l : GestoreLibri.getInstance().getList()) {
+            if(l.getISBN().equals(ISBNlibroPrestato)) {
+                this.libroPrestato = l;
+                break;
+            }
+        }
+        
         this.dataPrevistaRestituzione = dataPrevistaRestituzione;
         this.dataInizioPrestito = LocalDate.now();
-        this.ID = cont++;
+        this.ID = cont;
+        cont = cont + 1;
     }
     
     /**
-     * Seconodo ostruttore della classe Prestito. (Viene usato in fase di ricostruzione dell'oggetto da file CSV)
-     * 
-     * Inizializza un nuovo prestito esplicitando tutti i dettagli
+     * Seconodo ostruttore della classe Prestito (Viene usato in fase di ricostruzione dell'oggetto da file CSV).
+     * Inizializza un nuovo prestito esplicitando tutti i dettagli.
      * 
      * @param ID L'ID dell'utente
-     * @param utenteAssegnatario L'utente a cui è stato segnato il prestito
-     * @param libroPrestato Libro dato in prestito
+     * @param matricolaUtenteAssegnatario La matricola dell'utente a cui è stato assegnato il prestito
+     * @param ISBNlibroPrestato L'ISBN del libro dato in prestito
      * @param dataInizioPrestito La data di inizio del prestito
      * @param dataPrevistaRestituzione La data prevista di restituzione
      */
     
-    public Prestito(int ID, Utente utenteAssegnatario, Libro libroPrestato, LocalDate dataInizioPrestito, LocalDate dataPrevistaRestituzione)
-    {
-        this.utenteAssegnatario = utenteAssegnatario;
-        this.libroPrestato = libroPrestato;
+    public Prestito(int ID, String matricolaUtenteAssegnatario, String ISBNlibroPrestato, LocalDate dataInizioPrestito, LocalDate dataPrevistaRestituzione) {
+        //ricerchiamo l'utente e il libro corrispondente
+        for(Utente u : GestoreUtenti.getInstance().getList()) {
+            if(u.getMatricola().equals(matricolaUtenteAssegnatario)) {
+                this.utenteAssegnatario = u;
+                break;
+            }
+        }
+        
+        for(Libro l : GestoreLibri.getInstance().getList()) {
+            if(l.getISBN().equals(ISBNlibroPrestato)) {
+                this.libroPrestato = l;
+                break;
+            }
+        }
+        
         this.dataPrevistaRestituzione = dataPrevistaRestituzione;
         this.dataInizioPrestito = dataInizioPrestito;
         this.ID = ID;
+        // Alla fine del caricamento, cont assumerà un valore consistente
+        cont = ID + 1;
     }
     
     // =========================================================
@@ -165,8 +192,9 @@ public class Prestito implements Searchable {
     }
     
     /**
-     * Controlla se un oggetto è uguale a questa istanza (due prestiti sono uguali se hanno lo stesso ID)
+     * Controlla se un oggetto è uguale a questa istanza. (due prestiti sono uguali se hanno lo stesso ID)
      * 
+     * @param o L'oggetto con cui fare il confronto
      * @return  {@code true} se i due prestiti hanno lo stesso ID
      *          {@code false} in tutti gli atri casi
      */
@@ -190,6 +218,6 @@ public class Prestito implements Searchable {
      */
     
     public String toCSV() {
-        return this.ID + "," + this.dataInizioPrestito + "," + this.dataPrevistaRestituzione + "," + this.utenteAssegnatario.toCSV() + "," + this.libroPrestato.toCSV();
+        return this.ID + "," + this.dataInizioPrestito + "," + this.dataPrevistaRestituzione + "," + this.utenteAssegnatario.getMatricola() + "," + this.libroPrestato.getISBN();
     }
 }

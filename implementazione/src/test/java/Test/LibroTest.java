@@ -1,6 +1,11 @@
 package Test;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
+import gruppo15.ingegneriadelsoftware.model.GestorePrestiti;
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
+import gruppo15.ingegneriadelsoftware.model.Prestito;
+import gruppo15.ingegneriadelsoftware.model.Utente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -12,7 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 class LibroTest {
 
     private Libro libro;
-    private final LocalDate DATA_PUBBLICAZIONE = LocalDate.of(2000, 1, 1);
+    private Utente utente;
+    private Prestito prestito;
+    private LocalDate DATA_PUBBLICAZIONE = LocalDate.of(2000, 1, 1);
 
     @BeforeEach
     void setUp() {
@@ -24,6 +31,17 @@ class LibroTest {
             5, 
             65.99f
         );
+        
+        utente = new Utente("mario", "rossi", "0123456789", "mariorossi@uni.it");
+        
+        // Aggiungo il libro e l'utente nei manager
+        GestoreUtenti.getInstance().getList().clear();
+        GestoreLibri.getInstance().getList().clear();
+        
+        GestoreUtenti.getInstance().add(utente);
+        GestoreLibri.getInstance().add(libro);
+        
+        prestito = new Prestito("0123456789", "0201633612101", DATA_PUBBLICAZIONE.plusDays(7));
     }
 
     // =========================================================
@@ -34,7 +52,7 @@ class LibroTest {
     void testCostruttoreInizializzazioneCorretta() {
         assertEquals("Design Patterns", libro.getTitolo());
         assertEquals("0201633612101", libro.getISBN());
-        assertEquals(5, libro.getNumeroCopie());
+        assertEquals(5, libro.getNumeroCopieDiStock());
         assertEquals(65.99f, libro.getValore(), 0.001); 
         assertEquals(DATA_PUBBLICAZIONE, libro.getDataDiPubblicazione());
     }
@@ -50,21 +68,17 @@ class LibroTest {
     // =========================================================
 
     @Test
-    void testAggiungiCopiaIncrementaDiUno() {
-        libro.aggiungiCopia();
-        assertEquals(6, libro.getNumeroCopie());
-    }
-    
-    @Test
     void testAggiungiCopie() {
         libro.aggiungiCopie(3);
-        assertEquals(8, libro.getNumeroCopie());
+        assertEquals(8, libro.getNumeroCopieDiStock());
     }
     
     @Test
-    void testRimuoviCopiaDecrementaDiUno() {
-        libro.rimuoviCopia();
-        assertEquals(4, libro.getNumeroCopie());
+    void testGetNumeroCopieRimanenti() {
+        GestorePrestiti.getInstance().getList().clear();
+        GestorePrestiti.getInstance().getList().add(prestito);
+        
+        assertEquals(4, libro.getNumeroCopieRimanenti());
     }
     
     // =========================================================

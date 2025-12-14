@@ -30,7 +30,7 @@ public class Libro implements Searchable {
 
     ///Attributi esterni alla rappresentazione con utilità significativa per il sistema e per le statistiche
     
-    private int numeroCopie;
+    private int numeroCopieDiStock;
 
     private float valore;
 
@@ -41,17 +41,17 @@ public class Libro implements Searchable {
      * @param autori il nome di tutti gli autori che hanno lavorato al libro (separati da virgole)
      * @param dataDiPubblicazione un tipo LocalDate che serve a rappresentare la data di pubblicazione
      * @param ISBN è il codice identificativo del libro che serve a distinguere un libro da un altro
-     * @param numeroCopie un intero che rappresenta il numero di copie di un titolo presente nel catalogo
+     * @param numeroCopieDiStock un intero che rappresenta il numero di copie di un libro possedute dalla biblioteca
      * @param valore rappresenta il valore in denaro del libro 
      * 
      */
     
     //NON SONO SICURO DEI TIPI DEL COSTRUTTORE
-    public Libro(String titolo, String autori, LocalDate dataDiPubblicazione, String ISBN, int numeroCopie, float valore) {
+    public Libro(String titolo, String autori, LocalDate dataDiPubblicazione, String ISBN, int numeroCopieDiStock, float valore) {
         this.titolo = titolo;
         this.dataDiPubblicazione = dataDiPubblicazione;
         this.ISBN = ISBN;
-        this.numeroCopie = numeroCopie;
+        this.numeroCopieDiStock = numeroCopieDiStock;
         this.valore = valore;
         
         //questa istruzione converte una stringa CSV in una lista di stringhe, trimmando opportunamente anche gli spazi
@@ -82,17 +82,6 @@ public class Libro implements Searchable {
     
     public void setDataDiPubblicazione(LocalDate dataDiPubblicazione) {
         this.dataDiPubblicazione = dataDiPubblicazione;
-    }
-    
-    /**
-     * Imposta il numero copie.
-     * 
-     * @param numeroCopie il numero di copie disponibili del libro
-     *  
-     */
-    
-    public void setNumeroCopie(int numeroCopie) {
-        this.numeroCopie = numeroCopie;
     }
     
     /**
@@ -153,15 +142,33 @@ public class Libro implements Searchable {
     }
      
     /** 
-     * Restituisce il numero copie del libro.
+     * Restituisce il numero copie rimanenti del libro.
      * 
-     * @return il numero copie del libro
+     * @return il numero copie rimanenti del libro
      */
     
-    public int getNumeroCopie() {
-        return this.numeroCopie;
+    public int getNumeroCopieRimanenti() {
+        int c = 0;
+        
+        // Conto a quanti utenti è stato prestato questo libro
+        for(Prestito p : GestorePrestiti.getInstance().getList()) {
+            if(p.getLibroPrestato().equals(this))
+                c++;
+        }
+        
+        return this.numeroCopieDiStock - c;
     }
-     
+    
+    /** 
+     * Restituisce il numero copie di stock del libro.
+     * 
+     * @return il numero copie di stock del libro
+     */
+    
+    public int getNumeroCopieDiStock() {
+        return this.numeroCopieDiStock;
+    }
+    
     /**
      * Restituisce la lista degli autori del libro.
      * 
@@ -185,19 +192,9 @@ public class Libro implements Searchable {
     // =========================================================
     // ALTRI METODI
     // =========================================================
-    
-    /**
-     * Incrementa di 1 il numero di copie del libro. (usato per le restituzioni)
-     * 
-     * @post numeroCopie sarà aumentato di 1
-     */
-    
-    public void aggiungiCopia() {
-        this.numeroCopie++;
-    }
 
     /**
-     * Incrementa di un certo numero il numero di copie del libro. (usato per le aggiunte al catalogo)
+     * Incrementa di un certo numero il numero di copie del libro nello stock. (usato per le aggiunte al catalogo)
      * 
      * @pre Il numero di copie deve essere un numero intero positivo diverso da {@code null}
      * @post numeroCopie sarà aumentato di 'copie'
@@ -205,18 +202,7 @@ public class Libro implements Searchable {
      */
     
     public void aggiungiCopie(int copie) {
-        this.numeroCopie += copie;
-    }
-    
-    /**
-     * Rimuove una copia tra quelle disponibili.
-     * 
-     * @pre il numero di copie disponibili deve essere > 0
-     * @post numeroCopie sara aumentato 
-     */
-    
-    public void rimuoviCopia() {
-        this.numeroCopie--;
+        this.numeroCopieDiStock += copie;
     }
 
     /**
@@ -255,6 +241,7 @@ public class Libro implements Searchable {
     /**
      * Controlla se un oggetto è uguale a questa istanza (due libri sono uguali se hanno lo stesso ISBN)
      * 
+     * @param o l'oggetto da confrontare
      * @return  {@code true} se i due libri hanno lo stesso ISBN
      *          {@code false} in tutti gli atri casi
      */
@@ -268,7 +255,7 @@ public class Libro implements Searchable {
         
         Libro o2 = (Libro)o;
         
-        return o2.getISBN().equalsIgnoreCase(this.getISBN());
+        return o2.getISBN().equals(this.getISBN());
     }
     
     /**
@@ -277,7 +264,7 @@ public class Libro implements Searchable {
      * @return Una stringa CSV che contiene titolo, ISBN, numeroCopie, valore e autori
      */
     public String toCSV() {
-        String s = this.titolo + "," + this.ISBN + "," + this.numeroCopie + "," + this.valore + "," + this.dataDiPubblicazione;
+        String s = this.titolo + "," + this.ISBN + "," + this.numeroCopieDiStock + "," + this.valore + "," + this.dataDiPubblicazione;
         
         for(String a : this.listaAutori)
             s += ("," + a);

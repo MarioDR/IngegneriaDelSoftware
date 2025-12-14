@@ -1,6 +1,8 @@
 package Test;
 
+import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
 import gruppo15.ingegneriadelsoftware.model.GestorePrestiti;
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
@@ -14,6 +16,7 @@ class PrestitoTest {
 
     private Utente utenteReale;
     private Libro libroReale;
+    private Libro libroB;
     private Prestito prestitoStandard;
     
     // Date per i test (la data di oggi è implicita nel costruttore)
@@ -22,13 +25,22 @@ class PrestitoTest {
     @BeforeEach
     void setUp() {
         // Oggetti reali necessari per il Prestito
-        utenteReale = new Utente("Marco", "Bianchi", "U777", "m.bianchi@uni.it");
-        libroReale = new Libro("Clean Code", "Robert C. Martin", LocalDate.of(2008, 1, 1), "0132350882", 2, 35.00f);
+        utenteReale = new Utente("Marco", "Bianchi", "0123456789", "m.bianchi@uni.it");
+        libroReale = new Libro("Clean Code", "Robert C. Martin", LocalDate.of(2008, 1, 1), "1234567890123", 2, 35.00f);
+        libroB = new Libro("Code", "Robert C. Martin", LocalDate.of(2008, 5, 2), "1234567890124", 2, 35.00f);
         
         // Prestito standard con scadenza tra 30 giorni
         LocalDate dataPrevistaRestituzione = DATA_OGGI.plusDays(30);
         
-        prestitoStandard = new Prestito(utenteReale, libroReale, dataPrevistaRestituzione);
+        // Aggiungo il prestito e l'utente nei manager
+        GestoreUtenti.getInstance().getList().clear();
+        GestoreLibri.getInstance().getList().clear();
+        
+        GestoreUtenti.getInstance().add(utenteReale);
+        GestoreLibri.getInstance().add(libroReale);
+        GestoreLibri.getInstance().add(libroB);
+        
+        prestitoStandard = new Prestito("0123456789", "1234567890123", dataPrevistaRestituzione);
     }
 
     // =========================================================
@@ -39,7 +51,7 @@ class PrestitoTest {
     void testCostruttoreInizializzaCorrettamente() {
         // Verifica l'ID: deve essere positivo (invariante implicita)
         assertTrue(prestitoStandard.getID() > 0); 
-        System.out.print(prestitoStandard.getID() + "\n\n\n\n\n");
+        
         // Verifica che la data di inizio sia oggi
         assertEquals(DATA_OGGI, prestitoStandard.getDataInizioPrestito());
         
@@ -51,10 +63,8 @@ class PrestitoTest {
     
     @Test
     void testIDUnivocoEPositivo() {
-        // L'ID dovrebbe essere maggiore dell'ID precedente (testa l'invariante ID)
-        
         // Creazione di un secondo prestito
-        Prestito prestitoSuccessivo = new Prestito(utenteReale, libroReale, DATA_OGGI.plusDays(10));
+        Prestito prestitoSuccessivo = new Prestito("0123456789", "1234567890124", DATA_OGGI.plusDays(10));
         
         assertTrue(prestitoSuccessivo.getID() > prestitoStandard.getID());
         assertTrue(prestitoSuccessivo.getID() > 0);
@@ -71,7 +81,7 @@ class PrestitoTest {
         
         // Creo un prestito in scandeza oggi
         LocalDate dataPrevistaRestituzione2 = DATA_OGGI;
-        Prestito prestitoScadenzaOggi = new Prestito(utenteReale, libroReale, dataPrevistaRestituzione2);
+        Prestito prestitoScadenzaOggi = new Prestito("0123456789", "1234567890123", dataPrevistaRestituzione2);
         
         // Data prevista è oggi, quindi non è ancora in ritardo
         assertFalse(prestitoStandard.isInRitardo());
@@ -81,7 +91,7 @@ class PrestitoTest {
     void testIsInRitardoQuandoInRitardo() {
         // Simula che la data prevista fosse ieri
         LocalDate dataPassata = DATA_OGGI.minusDays(1);
-        Prestito prestitoInRitardo = new Prestito(utenteReale, libroReale, dataPassata);
+        Prestito prestitoInRitardo = new Prestito("0123456789", "1234567890123", dataPassata);
         
         assertTrue(prestitoInRitardo.isInRitardo());
     }
@@ -90,7 +100,7 @@ class PrestitoTest {
     void testGetGiorniDiRitardoCalcoloCorretto() {
         // Data prevista: 5 giorni fa
         LocalDate dataPassata = DATA_OGGI.minusDays(5);
-        Prestito prestitoInRitardo = new Prestito(utenteReale, libroReale, dataPassata);
+        Prestito prestitoInRitardo = new Prestito("0123456789", "1234567890123", dataPassata);
         
         // Calcolo: (Oggi - (Oggi - 5)) = +5 giorni
         assertEquals(5L, prestitoInRitardo.getGiorniDiRitardo());
@@ -100,7 +110,7 @@ class PrestitoTest {
     void testGetGiorniDiRitardoQuandoInAnticipo() {
         // Data prevista: 10 giorni nel futuro
         LocalDate dataFutura = DATA_OGGI.plusDays(10);
-        Prestito prestitoInAnticipo = new Prestito(utenteReale, libroReale, dataFutura);
+        Prestito prestitoInAnticipo = new Prestito("0123456789", "1234567890123", dataFutura);
         
         // Calcolo: (Oggi - (Oggi + 10)) = -10 giorni
         assertEquals(-10L, prestitoInAnticipo.getGiorniDiRitardo());
@@ -113,14 +123,14 @@ class PrestitoTest {
     @Test
     void testEqualsConStessoID() {
         // Creiamo un prestito p1 e ne copiamo l'ID
-        Prestito p1 = new Prestito(utenteReale, libroReale, DATA_OGGI.plusDays(1));
+        Prestito p1 = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(1));
         
         // Creiamo un oggetto fittizio che simuli lo stesso ID di p1 per l'equals
         // (Nota: in assenza di mock, questo è difficile da testare senza violare l'invariante ID,
         // ma verifichiamo che il metodo 'equals' funzioni sulla stessa istanza)
         
         // Due istanze consecutive hanno ID diversi
-        Prestito p2 = new Prestito(utenteReale, libroReale, DATA_OGGI.plusDays(1));
+        Prestito p2 = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(1));
         assertFalse(p1.equals(p2));
         
         // La stessa istanza è uguale
@@ -149,11 +159,8 @@ class PrestitoTest {
     
     @Test
     void testToCSVFormatoCorretto() {
-        String expectedUtente = "Marco,Bianchi,U777,m.bianchi@uni.it";
-        String expectedLibro = "Clean Code,0132350882,2,35.0,2008-01-01,Robert C. Martin";
         String expectedDates = prestitoStandard.getDataInizioPrestito() + "," + prestitoStandard.getDataPrevistaRestituzione();
-        
-        String expectedCSV = prestitoStandard.getID() + "," + expectedDates + "," + expectedUtente + "," + expectedLibro;
+        String expectedCSV = prestitoStandard.getID() + "," + expectedDates + "," + "0123456789" + "," + "1234567890123";
         
         assertEquals(expectedCSV, prestitoStandard.toCSV());
     }

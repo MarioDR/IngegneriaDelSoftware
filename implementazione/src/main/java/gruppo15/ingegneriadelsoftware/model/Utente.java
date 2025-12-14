@@ -184,7 +184,7 @@ public class Utente implements Searchable {
             return true;
 
         // 3. Verifica Matricola
-        if (this.getMatricola().toLowerCase().contains(patternRicerca.toLowerCase()))
+        if (this.getMatricola().contains(patternRicerca.toLowerCase()))
             return true;
         
         // 4. Verifica Email
