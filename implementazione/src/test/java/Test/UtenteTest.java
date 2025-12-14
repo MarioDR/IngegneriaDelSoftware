@@ -140,16 +140,35 @@ class UtenteTest {
     }
 
     @Test
-    void testEqualsMatricolaDiversa() {
+    void testEqualsMatricolaCorretta() {
+        // Stessa matricola e email (uguali logicamente)
+        Utente utenteUguale = new Utente("Laura", "Verdi", "M123456", "marco.rossi2@uni.it");
+        
+        assertTrue(utenteStandard.equals(utenteUguale));
+    }
+    
+    @Test
+    void testEqualsEmailCorretta() {
+        // Stessa matricola e email (uguali logicamente)
+        Utente utenteUguale = new Utente("Laura", "Verdi", "M123436", "marco.rossi@uni.it");
+        
+        assertTrue(utenteStandard.equals(utenteUguale));
+    }
+    
+    @Test
+    void testEqualsMatricolaEmailDiverse() {
         // Matricola diversa
-        Utente utenteDiverso = new Utente("Marco", "Rossi", "D456", "marco.rossi@uni.it");
+        Utente utenteDiverso = new Utente("Marco", "Rossi", "D456", "marco.rossi2@uni.it");
         
         assertFalse(utenteStandard.equals(utenteDiverso));
     }
     
     @Test
     void testToCSVFormatoCorretto() {
-        String expectedCSV = "Marco,Rossi,M123456,marco.rossi@uni.it";
+        utenteStandard.addPrestito(prestito1);
+        utenteStandard.addPrestito(prestito2);
+        
+        String expectedCSV = "Marco,Rossi,M123456,marco.rossi@uni.it,#" + prestito1.getID() + "#" + prestito2.getID();
         assertEquals(expectedCSV, utenteStandard.toCSV());
     }
     

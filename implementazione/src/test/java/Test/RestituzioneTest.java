@@ -150,7 +150,7 @@ class RestituzioneTest {
         // Marco,Neri,U900,m.neri@uni.it,Test Ritorno,ISBN-RET,1,1.0,Autore,2025-12-12,2026-01-01 (Esempio)
         
         String prestitoCSV = prestito.toCSV();
-        String expectedCSV = prestitoCSV + "," + DATA_OGGI; // DATA_OGGI è la data effettiva di restituzione
+        String expectedCSV = DATA_OGGI + "," + prestitoCSV; // DATA_OGGI è la data effettiva di restituzione
         
         assertEquals(expectedCSV, restituzione.toCSV());
     }

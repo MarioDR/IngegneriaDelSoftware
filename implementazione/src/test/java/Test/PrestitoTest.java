@@ -38,7 +38,7 @@ class PrestitoTest {
     void testCostruttoreInizializzaCorrettamente() {
         // Verifica l'ID: deve essere positivo (invariante implicita)
         assertTrue(prestitoStandard.getID() > 0); 
-        
+        System.out.print(prestitoStandard.getID() + "\n\n\n\n\n");
         // Verifica che la data di inizio sia oggi
         assertEquals(DATA_OGGI, prestitoStandard.getDataInizioPrestito());
         
@@ -148,16 +148,13 @@ class PrestitoTest {
     
     @Test
     void testToCSVFormatoCorretto() {
-        // Utente.toCSV() = Marco,Bianchi,U777,m.bianchi@uni.it
-        // Libro.toCSV() = Clean Code,0132350882,2,35.0,Robert C. Martin
+        utenteReale.addPrestito(prestitoStandard);
         
-        // Prestito.toCSV() = Utente.toCSV() + Libro.toCSV() + DataInizio + DataPrevista
+        String expectedUtente = "Marco,Bianchi,U777,m.bianchi@uni.it,#" + prestitoStandard.getID();
+        String expectedLibro = "Clean Code,0132350882,2,35.0,2008-01-01,Robert C. Martin";
+        String expectedDates = prestitoStandard.getDataInizioPrestito() + "," + prestitoStandard.getDataPrevistaRestituzione();
         
-        String expectedUtente = "Marco,Bianchi,U777,m.bianchi@uni.it";
-        String expectedLibro = "Clean Code,0132350882,2,35.0,Robert C. Martin";
-        String expectedDates = "," + prestitoStandard.getDataInizioPrestito() + "," + prestitoStandard.getDataPrevistaRestituzione();
-        
-        String expectedCSV = expectedUtente + "," + expectedLibro + expectedDates;
+        String expectedCSV = prestitoStandard.getID() + "," + expectedDates + "," + expectedUtente + "," + expectedLibro;
         
         assertEquals(expectedCSV, prestitoStandard.toCSV());
     }

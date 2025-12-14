@@ -24,12 +24,23 @@ public class Restituzione implements Searchable {
      * Costruttore della classe Restituzione.
      * 
      * @param p L'oggetto prestito che viene restituito
-     * @param dataEffettivaRestituzione La data in cui è stata effettuata la restituzione
      */
 
     public Restituzione(Prestito p) {
         this.prestitoDaRestituire = p;
         this.dataEffettivaRestituzione = LocalDate.now();
+    }
+    
+    /**
+     * Secondo costruttore della classe Restituzione. (viene usato in fase di ricostruzione da un file CSV)
+     * 
+     * @param p L'oggetto prestito che viene restituito
+     * @param dataEffettivaRestituzione La data in cui è stata effettuata la restituzione
+     */
+
+    public Restituzione(LocalDate dataEffettivaRestituzione,Prestito p) {
+        this.prestitoDaRestituire = p;
+        this.dataEffettivaRestituzione = dataEffettivaRestituzione;
     }
     
     // =========================================================
@@ -121,6 +132,6 @@ public class Restituzione implements Searchable {
      */
     
     public String toCSV() {
-        return this.prestitoDaRestituire.toCSV() + "," + this.dataEffettivaRestituzione;
+        return this.dataEffettivaRestituzione + "," + this.prestitoDaRestituire.toCSV();
     }
 }

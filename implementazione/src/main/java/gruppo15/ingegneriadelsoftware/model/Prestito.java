@@ -37,8 +37,8 @@ public class Prestito implements Searchable {
      * Inizializza un nuovo prestito con la data di inizio uguale a quella attuale
      * e la data di restituzione
      * 
-     * @param utente L'utente a cui è stato segnato il prestito
-     * @param libro Libro dato in prestito
+     * @param utenteAssegnatario L'utente a cui è stato segnato il prestito
+     * @param libroPrestato Libro dato in prestito
      * @param dataPrevistaRestituzione La data prevista di restituzione
      */
 
@@ -48,6 +48,27 @@ public class Prestito implements Searchable {
         this.dataPrevistaRestituzione = dataPrevistaRestituzione;
         this.dataInizioPrestito = LocalDate.now();
         this.ID = cont++;
+    }
+    
+    /**
+     * Seconodo ostruttore della classe Prestito. (Viene usato in fase di ricostruzione dell'oggetto da file CSV)
+     * 
+     * Inizializza un nuovo prestito esplicitando tutti i dettagli
+     * 
+     * @param ID L'ID dell'utente
+     * @param utenteAssegnatario L'utente a cui è stato segnato il prestito
+     * @param libroPrestato Libro dato in prestito
+     * @param dataInizioPrestito La data di inizio del prestito
+     * @param dataPrevistaRestituzione La data prevista di restituzione
+     */
+    
+    public Prestito(int ID, Utente utenteAssegnatario, Libro libroPrestato, LocalDate dataInizioPrestito, LocalDate dataPrevistaRestituzione)
+    {
+        this.utenteAssegnatario = utenteAssegnatario;
+        this.libroPrestato = libroPrestato;
+        this.dataPrevistaRestituzione = dataPrevistaRestituzione;
+        this.dataInizioPrestito = dataInizioPrestito;
+        this.ID = ID;
     }
     
     // =========================================================
@@ -169,6 +190,6 @@ public class Prestito implements Searchable {
      */
     
     public String toCSV() {
-        return this.utenteAssegnatario.toCSV() + "," + this.libroPrestato.toCSV() + "," + this.dataInizioPrestito + "," + this.dataPrevistaRestituzione;
+        return this.ID + "," + this.dataInizioPrestito + "," + this.dataPrevistaRestituzione + "," + this.utenteAssegnatario.toCSV() + "," + this.libroPrestato.toCSV();
     }
 }

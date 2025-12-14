@@ -48,6 +48,24 @@ public class Utente implements Searchable {
         this.listaPrestiti = new ArrayList<>();
     }
     
+    /**
+     * Secondo costruttore della classe Utente. (viene usato in fase di ricostruzione dal file CSV)
+     * 
+     * 
+     * @param nome Il nome dell'utente
+     * @param cognome Il cognome dell'utente
+     * @param matricola La matricola dell'utente
+     * @param email L'email istituzionale dell'utente
+     */
+
+    public Utente(String nome, String cognome, String matricola, String email, List<Prestito> listaPrestiti) {
+        this.nome = nome;
+        this.cognome = cognome;
+        this.matricola = matricola;
+        this.email = email;
+        this.listaPrestiti = listaPrestiti;
+    }
+    
     // =========================================================
     // METODI SETTER
     // =========================================================
@@ -243,16 +261,23 @@ public class Utente implements Searchable {
         
         Utente o2 = (Utente)o;
         
-        return o2.getMatricola().equalsIgnoreCase(this.getMatricola()) && o2.getEmail().equalsIgnoreCase(this.getEmail());
+        return o2.getMatricola().equalsIgnoreCase(this.getMatricola()) || o2.getEmail().equalsIgnoreCase(this.getEmail());
     }
     
     /**
-     * Converte i dati in una stringa CSV. L'ordine è: nome, cognome, matricola, email.
+     * Converte i dati in una stringa CSV. L'ordine è: nome, cognome, matricola, email 
+     * ed eventuali ID di prestiti attivi (ogni ID prestito inizia con #).
      * 
      * @return Una stringa che contiene Nome, Cognome, Matricola, Email e ID dei prestiti in formato CSV
      */
     
     public String toCSV() {
-        return this.nome + "," + this.cognome + "," + this.matricola + "," + this.email;
+        String s =  this.nome + "," + this.cognome + "," + this.matricola + "," + this.email + ",";
+        
+        for(Prestito p : this.listaPrestiti) {
+            s += "#" + p.getID();
+        }
+        
+        return s;
     }
 }

@@ -101,6 +101,6 @@ class LibroTest {
     
     @Test
     void testToCSV() {
-        assertTrue(libro.toCSV().equals("Design Patterns,0201633612101,5,65.99,Gamma,Helm,Johnson,Vlissides"));
+        assertTrue(libro.toCSV().equals("Design Patterns,0201633612101,5,65.99,2000-01-01,Gamma,Helm,Johnson,Vlissides"));
     }
 }

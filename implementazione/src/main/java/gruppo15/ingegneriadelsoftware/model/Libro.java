@@ -277,7 +277,7 @@ public class Libro implements Searchable {
      * @return Una stringa CSV che contiene titolo, ISBN, numeroCopie, valore e autori
      */
     public String toCSV() {
-        String s = this.titolo + "," + this.ISBN + "," + this.numeroCopie + "," + this.valore;
+        String s = this.titolo + "," + this.ISBN + "," + this.numeroCopie + "," + this.valore + "," + this.dataDiPubblicazione;
         
         for(String a : this.listaAutori)
             s += ("," + a);
