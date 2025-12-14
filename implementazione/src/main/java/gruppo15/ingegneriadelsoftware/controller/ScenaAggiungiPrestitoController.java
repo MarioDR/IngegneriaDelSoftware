@@ -8,7 +8,6 @@ import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
 import gruppo15.ingegneriadelsoftware.view.App;
 import static gruppo15.ingegneriadelsoftware.view.App.PATH_CATALOGO;
-import static gruppo15.ingegneriadelsoftware.view.App.PATH_UTENTI;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -148,27 +147,8 @@ public class ScenaAggiungiPrestitoController implements Initializable {
     */
     
     private void updateFileCSV() throws IOException {
-        Path csvPathUtenti = Paths.get(PATH_UTENTI);
         Path csvPathLibri = Paths.get(PATH_CATALOGO);
 
-        // 1. Ottieni la lista delle righe CSV dalla collezione aggiornata
-        List<String> righeCSVUtenti = GestoreUtenti.getInstance().getList().stream()
-                                             .map(Utente::toCSV)
-                                             .collect(Collectors.toList());
-        
-        // 2. Aggiungi l'intestazione all'inizio (se presente nel tuo file originale)
-        // La prima riga è vuota sempre.
-        righeCSVUtenti.add(0, "");
-              
-        // 3. Scrivi TUTTE le righe nel file, sovrascrivendo l'originale
-        Files.write(
-            csvPathUtenti, 
-            righeCSVUtenti, 
-            StandardOpenOption.WRITE, 
-            StandardOpenOption.TRUNCATE_EXISTING, 
-            StandardOpenOption.CREATE
-        );
-        
         // 1. Ottieni la lista delle righe CSV dalla collezione aggiornata
         List<String> righeCSVLibri = GestoreLibri.getInstance().getList().stream()
                                              .map(Libro::toCSV)
@@ -251,9 +231,8 @@ public class ScenaAggiungiPrestitoController implements Initializable {
             // Creazione Oggetto Prestito
             Prestito nuovoPrestito = new Prestito(utente, libro, dataRestituzione);
             
-            // Update dei valori sia nella struttura che nel file CSV per i libri e per gli utenti
+            // Update dei valori sia nella struttura che nel file CSV per i libri
             libro.rimuoviCopia();
-            utente.addPrestito(nuovoPrestito);
             
             try {
                 updateFileCSV(); 
@@ -276,11 +255,10 @@ public class ScenaAggiungiPrestitoController implements Initializable {
             }
             
             App.mostraMessaggioTemporaneo(labelErrorePrestito, "Prestito aggiunto con successo!", "green", 3);
+            pulisciCampi(); 
         } else {
             App.mostraMessaggioTemporaneo(labelErrorePrestito, "Errore: Prestito non valido! (utente o libro non trovati)", "red", 3);
         }
-        
-        pulisciCampi(); 
     }
 
     /**

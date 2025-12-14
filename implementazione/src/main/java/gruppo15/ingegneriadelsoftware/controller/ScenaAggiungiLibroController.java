@@ -1,13 +1,9 @@
 package gruppo15.ingegneriadelsoftware.controller;
 
 import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
-import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
-import gruppo15.ingegneriadelsoftware.model.Utente;
 import gruppo15.ingegneriadelsoftware.view.App;
 import static gruppo15.ingegneriadelsoftware.view.App.PATH_CATALOGO;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -16,7 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -244,7 +239,7 @@ public class ScenaAggiungiLibroController implements Initializable {
                     // Se tutti i campi sono uguali (ad eccezione degli autori che sono una lista)
                     if(titolo.equalsIgnoreCase(l.getTitolo()) 
                        && dataPub.equals(l.getDataDiPubblicazione()) 
-                       && valoreStr.equals(String.valueOf(l.getValore()))) { // Confronta il valore float convertito a stringa
+                       && valore == l.getValore()) { // Confronta i valori float
 
                         // Verifica anche degli autori (logica semplificata per la corrispondenza esatta)
                         List<String> valuesAutori = Arrays.stream(autori.split(",")).map(String::trim).collect(Collectors.toList());

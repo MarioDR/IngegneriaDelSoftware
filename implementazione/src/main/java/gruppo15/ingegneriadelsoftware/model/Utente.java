@@ -26,10 +26,6 @@ public class Utente implements Searchable {
     private String matricola;
     private String email;
     
-    /// Lista che memorizza tutti i prestiti attivi dell'utente
-
-    private List<Prestito> listaPrestiti;
-    
     /**
      * Costruttore della classe Utente.
      * 
@@ -45,25 +41,6 @@ public class Utente implements Searchable {
         this.cognome = cognome;
         this.matricola = matricola;
         this.email = email;
-        this.listaPrestiti = new ArrayList<>();
-    }
-    
-    /**
-     * Secondo costruttore della classe Utente. (viene usato in fase di ricostruzione dal file CSV)
-     * 
-     * 
-     * @param nome Il nome dell'utente
-     * @param cognome Il cognome dell'utente
-     * @param matricola La matricola dell'utente
-     * @param email L'email istituzionale dell'utente
-     */
-
-    public Utente(String nome, String cognome, String matricola, String email, List<Prestito> listaPrestiti) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.matricola = matricola;
-        this.email = email;
-        this.listaPrestiti = listaPrestiti;
     }
     
     // =========================================================
@@ -161,42 +138,14 @@ public class Utente implements Searchable {
      */
 
     public List<Prestito> getListaPrestiti() {
-        return this.listaPrestiti;
-    }
-    
-    // =========================================================
-    // ALTRI METODI
-    // =========================================================
-    
-    /**
-     * Aggiunge un nuovo prestito nella lista dei prestiti dell'utente.
-     * 
-     * @pre L'utente destinatario del prestito deve essere questa istanza
-     * @pre L'ID del prestito deve essere diverso da tutti gli ID dei prestiti attualmente collegati a questa istanza
-     * @pre Questo utente non può avere più di 3 prestiti attivi
-     * @post Il prestito viene aggiunto alla lista dei prestiti dell'utente
-     * @param prestito Il prestito che si vuole aggiungere all'utente
-     * @return La lista dei prestiti aggiornata
-     */
-
-    public List<Prestito> addPrestito(Prestito prestito) {
-        if(prestito != null)
-            this.listaPrestiti.add(prestito);
+        ArrayList<Prestito> a = new ArrayList<>();
         
-        return this.listaPrestiti;
-    }
-    
-    /**
-     * Rimuove un prestito dalla lista prestiti dell'utente.
-     * 
-     * @post Il prestito viene rimosso dalla lista dei prestiti dell'utente, se presente
-     * @param p Il prestito da rimuovere dalla lista dei prestiti dell'utente
-     * @return La lista dei prestiti aggiornata
-     */
-
-    public List<Prestito> removePrestito(Prestito p) {
-        this.listaPrestiti.remove(p);
-        return this.listaPrestiti;
+        for(Prestito p : GestorePrestiti.getInstance().getList()) {
+            if(p.getUtenteAssegnatario().equals(this))
+                a.add(p);
+        }
+        
+        return a;
     }
     
     /**
@@ -207,7 +156,7 @@ public class Utente implements Searchable {
      */
     
     public boolean hasMaxNumPrestiti() {
-        return this.listaPrestiti.size() >= 3;
+        return this.getListaPrestiti().size() >= 3;
     }
     
     /**
@@ -272,12 +221,6 @@ public class Utente implements Searchable {
      */
     
     public String toCSV() {
-        String s =  this.nome + "," + this.cognome + "," + this.matricola + "," + this.email + ",";
-        
-        for(Prestito p : this.listaPrestiti) {
-            s += "#" + p.getID();
-        }
-        
-        return s;
+        return this.nome + "," + this.cognome + "," + this.matricola + "," + this.email;
     }
 }

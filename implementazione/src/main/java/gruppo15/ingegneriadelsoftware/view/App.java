@@ -154,28 +154,13 @@ public class App extends Application {
                 // Spezzare la riga usando la virgola come delimitatore
                 String[] values = line.split(",");
 
-                // I primi 4 valori sono i campi fissi: Nome, Cognome, Matricola, Email. 
+                // I 4 valori sono i campi fissi: Nome, Cognome, Matricola, Email. 
                 String nome = values[0].trim();
                 String cognome = values[1].trim();
                 String matricola = values[2].trim();
                 String email = values[3].trim();
-
-                // Ricerca dei prestiti di questo utente nel CSV dei prestiti
                 
-                // Ricavo gli ID
-                List<String> listaID = Arrays.stream(values[5].split("#"))
-                                    .filter(s -> !s.isEmpty()) // Rimuove l'elemento vuoto iniziale
-                                    .collect(Collectors.toList());
-                
-                List<Prestito> listaPrestiti = new ArrayList<>();
-                
-                // Ricostruisco i prestiti
-                for(String elem : listaID) {
-                    int id = Integer.valueOf(elem);
-                    //listaPrestiti.add(ricercaPrestito(id));
-                }
-                
-                Utente nuovoUtente = new Utente(nome, cognome, matricola, email, listaPrestiti);
+                Utente nuovoUtente = new Utente(nome, cognome, matricola, email);
 
                 // Aggiunta dell'oggetto al gestore
                 GestoreUtenti.getInstance().add(nuovoUtente);
@@ -210,11 +195,6 @@ public class App extends Application {
                     String cognome = values[4].trim();
                     String matricola = values[5].trim();
                     String email = values[6].trim();
-                    
-                    // Separo e ricavo il campo dei prestiti attivi
-                    List<String> listaIDPrestiti = Arrays.stream(values[7].split("#"))
-                                    .filter(s -> !s.isEmpty()) // Rimuove l'elemento vuoto iniziale
-                                    .collect(Collectors.toList());
                     
                     // I prossimi 5 valori sono i campi fissidel libro: Titolo, ISBN, Copie, Valore, data di pubblicazione. 
                     String titolo = values[7].trim();
@@ -293,108 +273,6 @@ public class App extends Application {
             }
         } catch (IOException e) {
             System.err.println("Errore I/O durante la lettura del file CSV: " + e.getMessage());
-        }
-    }
-    
-    /**
-     * Ricostruisce un oggetto Prestito da una singola riga CSV.
-     * * Il formato atteso della riga (valori separati da virgola) è:
-     * ID_Prestito,DataInizio,DataPrevista,
-     * NomeUtente,CognomeUtente,MatricolaUtente,EmailUtente,ListaIDPrestitiUtente,
-     * TitoloLibro,ISBNLibro,CopieLibro,ValoreLibro,DataPubblicazioneLibro,AutoriLibro
-     * * @param csvLine La riga CSV da parsare.
-     * @return L'oggetto Prestito ricostruito.
-     * @throws IllegalArgumentException Se la riga è malformata o i dati non sono validi.
-     */
-    
-    public static Prestito parsePrestitoDaCSV(String csvLine) throws IllegalArgumentException {
-        
-        if (csvLine == null || csvLine.trim().isEmpty()) {
-            throw new IllegalArgumentException("La riga CSV è vuota.");
-        }
-        
-        // Usiamo split con limitatore -1 per preservare anche i campi vuoti
-        String[] values = csvLine.split(",", -1);
-        
-        // Verifica del numero minimo di campi (Prestito: 3 + Utente: 5 + Libro: 6 = 14 campi)
-        // La lista ID Prestiti Utente è un campo singolo separato da '#'.
-        if (values.length < 14) { 
-            throw new IllegalArgumentException("Riga CSV Prestito malformata. Campi attesi >= 14, trovati: " + values.length);
-        }
-
-        try {
-            // =========================================================
-            // 1. CAMPI DEL PRESTITO
-            // =========================================================
-            int ID = Integer.parseInt(values[0].trim());
-            LocalDate dataInizio = LocalDate.parse(values[1].trim());
-            LocalDate dataPrevista = LocalDate.parse(values[2].trim());
-
-            // =========================================================
-            // 2. RICOSTRUZIONE UTENTE (Campi 3-7)
-            // =========================================================
-            String nomeUtente = values[3].trim();
-            String cognomeUtente = values[4].trim();
-            String matricola = values[5].trim();
-            String email = values[6].trim();
-            String prestitiIDString = values[7].trim(); // Formato: #1#2#3...
-            
-            // Creazione di un Utente 'Placeholder' per il costruttore del Prestito
-            // Questo Utente avrà tutti i campi corretti, ma NON avrà ancora l'oggetto Prestito nella sua lista
-            Utente utentePlaceholder = new Utente(nomeUtente, cognomeUtente, matricola, email);
-            
-            // Qui potresti opzionalmente parsare la lista di ID prestiti e aggiungerli all'utente
-            /* if (!prestitiIDString.isEmpty()) {
-                Arrays.stream(prestitiIDString.split("#"))
-                      .filter(s -> !s.isEmpty())
-                      .map(Integer::parseInt)
-                      .forEach(id -> utentePlaceholder.addPrestitoID(id)); 
-            }
-            */
-
-            // =========================================================
-            // 3. RICOSTRUZIONE LIBRO (Campi 8-13+)
-            // =========================================================
-            String titoloLibro = values[8].trim();
-            String isbn = values[9].trim();
-            int copie = Integer.parseInt(values[10].trim());
-            float valore = Float.parseFloat(values[11].trim());
-            LocalDate dataPubblicazione = LocalDate.parse(values[12].trim());
-            
-            // Autori: Racco gliamo tutti i campi rimanenti (dal 13 in poi) e li riuniamo in una stringa CSV.
-            // La logica è: Titolo,ISBN,...,DataPub,Autore1,Autore2,...
-            String autoriCSV = Arrays.stream(values, 13, values.length)
-                                     .collect(Collectors.joining(","));
-                                     
-            // Creazione dell'oggetto Libro 'Placeholder'
-            Libro libroPlaceholder = new Libro(titoloLibro, autoriCSV, dataPubblicazione, isbn, copie, valore);
-
-
-            // =========================================================
-            // 4. CREAZIONE DEL PRESTITO
-            // =========================================================
-            // Nota: Il costruttore di Prestito assegna un nuovo ID autoincrementante.
-            // Per preservare l'ID dal CSV, il costruttore di Prestito DEVE accettare l'ID
-            // OPPURE il Prestito DEVE avere un setter privato per l'ID.
-            
-            // Assumendo che Prestito abbia un costruttore che accetta l'ID dal file:
-            // public Prestito(int id, Utente utente, Libro libro, LocalDate dataPrevista, LocalDate dataInizio)
-            
-            // Se NON hai un costruttore con ID, il Prestito verrà creato con un nuovo ID, rompendo la sequenza.
-            
-            // Prestito nuovoPrestito = new Prestito(ID, utentePlaceholder, libroPlaceholder, dataPrevista, dataInizio);
-            
-            // Se il costruttore è solo (Utente, Libro, DataPrevista)
-            Prestito nuovoPrestito = new Prestito(utentePlaceholder, libroPlaceholder, dataPrevista);
-            
-            // ⚠️ Se usi il costruttore senza ID, il Prestito avrà un ID generato.
-            // Dovrai gestirlo nel GestorePrestiti.
-
-            return nuovoPrestito;
-
-        } catch (Exception e) {
-            // Cattura NumberFormatException, DateTimeParseException e altre eccezioni
-            throw new IllegalArgumentException("Errore di parsing in un campo del Prestito: " + e.getMessage(), e);
         }
     }
     

@@ -1,5 +1,6 @@
 package Test;
 
+import gruppo15.ingegneriadelsoftware.model.GestorePrestiti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
@@ -148,9 +149,7 @@ class PrestitoTest {
     
     @Test
     void testToCSVFormatoCorretto() {
-        utenteReale.addPrestito(prestitoStandard);
-        
-        String expectedUtente = "Marco,Bianchi,U777,m.bianchi@uni.it,#" + prestitoStandard.getID();
+        String expectedUtente = "Marco,Bianchi,U777,m.bianchi@uni.it";
         String expectedLibro = "Clean Code,0132350882,2,35.0,2008-01-01,Robert C. Martin";
         String expectedDates = prestitoStandard.getDataInizioPrestito() + "," + prestitoStandard.getDataPrevistaRestituzione();
         
