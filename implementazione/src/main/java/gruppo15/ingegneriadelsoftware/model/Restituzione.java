@@ -1,5 +1,7 @@
 package gruppo15.ingegneriadelsoftware.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 /**
@@ -90,6 +92,27 @@ public class Restituzione implements Searchable {
 
     public boolean isRestituitoInRitardo() {
         return this.dataEffettivaRestituzione.isAfter(this.prestitoDaRestituire.getDataPrevistaRestituzione());
+    }
+    
+    /**
+     * Ritorna l'ammontare della penale di una restituzione se arrivata in ritardo.
+     * 
+     * @return  il valore della penale calcolato
+     */
+    
+    public float calcolaPenale() {
+        if(this.isRestituitoInRitardo()) {
+            // equivale al 5% del valore del libro per il numero di giorni di ritardo
+            float val = this.getRitardoDefinitivo() * 5/100 * this.getPrestitoDaRestituire().getLibroPrestato().getValore();
+            
+            // arrotondiamo a 2 cifre decimali
+            BigDecimal bd = new BigDecimal(Float.toString(val));
+            bd = bd.setScale(2, RoundingMode.HALF_UP);
+            float risultatoArrotondato = bd.floatValue(); 
+            
+            return risultatoArrotondato;
+        } else
+            return 0F;
     }
     
     /**

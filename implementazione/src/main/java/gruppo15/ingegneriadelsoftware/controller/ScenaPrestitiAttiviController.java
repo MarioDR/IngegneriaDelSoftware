@@ -1,19 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gruppo15.ingegneriadelsoftware.controller;
 
 import gruppo15.ingegneriadelsoftware.model.GestorePrestiti;
+import gruppo15.ingegneriadelsoftware.model.GestoreRestituzioni;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
+import gruppo15.ingegneriadelsoftware.model.Restituzione;
 import gruppo15.ingegneriadelsoftware.view.App;
+import static gruppo15.ingegneriadelsoftware.view.App.PATH_PRESTITI;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -23,18 +29,33 @@ import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * @file ScenaPrestitiAttiviController.java
+ * @brief Questa classe implementa tutti i metodi e le azioni collegate 
+ * agli oggetti della scena 'ScenaPrestitiAttivi.fxml'.
  *
- * @author mario
+ * @author Gruppo15
+ * @version 1.0
  */
+
 public class ScenaPrestitiAttiviController implements Initializable {
 
     @FXML
@@ -79,8 +100,9 @@ public class ScenaPrestitiAttiviController implements Initializable {
     private ObservableList<Prestito> listaPrestiti;
 
     /**
-     * Initializes the controller class.
+     * In questo metodo viene implementata la logica di ricerca e la visualizzazione della tabella.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -119,8 +141,151 @@ public class ScenaPrestitiAttiviController implements Initializable {
         sortedData.comparatorProperty().bind(tabellaPrestitiAttivi.comparatorProperty());
 
         tabellaPrestitiAttivi.setItems(sortedData);
+        
+         tabellaPrestitiAttivi.setRowFactory(tv -> {
+            TableRow<Prestito> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                // 1. Verifica che sia un doppio click (clickCount == 2)
+                // 2. Verifica che la riga non sia vuota (row.isEmpty() == false)
+                if (event.getClickCount() == 2 && (! row.isEmpty())) {
+                    Prestito prestitoSelezionato = row.getItem();
+                    // Chiama il metodo per aprire il popup
+                    showPrestitoDetailsPopup(prestitoSelezionato); 
+                }
+            });
+            return row;
+        });
     }    
 
+    // =========================================================
+    // METODI HELPER
+    // =========================================================
+    
+    /**
+    * Riscrive completamente il file prestiti.csv con lo stato attuale della collezione.
+    * Questo è necessario quando si aggiornano campi di un record esistente.
+    * 
+    * @throws IOException Se il file non può essere riscritto.
+    */
+    
+    private void updateFileCSV() throws IOException {
+        Path csvPathPrestiti = Paths.get(PATH_PRESTITI);
+        
+        // 1. Ottieni la lista delle righe CSV dalla collezione aggiornata
+        List<String> righeCSVPrestiti = GestorePrestiti.getInstance().getList().stream()
+                                             .map(Prestito::toCSV)
+                                             .collect(Collectors.toList());
+
+        // 2. Aggiungi l'intestazione all'inizio (se presente nel tuo file originale)
+        // La prima riga è vuota sempre.
+        righeCSVPrestiti.add(0, "");
+
+        // 3. Scrivi TUTTE le righe nel file, sovrascrivendo l'originale
+        Files.write(
+            csvPathPrestiti, 
+            righeCSVPrestiti, 
+            StandardOpenOption.WRITE, 
+            StandardOpenOption.TRUNCATE_EXISTING, 
+            StandardOpenOption.CREATE
+        );
+    }
+    
+    // =========================================================
+    // HANDLE AZIONI
+    // =========================================================
+    
+    /**
+    * All'azione del doppio click su una riga della tabella degli utenti, verrà visualizzato un
+    * pop-up informativo con i pulsanti di modifica e di elimina.
+    * 
+    * @param prestito Il prestito di cui bisogna visualizzare le informazioni
+    */
+    
+    private void showPrestitoDetailsPopup(Prestito prestito) {
+            // Crea la nuova finestra/Stage
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL); // Blocca l'interazione con la finestra principale
+            popupStage.setTitle("Dettagli Prestito: "); 
+
+            // Layout della finestra
+            VBox root = new VBox(10);
+            root.setPadding(new Insets(20));
+            root.setAlignment(Pos.CENTER_LEFT);
+
+            // Etichette per visualizzare i dettagli del prestito
+            root.getChildren().addAll(
+                new Label("Utente assegnatario: " + prestito.getUtenteAssegnatario().getNome() + " " + prestito.getUtenteAssegnatario().getCognome()),
+                new Label("Email: " + prestito.getUtenteAssegnatario().getEmail()),
+                new Label("Matricola: " + prestito.getUtenteAssegnatario().getMatricola()),
+                new Label("Libro: " + prestito.getLibroPrestato().getTitolo()),
+                new Label("Autore/i: " + prestito.getLibroPrestato().getListaAutori().toString()),
+                new Label("ISBN: " + prestito.getLibroPrestato().getISBN()),
+                new Label("Data inizio prestito: " + prestito.getDataInizioPrestito().format(DateTimeFormatter.ISO_DATE)),
+                new Label("Data prevista restituzione: " + prestito.getDataPrevistaRestituzione().format(DateTimeFormatter.ISO_DATE))
+                // Aggiungi qui tutte le altre informazioni
+            );
+
+            // Pulsanti
+            HBox buttonBar = new HBox(10);
+            buttonBar.setAlignment(Pos.CENTER);
+
+            Button btnEnd = new Button("Termina");
+
+            // Aggiungi i gestori di eventi ai pulsanti
+            btnEnd.setOnAction(e -> handleEnd(prestito, popupStage));
+
+            buttonBar.getChildren().addAll(btnEnd);
+
+            root.getChildren().add(buttonBar);
+
+            // Configura e mostra la scena
+            Scene scene = new Scene(root);
+            popupStage.setScene(scene);
+            popupStage.show();
+        }
+    
+    /**
+    * All'azione del pulsante termina del pop-up informativo di un prestito, verrà avviato
+    * il processo di terminazine di un prestito.
+    * 
+    * @param prestito il prestito da terminare
+    * @param popupStage La finestra di pop-up mostrata
+    */
+    
+    private void handleEnd(Prestito prestito, Stage popupStage){
+        // **FASE 1: Conferma**
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Conferma Terminazione Prestito");
+        confirmationAlert.setHeaderText("Sei sicuro di voler terminare questo prestito?");
+        confirmationAlert.setContentText("Questa azione è irreversibile.");
+
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // **FASE 2: Logica di Eliminazione**
+
+            // 3. Elimina il libro
+
+            Restituzione nuovaRestituzione = new Restituzione(prestito);
+            GestoreRestituzioni.getInstance().getList().add(nuovaRestituzione);
+
+            GestorePrestiti.getInstance().getList().remove(prestito);
+
+            // 4. Rimuovi il libro dalla TableView (listaLibri) per aggiornare l'interfaccia
+            listaPrestiti.remove(prestito);
+
+            // 5. Riscrivi il file dei prestiti con le nuove modifiche
+            try{
+                updateFileCSV();
+            }catch (IOException ex) {
+                Logger.getLogger(ScenaPrestitiAttiviController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            // Chiudi il popup
+            popupStage.close();
+        }
+    }
+    
 //============================================================================================================================
 //                                        NAVIGABILITA' PARTE SINISTRA DELLO SPLIT PANE
 //============================================================================================================================
