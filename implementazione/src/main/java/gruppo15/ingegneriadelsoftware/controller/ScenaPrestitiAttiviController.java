@@ -121,6 +121,20 @@ public class ScenaPrestitiAttiviController implements Initializable {
         tabellaPrestitiAttivi.setItems(sortedData);
     }    
 
+//============================================================================================================================
+//                                        NAVIGABILITA' PARTE SINISTRA DELLO SPLIT PANE
+//============================================================================================================================
+
+    // =========================================================
+    // SEZIONE PULSANTI DEL MENU'
+    // =========================================================
+    
+    /**
+     * Questo metodo è collegato all'azione del pulsante 'logout_button' e serve a tornare alla pagina di login.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickLogoutButton(ActionEvent event) {
         try {
@@ -130,10 +144,28 @@ public class ScenaPrestitiAttiviController implements Initializable {
         }
     }
 
+    /**
+     * Questo metodo è collegato all'azione del pulsante 'settings_button' e serve ad aprire il menù delle impostazioni.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickSettingsButton(ActionEvent event) {
     }
-
+    
+    // =========================================================
+    // SEZIONE GESTIONE DEL MENU'
+    // =========================================================
+    
+    // ----------------------- UTENTI --------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaListaUtenti'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickListaUtenti(ActionEvent event) {
         try {
@@ -143,6 +175,12 @@ public class ScenaPrestitiAttiviController implements Initializable {
         }
     }
 
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiUtente'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAggiungiUtente(ActionEvent event) {
         try {
@@ -151,7 +189,15 @@ public class ScenaPrestitiAttiviController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    // ---------------------- CATALOGO -------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaVisualizzaCatalogo'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickVisualizzaCatalogo(ActionEvent event) {
         try {
@@ -160,7 +206,13 @@ public class ScenaPrestitiAttiviController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiLibro'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAggiungiLibro(ActionEvent event) {
         try {
@@ -169,7 +221,15 @@ public class ScenaPrestitiAttiviController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    // -------------- PRESTITI E RESTITUZIONI ------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaPrestitiAttivi'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickPrestitiAttivi(ActionEvent event) {
         try {
@@ -178,7 +238,13 @@ public class ScenaPrestitiAttiviController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiPrestito'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAggiungiPrestito(ActionEvent event) {
         try {
@@ -187,7 +253,13 @@ public class ScenaPrestitiAttiviController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaStoricoRestituzioni'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickStoricoRestituzioni(ActionEvent event) {
         try {
@@ -197,8 +269,15 @@ public class ScenaPrestitiAttiviController implements Initializable {
         }
     }
 
+    // -------------------- STATISTICHE ------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaVisualizzaStatistiche'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickVisualizzaStatistiche(ActionEvent event) {
     }
-    
 }

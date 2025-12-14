@@ -1,19 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gruppo15.ingegneriadelsoftware.controller;
 
 import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
+import gruppo15.ingegneriadelsoftware.model.GestoreUtenti;
 import gruppo15.ingegneriadelsoftware.model.Libro;
+import gruppo15.ingegneriadelsoftware.model.Utente;
 import gruppo15.ingegneriadelsoftware.view.App;
+import static gruppo15.ingegneriadelsoftware.view.App.PATH_CATALOGO;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -24,10 +33,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * FXML Controller class
+ * @file ScenaAggiungiLibroController.java
+ * @brief Questa classe implementa tutti i metodi e le azioni collegate 
+ * agli oggetti della scena 'ScenaAggiungiLibro.fxml'.
  *
- * @author mario
+ * @author Gruppo15
+ * @version 1.0
  */
+
 public class ScenaAggiungiLibroController implements Initializable {
 
     @FXML
@@ -68,70 +81,88 @@ public class ScenaAggiungiLibroController implements Initializable {
     private TextField numeroCopieField;
     @FXML
     private TextField valoreField;
-
+    
     /**
-     * Initializes the controller class.
+     * In questo metodo viene implementata la logica di binding tra il pulsante AGGIUNGI e i campi compilabili.
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // TODO
         labelErroreLibro.setText("");
+        
+        //IMPLEMENTAZIONE LOGICA DI DISABLE DEL PULSANTE AGGIUNGI
+        BooleanBinding isFormValid = Bindings.createBooleanBinding(
+        () -> {
+            // Recupriamo i valori
+            String titolo = titoloField.getText().trim();
+            String autore = autoreField.getText().trim();
+            String isbn = ISBNField.getText().trim();
+            String copieStr = numeroCopieField.getText().trim();
+            String valoreStr = valoreField.getText().trim();
+            LocalDate dataPub = dataPubblicazioneField.getValue();
+            
+            // --- CONDIZIONI DI BASE (TUTTO DEVE ESSERE VERO) ---
+
+            // 1. Tutti i campi TextField devono essere NON vuoti
+            boolean textFieldsFilled = !titolo.isEmpty() &&
+                                       !autore.isEmpty() &&
+                                       !isbn.isEmpty() &&
+                                       !copieStr.isEmpty() &&
+                                       !valoreStr.isEmpty();
+            
+            // 2. Il DatePicker deve essere NON nullo
+            if (!textFieldsFilled || dataPub == null) {
+                return false; // Se manca qualcosa, non è valido
+            }
+            
+            // --- CONDIZIONI DI FORMATO (TUTTO DEVE ESSERE VERO) ---
+
+            // 3. Titolo (almeno 1 carattere qualsiasi)
+            boolean titoloValid = titolo.matches(".+"); 
+            
+            // 4. Autore (solo lettere e spazi/accenti)
+            // RegEx che richiede: Nome [, Spazi Nome]
+            boolean autoreValid = autore.matches("[a-zA-Z\\sàèéìòùÀÈÉÌÒÙ']+(?:\\s*,\\s*[a-zA-Z\\sàèéìòùÀÈÉÌÒÙ']+)*");
+            
+            // 5. ISBN (esattamente 13 cifre intere)
+            boolean isbnValid = isbn.matches("^[0-9]{13}$");
+            
+            // 6. Numero Copie (1 a 3 cifre intere)
+            boolean copieValid = copieStr.matches("^[0-9]{1,3}$");
+            
+            // 7. Valore (Numeri interi o float, es. 123 o 123.45)
+            // Assumo che accetti decimali. Modifica questa RegEx se deve essere intero!
+            boolean valoreValid = valoreStr.matches("^[0-9]{1,3}([\\.,][0-9]+)?$"); 
+            
+            // 8. Data di Pubblicazione (deve essere nel passato o oggi)
+            boolean dataValid = !dataPub.isAfter(LocalDate.now()); // Equivalente a dataPub.isBefore(LocalDate.now()) || dataPub.isEqual(LocalDate.now())
+            
+            // La forma è valida solo se tutte le verifiche di FORMATO sono vere
+            return titoloValid && autoreValid && isbnValid && copieValid && valoreValid && dataValid;
+
+        },
+        // Dipendenze: si aggiorna quando cambia il testo o la data
+        titoloField.textProperty(),
+        autoreField.textProperty(),
+        ISBNField.textProperty(),
+        numeroCopieField.textProperty(),
+        valoreField.textProperty(),
+        dataPubblicazioneField.valueProperty()
+    );
+
+    // Colleghiamo: il pulsante è DISATTIVATO se la forma NON è valida.
+    aggiungiButton.disableProperty().bind(isFormValid.not());
     }    
 
-    @FXML
-    private void clickLogoutButton(ActionEvent event) {
-        try {
-            App.setRoot("ScenaLogin");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void clickSettingsButton(ActionEvent event) {
-    }
-
-    @FXML
-    private void clickAggiungi(ActionEvent event) {
-        try{
-            
-            String titolo = titoloField.getText();
-            String autori = autoreField.getText();
-            String isbn = ISBNField.getText();
-            LocalDate dataPub = dataPubblicazioneField.getValue();
-            String copieStr = numeroCopieField.getText();
-            String valoreStr = valoreField.getText();
-            
-            if (titolo.isEmpty() || autori.isEmpty() || isbn.isEmpty() || dataPub == null || copieStr.isEmpty() || valoreStr.isEmpty()) {
-                labelErroreLibro.setText("Errore: Compila tutti i campi!");
-                labelErroreLibro.setStyle("-fx-text-fill: red;");
-                return;
-            }
-
-            // Conversione Numerica (può generare eccezione se scrivo lettere)
-            int copie = Integer.parseInt(copieStr);
-            float valore = Float.parseFloat(valoreStr);
-
-            // Creazione Oggetto Libro
-            Libro nuovoLibro = new Libro(titolo, autori, dataPub, isbn, copie, valore);
-
-            // Salvataggio nel Gestore Condiviso 
-            GestoreLibri.getInstance().add(nuovoLibro);
-
-            labelErroreLibro.setText("Libro aggiunto con successo!");
-            labelErroreLibro.setStyle("-fx-text-fill: green;");
-            
-            pulisciCampi(); 
-            
-        } catch (NumberFormatException e) {
-            // Gestione errore se Copie o Valore non sono numeri
-            labelErroreLibro.setText("Errore: 'Copie' e 'Valore' devono essere numeri validi!");
-            labelErroreLibro.setStyle("-fx-text-fill: red;");
-        } catch (Exception e) {
-            labelErroreLibro.setText("Errore: " + e.getMessage());
-            labelErroreLibro.setStyle("-fx-text-fill: red;");
-        }
-    }
-
+    // =========================================================
+    // METODI HELPER
+    // =========================================================
+    
+    /**
+     * Questo è un metodo helper che svuota tutti i campi dei textField.
+     */
+    
     private void pulisciCampi() {
         titoloField.clear();
         autoreField.clear();
@@ -141,11 +172,192 @@ public class ScenaAggiungiLibroController implements Initializable {
         dataPubblicazioneField.setValue(null);
     }
     
+    /**
+    * Riscrive completamente il file catalogo.csv con lo stato attuale della collezione GestoreLibri.
+    * Questo è necessario quando si aggiornano campi (come il numero di copie) di un record esistente.
+    * 
+    * @throws IOException Se il file non può essere riscritto.
+    */
+    
+    private void riscriviFileCatalogo() throws IOException {
+        Path csvPath = Paths.get(PATH_CATALOGO);
+
+        // 1. Ottieni la lista delle righe CSV dalla collezione aggiornata
+        List<String> righeCSV = GestoreLibri.getInstance().getList().stream()
+                                             .map(Libro::toCSV)
+                                             .collect(Collectors.toList());
+
+        // 2. Aggiungi l'intestazione all'inizio (se presente nel tuo file originale)
+        // La prima riga è vuota sempre.
+        righeCSV.add(0, "");
+
+        // 3. Scrivi TUTTE le righe nel file, sovrascrivendo l'originale
+        Files.write(
+            csvPath, 
+            righeCSV, 
+            StandardOpenOption.WRITE, 
+            StandardOpenOption.TRUNCATE_EXISTING, 
+            StandardOpenOption.CREATE
+        );
+    }
+    
+    // =========================================================
+    // AZIONI DEI PULSANTI - INTERFACCIA COMPILABLE
+    // =========================================================
+    
+    /**
+     * Il metodo è collegato all'azione del pulsante 'aggiungiButton' che permette di aggiungere un libro al catalogo
+     * con tutte le operazioni di inserimento nel file CSV e nella collezione di gestione. La gestione della sintassi corretta
+     * è rimandata all'interfaccia grafica.
+     * 
+     * @param event l'evento del click sul pulsante
+     * @pre tutti i campi devono essere conformi ai requisiti sintattici previsti
+     */
+
+    @FXML
+    private void clickAggiungi(ActionEvent event) {
+        try {
+            // Aquisizione dei dati formattati e pronti per l'elaborazione
+            String titolo = titoloField.getText().trim().toLowerCase();
+            String autori = autoreField.getText().trim().toLowerCase();
+            String isbn = ISBNField.getText().trim();
+            LocalDate dataPub = dataPubblicazioneField.getValue();
+            String copieStr = numeroCopieField.getText().trim();
+            String valoreStr = valoreField.getText().trim();
+            
+            // Conversione Numerica (può generare eccezione se scrivo lettere, ma questo verrà controllato con 'Initialize')
+            int copie = Integer.parseInt(copieStr);
+            float valore = Float.parseFloat(valoreStr);
+
+            // Creazione Oggetto Libro
+            Libro nuovoLibro = new Libro(titolo, autori, dataPub, isbn, copie, valore);
+            
+            // Sarà true se il libro inserito è un duplicato perfetto di un libro già presente in catalogo
+            boolean soloAggiuntaCopie = false;
+            
+            // E' possibile l'inserimento di un libro duplicato a patto che sia uguale in ogni caratteristica a meno del numero delle copie
+            // In questo caso viene incrementato solo il numero di copie del libro esistente.
+            // In ogni altro caso in cui corrisponde l'ISBN ma almeno uno degli altri campi è diverso, l'inserimento fallisce
+            for(Libro l : GestoreLibri.getInstance().getList()) {
+                // Se l'ISBN corrisponde verifica tutti gli altri campi
+                if(nuovoLibro.equals(l)) {
+                    // Se tutti i campi sono uguali (ad eccezione degli autori che sono una lista)
+                    if(titolo.equalsIgnoreCase(l.getTitolo()) 
+                       && dataPub.equals(l.getDataDiPubblicazione()) 
+                       && valoreStr.equals(String.valueOf(l.getValore()))) { // Confronta il valore float convertito a stringa
+
+                        // Verifica anche degli autori (logica semplificata per la corrispondenza esatta)
+                        List<String> valuesAutori = Arrays.stream(autori.split(",")).map(String::trim).collect(Collectors.toList());
+
+                        // Arrivati a questo punto, la equals è andata a buon fine e gli altri campi sono compatibili
+
+                        // Aggiornamento in Memoria
+                        l.aggiungiCopie(nuovoLibro.getNumeroCopie());
+                        soloAggiuntaCopie = true; 
+
+                        // **NOTA**: Qui il file CSV verrà aggiornato dopo il loop
+                        break; 
+
+                    } else {
+                        // Se uno degli altri campi oltre gli autori è diverso, abortisci
+                        App.mostraMessaggioTemporaneo(labelErroreLibro, "Libro duplicato con metadati diversi (ISBN già in uso)!", "red", 3);
+                        return;
+                    }
+                } 
+            }
+            
+            // LOGICA DELLA GESTIONE DEL DUPLICATO (modifica solo il numero di copie disponibili)
+            if (soloAggiuntaCopie) {
+                // Se abbiamo solo aggiornato le copie, riscriviamo tutto il catalogo
+                try {
+                    riscriviFileCatalogo(); 
+                } catch(IOException e) {
+                    App.mostraMessaggioTemporaneo(labelErroreLibro, "Errore I/O: Impossibile salvare il nuovo libro sul file!", "red", 3);
+                    return;
+                }
+                
+                App.mostraMessaggioTemporaneo(labelErroreLibro, "Copie aggiunte al libro esistente con successo!", "green", 3);
+
+            } else {
+                // Se non abbiamo trovato duplicati, aggiungiamo il nuovo libro al Gestore e al file
+                GestoreLibri.getInstance().add(nuovoLibro);
+
+                // Salvataggio del record sul file CSV corrispondente (solo append)
+                try (FileWriter writer = new FileWriter(PATH_CATALOGO, true)) {
+                    writer.write(System.lineSeparator() + nuovoLibro.toCSV());
+                } catch (IOException e) {
+                    App.mostraMessaggioTemporaneo(labelErroreLibro, "Errore I/O: Impossibile salvare il nuovo libro sul file!", "red", 3);
+                    // Opzionale: Rimuovi il libro dal gestore se il salvataggio fallisce per mantenere coerenza.
+                    GestoreLibri.getInstance().remove(nuovoLibro); 
+                    return;
+                }
+
+                App.mostraMessaggioTemporaneo(labelErroreLibro, "Nuovo libro aggiunto con successo!", "green", 5);
+            }
+            
+            // Pulizia dei campi di testo
+            pulisciCampi();
+        } catch (Exception e) {
+            App.mostraMessaggioTemporaneo(labelErroreLibro, "Errore: " + e.getMessage(), "red", 3);
+        }
+    }
+    
+    /**
+     * Questo metodo è associato all'azione del pulsante 'annullaButton' che serve a ripulire tutti i campi dei textField.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAnnulla(ActionEvent event) {
         pulisciCampi();
     }
+    
+//============================================================================================================================
+//                                        NAVIGABILITA' PARTE SINISTRA DELLO SPLIT PANE
+//============================================================================================================================
 
+    // =========================================================
+    // SEZIONE PULSANTI DEL MENU'
+    // =========================================================
+    
+    /**
+     * Questo metodo è collegato all'azione del pulsante 'logout_button' e serve a tornare alla pagina di login.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickLogoutButton(ActionEvent event) {
+        try {
+            App.setRoot("ScenaLogin");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * Questo metodo è collegato all'azione del pulsante 'settings_button' e serve ad aprire il menù delle impostazioni.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickSettingsButton(ActionEvent event) {
+    }
+    
+    // =========================================================
+    // SEZIONE GESTIONE DEL MENU'
+    // =========================================================
+    
+    // ----------------------- UTENTI --------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaListaUtenti'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickListaUtenti(ActionEvent event) {
         try {
@@ -155,6 +367,12 @@ public class ScenaAggiungiLibroController implements Initializable {
         }
     }
 
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiUtente'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAggiungiUtente(ActionEvent event) {
         try {
@@ -163,7 +381,15 @@ public class ScenaAggiungiLibroController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    // ---------------------- CATALOGO -------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaVisualizzaCatalogo'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickVisualizzaCatalogo(ActionEvent event) {
         try {
@@ -172,7 +398,13 @@ public class ScenaAggiungiLibroController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiLibro'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAggiungiLibro(ActionEvent event) {
         try {
@@ -181,7 +413,15 @@ public class ScenaAggiungiLibroController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    // -------------- PRESTITI E RESTITUZIONI ------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaPrestitiAttivi'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickPrestitiAttivi(ActionEvent event) {
         try {
@@ -190,7 +430,13 @@ public class ScenaAggiungiLibroController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiPrestito'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAggiungiPrestito(ActionEvent event) {
         try {
@@ -199,7 +445,13 @@ public class ScenaAggiungiLibroController implements Initializable {
             ex.printStackTrace();            
         }
     }
-
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaStoricoRestituzioni'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickStoricoRestituzioni(ActionEvent event) {
         try {
@@ -209,8 +461,15 @@ public class ScenaAggiungiLibroController implements Initializable {
         }
     }
 
+    // -------------------- STATISTICHE ------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaVisualizzaStatistiche'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickVisualizzaStatistiche(ActionEvent event) {
     }
-    
 }
