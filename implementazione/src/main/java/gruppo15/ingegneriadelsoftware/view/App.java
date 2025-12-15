@@ -251,7 +251,7 @@ public class App extends Application {
                 String[] values = line.split(",");
 
                 // Salta le righe non conformi
-                if(values.length < 14)
+                if(values.length != 6)
                     continue;
                 
                 try {
@@ -262,10 +262,10 @@ public class App extends Application {
                     LocalDate dataFine = LocalDate.parse(values[3].trim());
                     
                     // Il prossimo valore è la matricola dell'utente
-                    String matricola = values[3].trim();
+                    String matricola = values[4].trim();
                     
                     // Il prossimo valore è l'ISBN del libro
-                    String ISBN = values[4].trim();
+                    String ISBN = values[5].trim();
                     
                     //costruzione dell'oggetto restituzione
                     Prestito prestitoRestituito = new Prestito(ID, matricola, ISBN, dataInizio, dataFine);

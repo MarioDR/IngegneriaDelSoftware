@@ -7,6 +7,7 @@ import gruppo15.ingegneriadelsoftware.model.Restituzione;
 import gruppo15.ingegneriadelsoftware.view.App;
 import static gruppo15.ingegneriadelsoftware.view.App.PATH_CREDENZIALI;
 import static gruppo15.ingegneriadelsoftware.view.App.PATH_PRESTITI;
+import static gruppo15.ingegneriadelsoftware.view.App.PATH_RESTITUZIONI;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -194,6 +195,36 @@ public class ScenaPrestitiAttiviController implements Initializable {
         );
     }
     
+    
+    /**
+    * Riscrive completamente il file restituzioni.csv con lo stato attuale della collezione.
+    * Questo è necessario quando viene terminato un prestito.
+    * 
+    * @throws IOException Se il file non può essere riscritto.
+    */
+    
+    private void updateFileCSVRes() throws IOException {
+        Path csvPathRestituzioni = Paths.get(PATH_RESTITUZIONI);
+        
+        // 1. Ottieni la lista delle righe CSV dalla collezione aggiornata
+        List<String> righeCSVRestituzioni = GestoreRestituzioni.getInstance().getList().stream()
+                                             .map(Restituzione::toCSV)
+                                             .collect(Collectors.toList());
+
+        // 2. Aggiungi l'intestazione all'inizio (se presente nel tuo file originale)
+        // La prima riga è vuota sempre.
+        righeCSVRestituzioni.add(0, "");
+
+        // 3. Scrivi TUTTE le righe nel file, sovrascrivendo l'originale
+        Files.write(
+            csvPathRestituzioni, 
+            righeCSVRestituzioni, 
+            StandardOpenOption.WRITE, 
+            StandardOpenOption.TRUNCATE_EXISTING, 
+            StandardOpenOption.CREATE
+        );
+    }
+    
     // =========================================================
     // HANDLE AZIONI
     // =========================================================
@@ -281,6 +312,7 @@ public class ScenaPrestitiAttiviController implements Initializable {
             // 5. Riscrivi il file dei prestiti con le nuove modifiche
             try{
                 updateFileCSV();
+                updateFileCSVRes();
             }catch (IOException ex) {
                 Logger.getLogger(ScenaPrestitiAttiviController.class.getName()).log(Level.SEVERE, null, ex);
             }

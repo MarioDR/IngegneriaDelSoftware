@@ -42,6 +42,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -95,6 +96,13 @@ public class ScenaListaUtentiController implements Initializable {
     private TableColumn<Utente, String> colonnaEmail;
     
     private ObservableList<Utente> listaUtenti;
+    
+    private TextField tfNome= new TextField();
+    private TextField tfCognome = new TextField();
+    private TextField tfMatricola = new TextField();
+    private TextField tfEmail = new TextField();
+    private Button btnEdit = new Button("");
+    private Button btnDelete = new Button("");
 
     /**
      * In questo metodo viene implementata la logica di ricerca e la visualizzazione della tabella.
@@ -203,25 +211,50 @@ public class ScenaListaUtentiController implements Initializable {
     
     private void showUserDetailsPopup(Utente utente) {
             // Crea la nuova finestra/Stage
+            
+            tfNome.setEditable(false);
+            tfCognome.setEditable(false);
+            tfMatricola.setEditable(false);
+            tfEmail.setEditable(false);
+            
+            tfNome.setText(utente.getNome());
+            tfCognome.setText(utente.getCognome());
+            tfMatricola.setText(utente.getMatricola());
+            tfEmail.setText(utente.getEmail());
+            
             Stage popupStage = new Stage();
             popupStage.initModality(Modality.APPLICATION_MODAL); // Blocca l'interazione con la finestra principale
             popupStage.setTitle("Dettagli Utente: " + utente.getNome()); 
 
             // Layout della finestra
-            VBox root = new VBox(10);
+            VBox root = new VBox(20);
             root.setPadding(new Insets(20));
             root.setAlignment(Pos.CENTER_LEFT);
 
-            // Etichette per visualizzare i dettagli dell'utente
-            root.getChildren().addAll(
-                new Label("Nome: " + utente.getNome()),
-                new Label("Cognome: " + utente.getCognome()),
-                new Label("Matricola: " + utente.getMatricola()),
-                new Label("Email: " + utente.getEmail()),
-                new Label("")
-                
-                // Aggiungi qui tutte le altre informazioni
-            );
+           // 2. Crea un GridPane per allineare Label e TextField
+            GridPane grid = new GridPane();
+            grid.setHgap(10); // Spazio orizzontale tra Label e TextField
+            grid.setVgap(10); // Spazio verticale tra le righe
+
+            // 3. Aggiungi Label (Colonna 0) e TextField (Colonna 1) alla griglia
+            // Sintassi: grid.add(Nodo, Colonna, Riga)
+
+            grid.add(new Label("Nome:"), 0, 0);
+            grid.add(tfNome, 1, 0);
+
+            grid.add(new Label("Cognome:"), 0, 1);
+            grid.add(tfCognome, 1, 1);
+
+            grid.add(new Label("Matricola:"), 0, 2);
+            grid.add(tfMatricola, 1, 2);
+
+            grid.add(new Label("Email:"), 0, 3);
+            grid.add(tfEmail, 1, 3);
+            
+            grid.add(new Label("Lista Prestiti:"), 0, 4);
+
+            // Aggiungi la griglia al root
+            root.getChildren().add(grid); 
             
             VBox prestitiContainer = new VBox(5); // Contenitore per i singoli prestiti
     
@@ -249,8 +282,8 @@ public class ScenaListaUtentiController implements Initializable {
             HBox buttonBar = new HBox(10);
             buttonBar.setAlignment(Pos.CENTER);
 
-            Button btnEdit = new Button("Modifica");
-            Button btnDelete = new Button("Elimina");
+            btnEdit.setText("Modifica");
+            btnDelete.setText("Elimina");
 
             // Aggiungi i gestori di eventi ai pulsanti
             btnEdit.setOnAction(e -> handleEdit(utente, popupStage));
@@ -334,7 +367,61 @@ public class ScenaListaUtentiController implements Initializable {
     */
     
     private void handleEdit(Utente utente, Stage popupStage) {
-        // Logica di modifica
+            tfNome.setEditable(true);
+            tfCognome.setEditable(true);
+            tfEmail.setEditable(true);
+            
+            btnDelete.setText("Conferma");
+            btnEdit.setText("Annulla");
+            
+            btnDelete.setOnAction(e -> handleConfermaEdit(utente, popupStage));
+            btnEdit.setOnAction(e -> handleAnnullaEdit(utente, popupStage));
+    }
+    
+    
+    /**
+     * All'azione del pulsante "conferma", verrà mostrato un pop-up di conferma che ci chiede
+     * se vogliamo modificare in modo permanete l'utente.
+     * 
+     * @param utente l'utente di cui si intende confermare la modifica
+     * @param popupStage la finestra di pop-up mostrata
+     */
+    
+    private void handleConfermaEdit(Utente utente, Stage popupStage) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Conferma Modifica");
+        confirmationAlert.setHeaderText("Sei sicuro di voler modificare l'utente?");
+        confirmationAlert.setContentText("Questa azione è irreversibile.");
+
+    Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        
+            utente.setNome(tfNome.getText());
+            utente.setCognome(tfCognome.getText());
+            utente.setMatricola(tfMatricola.getText());
+            utente.setEmail(tfEmail.getText());
+            
+            tabellaUtenti.refresh();
+            
+            try{
+            riscriviFileUtenti();
+            }catch(IOException ex){
+                Logger.getLogger(ScenaListaUtentiController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            popupStage.close();
+    }   
+    }
+    
+    /**
+     * Cliccando su annulla il pop-up riguardante la modifica verrà chiuso
+     * 
+     * @param utente l'utente di cui si intende annullare la modifica
+     * @param popupStage la finestra di pop-up mostrata
+     */
+    private void handleAnnullaEdit(Utente utente, Stage popupStage) {
+        popupStage.close();
     }
 
 //============================================================================================================================

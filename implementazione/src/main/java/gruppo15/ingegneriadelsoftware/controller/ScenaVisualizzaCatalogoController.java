@@ -44,6 +44,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -98,6 +99,16 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     private TableView<Libro> tabellaCatalogo;
     
     private ObservableList<Libro> listaLibri;
+    
+    private TextField tfTitolo= new TextField();
+    private TextField tfAutori = new TextField();
+    private TextField tfISBN = new TextField();
+    private TextField tfDataPubblicazione = new TextField();
+    private TextField tfCopieNelloStock= new TextField();
+    private TextField tfCopieDisponibili = new TextField();
+    private TextField tfValore = new TextField();
+    private Button btnEdit = new Button("");
+    private Button btnDelete = new Button("");
 
     /**
      * In questo metodo viene implementata la logica di ricerca e la visualizzazione della tabella.
@@ -208,34 +219,71 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     
     private void showLibroDetailsPopup(Libro libro) {
         // Crea la nuova finestra/Stage
+        
+        tfTitolo.setEditable(false);
+        tfAutori.setEditable(false);
+        tfISBN.setEditable(false);
+        tfDataPubblicazione.setEditable(false);
+        tfCopieNelloStock.setEditable(false);
+        tfCopieDisponibili.setEditable(false);
+        tfValore.setEditable(false);
+            
+        tfTitolo.setText(libro.getTitolo());
+        tfAutori.setText(libro.stampaAutori());
+        tfISBN.setText(libro.getISBN());
+        tfDataPubblicazione.setText(libro.getDataDiPubblicazione().format(DateTimeFormatter.ISO_DATE));
+        tfCopieNelloStock.setText(String.valueOf(libro.getNumeroCopieDiStock()));
+        tfCopieDisponibili.setText(String.valueOf(libro.getNumeroCopieRimanenti()));
+        tfValore.setText(String.valueOf(libro.getValore()));
+            
+            
         Stage popupStage = new Stage();
         popupStage.initModality(Modality.APPLICATION_MODAL); // Blocca l'interazione con la finestra principale
         popupStage.setTitle("Dettagli Libro: " + libro.getTitolo()); 
 
         // Layout della finestra
-        VBox root = new VBox(10);
+        VBox root = new VBox(20);
         root.setPadding(new Insets(20));
         root.setAlignment(Pos.CENTER_LEFT);
 
-        // Etichette per visualizzare i dettagli dell'utente
-        root.getChildren().addAll(
-            new Label("Titolo: " + libro.getTitolo()),
-            new Label("Autori: " + libro.getListaAutori().toString()),
-            new Label("ISBN: " + libro.getISBN()),
-            new Label("Data di pubblicazione: " + libro.getDataDiPubblicazione().format(DateTimeFormatter.ISO_DATE)),
-            new Label("Copie nello stock: " + libro.getNumeroCopieDiStock()),
-            new Label("Copie Disponibili: " + libro.getNumeroCopieRimanenti()),
-            new Label("Valore: " + libro.getValore())
+        // 2. Crea un GridPane per allineare Label e TextField
+        GridPane grid = new GridPane();
+        grid.setHgap(10); // Spazio orizzontale tra Label e TextField
+        grid.setVgap(10); // Spazio verticale tra le righe
 
-            // Aggiungi qui tutte le altre informazioni
-        );
+        // 3. Aggiungi Label (Colonna 0) e TextField (Colonna 1) alla griglia
+        // Sintassi: grid.add(Nodo, Colonna, Riga)
+
+        grid.add(new Label("Titolo:"), 0, 0);
+        grid.add(tfTitolo, 1, 0);
+
+        grid.add(new Label("Autori:"), 0, 1);
+        grid.add(tfAutori, 1, 1);
+
+        grid.add(new Label("ISBN:"), 0, 2);
+        grid.add(tfISBN, 1, 2);
+
+        grid.add(new Label("Data Pubblicazione:"), 0, 3);
+        grid.add(tfDataPubblicazione, 1, 3);
+
+        grid.add(new Label("Copie in Stock:"), 0, 4);
+        grid.add(tfCopieNelloStock, 1, 4);
+
+        grid.add(new Label("Copie Disponibili:"), 0, 5);
+        grid.add(tfCopieDisponibili, 1, 5);
+
+        grid.add(new Label("Valore (€):"), 0, 6);
+        grid.add(tfValore, 1, 6);
+
+        // Aggiungi la griglia al root
+        root.getChildren().add(grid);
         
         // Pulsanti
         HBox buttonBar = new HBox(10);
         buttonBar.setAlignment(Pos.CENTER);
 
-        Button btnEdit = new Button("Modifica");
-        Button btnDelete = new Button("Elimina");
+        btnEdit.setText("Modifica");
+        btnDelete.setText("Elimina");
 
         // Aggiungi i gestori di eventi ai pulsanti
         btnEdit.setOnAction(e -> handleEdit(libro, popupStage));
@@ -261,6 +309,19 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     
     private void handleDelete(Libro libro, Stage popupStage) {
         // **FASE 1: Conferma**
+        
+         if(libro.getNumeroCopieDiStock() != libro.getNumeroCopieRimanenti()){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Errore Eliminazione");
+            errorAlert.setHeaderText("Impossibile eliminare il libro");
+            errorAlert.setContentText("Il libro selezionato è ancora in prestito");
+
+            errorAlert.showAndWait();
+
+            // Chiudi il popup corrente (se questa è l'azione desiderata dopo l'errore)
+            popupStage.close();
+        
+            }else{
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Conferma Eliminazione");
         confirmationAlert.setHeaderText("Sei sicuro di voler eliminare il libro " + libro.getTitolo() + "?");
@@ -285,6 +346,7 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
             // Chiudi il popup
             popupStage.close();
         }
+        }
     }
     
     /**
@@ -296,7 +358,80 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     */
     
     private void handleEdit(Libro libro, Stage popupStage) {
-        // Logica di modifica
+            tfTitolo.setEditable(true);
+            tfAutori.setEditable(true);
+            tfISBN.setEditable(false);
+            tfDataPubblicazione.setEditable(false);
+            tfCopieNelloStock.setEditable(true);
+            tfCopieDisponibili.setEditable(false);
+            tfValore.setEditable(true);
+            
+            btnDelete.setText("Conferma");
+            btnEdit.setText("Annulla");
+            
+            btnDelete.setOnAction(e -> handleConfermaEdit(libro, popupStage));
+            btnEdit.setOnAction(e -> handleAnnullaEdit(libro, popupStage));
+    }
+    
+    /**
+     * All'azione del pulsante "conferma", verrà mostrato un pop-up di conferma che ci chiede
+     * se vogliamo modificare in modo permanete il libro.
+     * 
+     * @param libro il libro di cui si intende confermare la modifica
+     * @param popupStage la finestra di pop-up mostrata
+     */
+    
+    private void handleConfermaEdit(Libro libro, Stage popupStage) {
+        
+        if(Integer.parseInt(tfCopieNelloStock.getText()) < (libro.getNumeroCopieDiStock() - libro.getNumeroCopieRimanenti())){
+            Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+            errorAlert.setTitle("Errore Modifica");
+            errorAlert.setHeaderText("Impossibile modificare il libro");
+            errorAlert.setContentText("Il numero di copie di stock inserito è minore del numero di copie attualmente in prestito");
+
+            errorAlert.showAndWait();
+
+            // Chiudi il popup corrente (se questa è l'azione desiderata dopo l'errore)
+            popupStage.close();
+        
+        }else{
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Conferma Modifica");
+        confirmationAlert.setHeaderText("Sei sicuro di voler modificare il libro?");
+        confirmationAlert.setContentText("Questa azione è irreversibile.");
+
+    Optional<ButtonType> result = confirmationAlert.showAndWait();
+
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        
+            libro.setTitolo(tfTitolo.getText());
+            libro.setListaAutori(tfAutori.getText());
+            libro.setNumeroCopieDiStock(Integer.parseInt(tfCopieNelloStock.getText()));
+            libro.setValore(Float.parseFloat(tfValore.getText()));
+            
+            
+            tabellaCatalogo.refresh();
+            
+            try{
+            updateFileCSV();
+            }catch(IOException ex){
+                Logger.getLogger(ScenaListaUtentiController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            popupStage.close();
+    }
+    }   
+    }
+    
+    /**
+     * Cliccando su annulla il pop-up riguardante la modifica verrà chiuso
+     * 
+     * @param libro il libro di cui si intende annullare la modifica
+     * @param popupStage la finestra di pop-up mostrata
+     */
+    
+    private void handleAnnullaEdit(Libro libro, Stage popupStage) {
+        popupStage.close();
     }
     
 //============================================================================================================================

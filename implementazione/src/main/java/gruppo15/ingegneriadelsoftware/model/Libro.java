@@ -106,6 +106,16 @@ public class Libro implements Searchable {
         this.valore = valore;
     }
     
+    /**
+     * @pre Il nuovo numero di copie di stock non può essere inferiore al numero di copie attualmente in prestito
+     * @post Il numero di copie di stock viene aumentato o decrementato
+     * @param numeroCopieDiStock il nuovo numero di copie di stock
+     */
+    
+    public void setNumeroCopieDiStock(int numeroCopieDiStock) {
+        this.numeroCopieDiStock = numeroCopieDiStock;
+    }
+    
     // =========================================================
     // METODI GETTER
     // =========================================================
@@ -271,4 +281,9 @@ public class Libro implements Searchable {
         
         return s;
     }
+
+    public String stampaAutori() {
+        return String.join("; ", this.listaAutori);
+    }
+    
 }
