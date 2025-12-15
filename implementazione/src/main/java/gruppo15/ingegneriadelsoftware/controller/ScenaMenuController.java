@@ -54,6 +54,8 @@ public class ScenaMenuController {
     @FXML
     private Hyperlink menuStoricoRestituzioni;
     @FXML
+    private Hyperlink menuVisualizzaStatistiche;
+    @FXML
     private Button logout_button;
 
 //============================================================================================================================
