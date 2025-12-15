@@ -103,7 +103,7 @@ public class Restituzione implements Searchable {
     public float calcolaPenale() {
         if(this.isRestituitoInRitardo()) {
             // equivale al 5% del valore del libro per il numero di giorni di ritardo
-            float val = this.getRitardoDefinitivo() * 5/100 * this.getPrestitoDaRestituire().getLibroPrestato().getValore();
+            float val = this.getRitardoDefinitivo() * 0.05F * this.getPrestitoDaRestituire().getLibroPrestato().getValore();
             
             // arrotondiamo a 2 cifre decimali
             BigDecimal bd = new BigDecimal(Float.toString(val));

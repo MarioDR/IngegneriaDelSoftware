@@ -204,6 +204,16 @@ public class Libro implements Searchable {
     // =========================================================
 
     /**
+     * Ritorna la lista di autori in un formato stampabile
+     * 
+     * @return La lista di autori separata da ;
+     */
+    
+    public String stampaAutori() {
+        return String.join("; ", this.listaAutori);
+    }
+    
+    /**
      * Incrementa di un certo numero il numero di copie del libro nello stock. (usato per le aggiunte al catalogo)
      * 
      * @pre Il numero di copie deve essere un numero intero positivo diverso da {@code null}
@@ -281,9 +291,4 @@ public class Libro implements Searchable {
         
         return s;
     }
-
-    public String stampaAutori() {
-        return String.join("; ", this.listaAutori);
-    }
-    
 }
