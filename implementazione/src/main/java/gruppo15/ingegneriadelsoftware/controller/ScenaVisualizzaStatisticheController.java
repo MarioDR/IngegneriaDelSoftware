@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package gruppo15.ingegneriadelsoftware.controller;
 
 import gruppo15.ingegneriadelsoftware.model.GestoreLibri;
@@ -47,10 +42,14 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * FXML Controller class
+ * @file ScenaVisualizzaStatisticheController.java
+ * @brief Questa classe implementa tutti i metodi e le azioni collegate 
+ * agli oggetti della scena 'ScenaVisualizzaStatistiche.fxml'.
  *
- * @author pierc
+ * @author Gruppo15
+ * @version 1.0
  */
+
 public class ScenaVisualizzaStatisticheController implements Initializable {
 
     @FXML
@@ -95,16 +94,11 @@ public class ScenaVisualizzaStatisticheController implements Initializable {
     private Label numPrestiti;
     @FXML
     private Label numSpese;
-    
-    private TextField vecchioUsernameField;
-    private TextField vecchiaPasswordField;
-    private TextField nuovoUsernameField;
-    private TextField nuovaPasswordField;
-    private Label labelMessaggioErrore;
 
     /**
-     * Initializes the controller class.
+     * In questo metodo viene implementata la logica di visualizzazione di tutte le statistiche
      */
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -130,89 +124,201 @@ public class ScenaVisualizzaStatisticheController implements Initializable {
         speseUltimoMese();
     }
 
-    // INIZIO COLLEGAMENTO SCENE
+    /**
+     * il metodo utentiDormienti serve a verificare se un utente è inattivo o no da 3 o più mesi.
+     * La verifica viene effettuata confrontando la data dell'ultimo prestito con la data odierna.
+     * 
+     * @return La lista di tutti gli utenti dormienti
+     */
+    
+    public List<Utente> utentiDormienti() {
+        List<Utente> dormienti = new ArrayList<>();
+        LocalDate dataSoglia = LocalDate.now().minusMonths(3); 
+        List<Utente> tuttiGliUtenti = GestoreUtenti.getInstance().getList();
+        List<Prestito> tuttiIPrestiti = GestorePrestiti.getInstance().getList();
+        List<Restituzione> tutteLeRestituzioni = GestoreRestituzioni.getInstance().getList();
+        
+        LocalDate ultimaRestituzione = LocalDate.MIN;
+        boolean haStorico = false;
 
-    @FXML
-    private void clickListaUtenti(ActionEvent event) {
-        try {
-            App.setRoot("ScenaListaUtenti");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
-        }
+        for (Utente u : tuttiGliUtenti) {
+            String matricolaCorrente = u.getMatricola();
+            
+            boolean haPrestitiAttivi = false;
+            
+            for (Prestito p : tuttiIPrestiti) {
+                if (p.getUtenteAssegnatario().getMatricola().equalsIgnoreCase(matricolaCorrente)) {
+                    haPrestitiAttivi = true;
+                    break; //Se l'utente ha prestiti attivi significa che non è dormiente
+                }
+            }
+
+            if (haPrestitiAttivi) {
+                continue;
+            }
+
+            for (Restituzione r : tutteLeRestituzioni) {
+                if (r.getPrestitoDaRestituire().getUtenteAssegnatario().getMatricola().equalsIgnoreCase(matricolaCorrente)) {
+                    haStorico = true;
+                    if (r.getDataRestituzione().isAfter(ultimaRestituzione)) {
+                        ultimaRestituzione = r.getDataRestituzione();
+                    }
+                }
+            }
+            /*Se l'utente ha uno storico senza prestiti attivi e/o l'ultima restituzione risale a 3 o più mesi fa
+              viene aggiunto all'interno della lista.
+            */
+            if (!haStorico) {
+                dormienti.add(u);
+            } else if (ultimaRestituzione.isBefore(dataSoglia)) {
+                dormienti.add(u);
+            }
+        }    
+        return dormienti;
     }
+    
+    /**
+     * Il metodo caricaUtentiDormienti prende la lista degli utenti dormienti e li carica in tabella.
+     * 
+     * @post verranno visualizzati tutti gli utenti dormienti nel sistema
+     */
 
-    @FXML
-    private void clickAggiungiUtente(ActionEvent event) {
-        try {
-            App.setRoot("ScenaAggiungiUtente");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
-        }
+    private void caricaUtentiDormienti() {
+        List<Utente> listaDormienti = utentiDormienti();
+        tabellaUtenti.setItems(FXCollections.observableArrayList(listaDormienti));
     }
+    
+    /**
+     * Il metodo inattivoNuovo verifica se l'utente è inattivo oppure è nuovo. Un utente si
+     * definisce "nuovo" se si è registrato da meno di 3 mesi.
+     * 
+     * @return Il numero di giorni da quando si è registrato
+     */
+    
+    private String inattivoNuovo(Utente u) {
+        LocalDate ultimaRestituzione = LocalDate.MIN;
+        boolean haStorico = false;
 
-    @FXML
-    private void clickVisualizzaCatalogo(ActionEvent event) {
-        try {
-            App.setRoot("ScenaVisualizzaCatalogo");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
+        for (Restituzione r : GestoreRestituzioni.getInstance().getList()) {
+            if (r.getPrestitoDaRestituire().getUtenteAssegnatario().equals(u)) {
+                haStorico = true;
+                if (r.getDataRestituzione().isAfter(ultimaRestituzione)) {
+                    ultimaRestituzione = r.getDataRestituzione();
+                }
+            }
         }
-    }
 
-    @FXML
-    private void clickAggiungiLibro(ActionEvent event) {
-        try {
-            App.setRoot("ScenaAggiungiLibro");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
+        if (!haStorico || ultimaRestituzione.equals(LocalDate.MIN)) {
+            return "Nuovo utente";
         }
-    }
 
-    @FXML
-    private void clickPrestitiAttivi(ActionEvent event) {
-        try {
-            App.setRoot("ScenaPrestitiAttivi");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
+        long giorniPassati = java.time.temporal.ChronoUnit.DAYS.between(ultimaRestituzione, LocalDate.now());
+
+        return giorniPassati + " giorni fa";
+    }
+      
+    /**
+     * Il metodo caricaLibriUtenti fa visualizzare a schermo il numero totale dei
+     * libri all'interno della biblioteca.
+     * 
+     * @post visualizza il totale di copie di libri nel sistema
+     */
+    
+    private void caricaLibriUtenti() {
+        int totaleCopie = 0;
+        
+        for (Libro l : GestoreLibri.getInstance().getList()) {
+            totaleCopie += l.getNumeroCopieRimanenti(); 
         }
-    }
 
-    @FXML
-    private void clickAggiungiPrestito(ActionEvent event) {
-        try {
-            App.setRoot("ScenaAggiungiPrestito");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
+        numLibri.setText(String.valueOf(totaleCopie));
+
+        int totUtenti = GestoreUtenti.getInstance().getList().size();
+        numUtenti.setText(String.valueOf(totUtenti));
+    }
+    
+    /**
+     * Il metodo prestitiDueMesi fa visualizzare a schermo il numero di libri
+     * prestati negli ultimi due mesi.
+     * 
+     * @post visualizza a schermo il numero di libri prestati negli ultimi 2 mesi
+     */
+    
+    private void prestitiDueMesi() {
+        int contatore = 0;
+        LocalDate dataSoglia = LocalDate.now().minusMonths(2);
+
+        for (Prestito p : gruppo15.ingegneriadelsoftware.model.GestorePrestiti.getInstance().getList()) {
+            if (p.getDataInizioPrestito().isAfter(dataSoglia)) {
+                contatore++;
+            }
         }
-    }
 
-    @FXML
-    private void clickStoricoRestituzioni(ActionEvent event) {
-        try {
-            App.setRoot("ScenaStoricoRestituzioni");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
+        for (Restituzione r : GestoreRestituzioni.getInstance().getList()) {
+            if (r.getPrestitoDaRestituire().getDataInizioPrestito().isAfter(dataSoglia)) {
+                contatore++;
+            }
         }
-    }
 
-    @FXML
-    private void clickVisualizzaStatistiche(ActionEvent event) {
-        try {
-            App.setRoot("ScenaVisualizzaStatistiche");
-        } catch (IOException ex) {
-            ex.printStackTrace();            
+        numPrestiti.setText(String.valueOf(contatore));
+    }
+    
+    /**
+     * Il metodo speseUltimoMese mostra a schermo quanto è stato speso
+     * nell'ultimo mese per aggiungere dei libri nel catalogo.
+     * 
+     * @post visualizza a schermo quanto è stato speso nell'ultimo mese
+     */
+    
+    private void speseUltimoMese() {
+        double totaleSpese = 0.0;
+        LocalDate dataSoglia = LocalDate.now().minusMonths(1);
+
+        for (Libro l : GestoreLibri.getInstance().getList()) {
+            if (l.getDataDiPubblicazione().isAfter(dataSoglia)) {
+                double costoTotaleLibro = l.getValore() * l.getNumeroCopieDiStock();
+                totaleSpese += costoTotaleLibro;
+            }
         }
+        numSpese.setText(String.format("%.2f €", totaleSpese));
     }
+    
+//============================================================================================================================
+//                                        NAVIGABILITA' PARTE SINISTRA DELLO SPLIT PANE
+//============================================================================================================================
 
+    // =========================================================
+    // SEZIONE PULSANTI DEL MENU'
+    // =========================================================
+    
+    /**
+     * Questo metodo è collegato all'azione del pulsante 'logout_button' e serve a tornare alla pagina di login.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickLogoutButton(ActionEvent event) {
         try {
             App.setRoot("ScenaLogin");
         } catch (IOException ex) {
-            ex.printStackTrace();            
+            ex.printStackTrace();
         }
     }
 
+    /**
+     * Questo metodo è collegato all'azione del pulsante 'settings_button' e serve ad aprire il menù delle impostazioni
+     * per modificare le credenziali.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    private TextField vecchioUsernameField;
+    private TextField vecchiaPasswordField;
+    private TextField nuovoUsernameField;
+    private TextField nuovaPasswordField;
+    private Label labelMessaggioErrore;
+    
     @FXML
     private void clickSettingsButton(ActionEvent event) {
         try {
@@ -359,146 +465,135 @@ public class ScenaVisualizzaStatisticheController implements Initializable {
         delay.play();
     }
     
-    // FINE COLLEGAMENTO SCENE
+    // =========================================================
+    // SEZIONE GESTIONE DEL MENU'
+    // =========================================================
     
-    /* il metodo utentiDormienti serve a verificare se un utente è inattivo o no da 3 o più mesi.
-       La verifica viene effettuata confrontando la data dell'ultimo prestito con la data odierna
-    */
+    // ----------------------- UTENTI --------------------------
     
-    public List<Utente> utentiDormienti() {
-        List<Utente> dormienti = new ArrayList<>();
-        LocalDate dataSoglia = LocalDate.now().minusMonths(3); 
-        List<Utente> tuttiGliUtenti = GestoreUtenti.getInstance().getList();
-        List<Prestito> tuttiIPrestiti = GestorePrestiti.getInstance().getList();
-        List<Restituzione> tutteLeRestituzioni = GestoreRestituzioni.getInstance().getList();
-        
-        LocalDate ultimaRestituzione = LocalDate.MIN;
-        boolean haStorico = false;
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaListaUtenti'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickListaUtenti(ActionEvent event) {
+        try {
+            App.setRoot("ScenaListaUtenti");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
 
-        for (Utente u : tuttiGliUtenti) {
-            String matricolaCorrente = u.getMatricola();
-            
-            boolean haPrestitiAttivi = false;
-            
-            for (Prestito p : tuttiIPrestiti) {
-                if (p.getUtenteAssegnatario().getMatricola().equalsIgnoreCase(matricolaCorrente)) {
-                    haPrestitiAttivi = true;
-                    break; //Se l'utente ha prestiti attivi significa che non è dormiente
-                }
-            }
-
-            if (haPrestitiAttivi) {
-                continue;
-            }
-
-            for (Restituzione r : tutteLeRestituzioni) {
-                if (r.getPrestitoDaRestituire().getUtenteAssegnatario().getMatricola().equalsIgnoreCase(matricolaCorrente)) {
-                    haStorico = true;
-                    if (r.getDataRestituzione().isAfter(ultimaRestituzione)) {
-                        ultimaRestituzione = r.getDataRestituzione();
-                    }
-                }
-            }
-            /*Se l'utente ha uno storico senza prestiti attivi e/o l'ultima restituzione risale a 3 o più mesi fa
-              viene aggiunto all'interno della lista.
-            */
-            if (!haStorico) {
-                dormienti.add(u);
-            } else if (ultimaRestituzione.isBefore(dataSoglia)) {
-                dormienti.add(u);
-            }
-        }    
-        return dormienti;
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiUtente'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickAggiungiUtente(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiUtente");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
     }
     
-    // Il metodo caricaUtentiDormienti prende la lista degli utenti dormienti e li carica in tabella.
-
-    private void caricaUtentiDormienti() {
-        List<Utente> listaDormienti = utentiDormienti();
-        tabellaUtenti.setItems(FXCollections.observableArrayList(listaDormienti));
+    // ---------------------- CATALOGO -------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaVisualizzaCatalogo'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickVisualizzaCatalogo(ActionEvent event) {
+        try {
+            App.setRoot("ScenaVisualizzaCatalogo");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
     }
     
-    /* Il metodo inattivoNuovo verifica se l'utente è inattivo oppure è nuovo. Un utente si
-       definisce "nuovo" se si è registrato da meno di 3 mesi.
-    */
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiLibro'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
     
-    private String inattivoNuovo(Utente u) {
-        LocalDate ultimaRestituzione = LocalDate.MIN;
-        boolean haStorico = false;
-
-        for (Restituzione r : GestoreRestituzioni.getInstance().getList()) {
-            if (r.getPrestitoDaRestituire().getUtenteAssegnatario().equals(u)) {
-                haStorico = true;
-                if (r.getDataRestituzione().isAfter(ultimaRestituzione)) {
-                    ultimaRestituzione = r.getDataRestituzione();
-                }
-            }
+    @FXML
+    private void clickAggiungiLibro(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiLibro");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
         }
-
-        if (!haStorico || ultimaRestituzione.equals(LocalDate.MIN)) {
-            return "Nuovo utente";
-        }
-
-        long giorniPassati = java.time.temporal.ChronoUnit.DAYS.between(ultimaRestituzione, LocalDate.now());
-
-        return giorniPassati + " giorni fa";
-    }
-      
-    /* Il metodo caricaLibriUtenti fa visualizzare a schermo il numero totale dei
-       libri all'interno della biblioteca.
-    */
-    
-    private void caricaLibriUtenti() {
-        int totaleCopie = 0;
-        
-        for (Libro l : GestoreLibri.getInstance().getList()) {
-            totaleCopie += l.getNumeroCopieRimanenti(); 
-        }
-
-        numLibri.setText(String.valueOf(totaleCopie));
-
-        int totUtenti = GestoreUtenti.getInstance().getList().size();
-        numUtenti.setText(String.valueOf(totUtenti));
     }
     
-    /* Il metodo prestitiDueMesi fa visualizzare a schermo il numero di libri
-       prestati negli ultimi due mesi.
-    */
+    // -------------- PRESTITI E RESTITUZIONI ------------------
     
-    private void prestitiDueMesi() {
-        int contatore = 0;
-        LocalDate dataSoglia = LocalDate.now().minusMonths(2);
-
-        for (Prestito p : gruppo15.ingegneriadelsoftware.model.GestorePrestiti.getInstance().getList()) {
-            if (p.getDataInizioPrestito().isAfter(dataSoglia)) {
-                contatore++;
-            }
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaPrestitiAttivi'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickPrestitiAttivi(ActionEvent event) {
+        try {
+            App.setRoot("ScenaPrestitiAttivi");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
         }
-
-        for (Restituzione r : GestoreRestituzioni.getInstance().getList()) {
-            if (r.getPrestitoDaRestituire().getDataInizioPrestito().isAfter(dataSoglia)) {
-                contatore++;
-            }
-        }
-
-        numPrestiti.setText(String.valueOf(contatore));
     }
     
-    /* Il metodo speseUltimoMese mostra a schermo quanto è stato speso
-       nell'ultimo mese per aggiungere dei libri nel catalogo
-    */
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaAggiungiPrestito'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
     
-    private void speseUltimoMese() {
-        double totaleSpese = 0.0;
-        LocalDate dataSoglia = LocalDate.now().minusMonths(1);
-
-        for (Libro l : GestoreLibri.getInstance().getList()) {
-            if (l.getDataDiPubblicazione().isAfter(dataSoglia)) {
-                double costoTotaleLibro = l.getValore() * l.getNumeroCopieDiStock();
-                totaleSpese += costoTotaleLibro;
-            }
+    @FXML
+    private void clickAggiungiPrestito(ActionEvent event) {
+        try {
+            App.setRoot("ScenaAggiungiPrestito");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
         }
-        numSpese.setText(String.format("%.2f €", totaleSpese));
     }
     
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaStoricoRestituzioni'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickStoricoRestituzioni(ActionEvent event) {
+        try {
+            App.setRoot("ScenaStoricoRestituzioni");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }
+    }
+
+    // -------------------- STATISTICHE ------------------------
+    
+    /**
+     * Questo metodo è legato all'azione dell'hyperlink del menù a tendina che ti riporta a 'ScenaVisualizzaStatistiche'.
+     * 
+     * @param event l'evento del click sul pulsante
+     */
+    
+    @FXML
+    private void clickVisualizzaStatistiche(ActionEvent event) {
+        try {
+            App.setRoot("ScenaVisualizzaStatistiche");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }        
+    }
 }

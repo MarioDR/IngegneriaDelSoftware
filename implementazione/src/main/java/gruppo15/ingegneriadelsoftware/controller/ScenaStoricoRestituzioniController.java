@@ -156,6 +156,7 @@ public class ScenaStoricoRestituzioniController implements Initializable {
     * All'azione del doppio click su una riga della tabella delle restituzioni, verrà visualizzato un
     * pop-up informativo con tutti i dettagli della restituzione.
     * 
+    * @post viene visualizzato un pop-up con tutte le informazioni di una restituzione
     * @param restituzione la restituzione di cui bisogna visualizzare le informazioni
     */
     

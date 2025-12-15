@@ -138,6 +138,8 @@ public class ScenaAggiungiPrestitoController implements Initializable {
     
     /**
      * Questo è un metodo helper che svuota tutti i campi dei textField.
+     * 
+     * @post tutti i campi TextField vengono svuotati
      */
     
     private void pulisciCampi() {
@@ -155,8 +157,10 @@ public class ScenaAggiungiPrestitoController implements Initializable {
      * con tutte le operazioni di inserimento nel file CSV e nella collezione di gestione. La gestione della sintassi corretta
      * è rimandata all'interfaccia grafica.
      * 
+     * @pre il nuovo prestito deve essere legittimo (questo metodo non ha questa responsabilità)
+     * @post il nuovo prestito verrà aggiunto al GestorePrestiti
+     * @post tutti i dati del nuovo prestito vengono custoditi nel file CSV corrispondente
      * @param event l'evento del click sul pulsante
-     * @pre tutti i campi devono essere conformi ai requisiti sintattici previsti
      */
     
     @FXML
@@ -233,6 +237,7 @@ public class ScenaAggiungiPrestitoController implements Initializable {
     /**
      * Questo metodo è associato all'azione del pulsante 'annullaButton' che serve a ripulire tutti i campi dei textField.
      * 
+     * @post tutti i campi TextField vengono svuotati
      * @param event l'evento del click sul pulsante
      */
     

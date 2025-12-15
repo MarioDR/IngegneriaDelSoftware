@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @file Utente.java
  * @brief Rappresenta un utente registrato nel sistema con la gestione dei suoi prestiti
- * @invariant Nessuna invariante
+ * @invariant La matricola e la email devono essere diverse da quelle di tutti gli altri utenti
  * 
  * La classe Utente modella il concetto che si ha di Utente nel sistema. I suoi attributi
  * rapprerentano tutte le generalità necessarie e la lista dei libri presi in prestito.
@@ -29,7 +29,7 @@ public class Utente implements Searchable {
     /**
      * Costruttore della classe Utente.
      * 
-     * 
+     * @pre tutti i parametri devono rispettare i requisiti grammaticali
      * @param nome Il nome dell'utente
      * @param cognome Il cognome dell'utente
      * @param matricola La matricola dell'utente
@@ -50,6 +50,8 @@ public class Utente implements Searchable {
     /**
      * Imposta il nome dell'utente.
      * 
+     * @pre il parametro deve rispettare tutti i requisiti grammaticali
+     * @post il nome verrà aggiornato con il nuovo valore
      * @param nome La stringa contenente il nuovo nome dell'utente
      */
     
@@ -60,6 +62,8 @@ public class Utente implements Searchable {
     /**
      * Imposta il cognome dell'utente.
      * 
+     * @pre il parametro deve rispettare tutti i requisiti grammaticali
+     * @post il cognome verrà aggiornato con il nuovo valore
      * @param cognome La stringa contenente il nuovo cognome dell'utente
      */
     
@@ -70,6 +74,8 @@ public class Utente implements Searchable {
     /**
      * Imposta l'indirizzo email dell'utente.
      * 
+     * @pre il parametro deve rispettare tutti i requisiti grammaticali
+     * @post l'email verrà aggiornata con il nuovo valore
      * @param email La stringa contenente il nuovo indirizzo email
      */
     

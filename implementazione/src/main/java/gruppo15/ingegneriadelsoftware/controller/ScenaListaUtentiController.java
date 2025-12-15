@@ -173,6 +173,7 @@ public class ScenaListaUtentiController implements Initializable {
     * Riscrive completamente il file utenti.csv con lo stato attuale della collezione GestoreUtenti.
     * Questo è necessario quando si aggiornano campi di un record esistente.
     * 
+    * @post viene aggiornato il file degli utenti con le nuove informazioni, sovrascrivendo quello vecchio
     * @throws IOException Se il file non può essere riscritto.
     */
     
@@ -206,6 +207,7 @@ public class ScenaListaUtentiController implements Initializable {
     * All'azione del doppio click su una riga della tabella degli utenti, verrà visualizzato un
     * pop-up informativo con i pulsanti di modifica e di elimina.
     * 
+    * @post viene visualizzato il pop-up informativo di un utente con la possibilità di modificarlo o eliminarlo
     * @param utente l'utente di cui bisogna visualizzare le informazioni
     */
     
@@ -303,6 +305,8 @@ public class ScenaListaUtentiController implements Initializable {
     * All'azione del pulsante elimina del pop-up informativo di un utente, verrà visualizzato un
     * pop-up che chiede conferma per procedere con l'eliminazione.
     * 
+    * @pre l'utente da eliminare non deve avere prestiti attivi
+    * @post l'utente viene eliminato definitivamente dal sistema
     * @param utente l'utente da eliminare
     * @param popupStage La finestra di pop-up mostrata
     */
@@ -393,25 +397,24 @@ public class ScenaListaUtentiController implements Initializable {
         confirmationAlert.setHeaderText("Sei sicuro di voler modificare l'utente?");
         confirmationAlert.setContentText("Questa azione è irreversibile.");
 
-    Optional<ButtonType> result = confirmationAlert.showAndWait();
+        Optional<ButtonType> result = confirmationAlert.showAndWait();
 
-    if (result.isPresent() && result.get() == ButtonType.OK) {
-        
-            utente.setNome(tfNome.getText());
-            utente.setCognome(tfCognome.getText());
-            utente.setMatricola(tfMatricola.getText());
-            utente.setEmail(tfEmail.getText());
-            
-            tabellaUtenti.refresh();
-            
-            try{
-            riscriviFileUtenti();
-            }catch(IOException ex){
-                Logger.getLogger(ScenaListaUtentiController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            popupStage.close();
-    }   
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+
+                utente.setNome(tfNome.getText());
+                utente.setCognome(tfCognome.getText());
+                utente.setEmail(tfEmail.getText());
+
+                tabellaUtenti.refresh();
+
+                try{
+                riscriviFileUtenti();
+                }catch(IOException ex){
+                    Logger.getLogger(ScenaListaUtentiController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                popupStage.close();
+        }   
     }
     
     /**
@@ -420,6 +423,7 @@ public class ScenaListaUtentiController implements Initializable {
      * @param utente l'utente di cui si intende annullare la modifica
      * @param popupStage la finestra di pop-up mostrata
      */
+    
     private void handleAnnullaEdit(Utente utente, Stage popupStage) {
         popupStage.close();
     }

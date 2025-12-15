@@ -24,7 +24,7 @@ public class GestorePrestiti implements Manager<Prestito> {
     private static GestorePrestiti instance = null;
     
     /**
-     * Costruttore della classe GestorePrestiti
+     * Costruttore privato della classe GestorePrestiti
      * 
      * Inizializza la lista dei prestiti come una lista vuota
      */
@@ -69,7 +69,7 @@ public class GestorePrestiti implements Manager<Prestito> {
      * Rimuove un prestito dalla collezione gestita.
      * 
      * @post Il prestito viene rimosso dalla collezione se presente
-     * @param objectIl Il prestito da rimuovere
+     * @param object Il prestito da rimuovere
      * @return La lista aggiornata
      */
     

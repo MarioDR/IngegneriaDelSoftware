@@ -65,7 +65,7 @@ public class Prestito implements Searchable {
     }
     
     /**
-     * Seconodo ostruttore della classe Prestito (Viene usato in fase di ricostruzione dell'oggetto da file CSV).
+     * Seconodo costruttore della classe Prestito (Viene usato in fase di ricostruzione dell'oggetto da file CSV).
      * Inizializza un nuovo prestito esplicitando tutti i dettagli.
      * 
      * @param ID L'ID dell'utente

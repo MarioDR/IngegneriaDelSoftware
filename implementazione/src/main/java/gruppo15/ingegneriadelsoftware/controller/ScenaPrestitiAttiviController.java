@@ -170,6 +170,7 @@ public class ScenaPrestitiAttiviController implements Initializable {
     * Riscrive completamente il file prestiti.csv con lo stato attuale della collezione.
     * Questo è necessario quando si aggiornano campi di un record esistente.
     * 
+    * @post il file CSV viene aggiornato con le nuove modifiche apportate, sovrascrivendo completamente quello vecchio
     * @throws IOException Se il file non può essere riscritto.
     */
     
@@ -200,6 +201,7 @@ public class ScenaPrestitiAttiviController implements Initializable {
     * Riscrive completamente il file restituzioni.csv con lo stato attuale della collezione.
     * Questo è necessario quando viene terminato un prestito.
     * 
+    * @post il file CSV viene aggiornato con le nuove modifiche apportate, sovrascrivendo completamente quello vecchio
     * @throws IOException Se il file non può essere riscritto.
     */
     
@@ -233,6 +235,7 @@ public class ScenaPrestitiAttiviController implements Initializable {
     * All'azione del doppio click su una riga della tabella degli utenti, verrà visualizzato un
     * pop-up informativo con i pulsanti di modifica e di elimina.
     * 
+    * @post viene viusalizzato il pop-up informativo di un prestito, con la possibilità di terminarlo
     * @param prestito Il prestito di cui bisogna visualizzare le informazioni
     */
     
@@ -283,6 +286,8 @@ public class ScenaPrestitiAttiviController implements Initializable {
     * All'azione del pulsante termina del pop-up informativo di un prestito, verrà avviato
     * il processo di terminazine di un prestito.
     * 
+    * @post il prestito viene eliminato dalla lista dei prestiti attivi
+    * @post il prestito viene aggiunto alla lista delle restituzioni
     * @param prestito il prestito da terminare
     * @param popupStage La finestra di pop-up mostrata
     */

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
  * @file Libro.java
  * @brief Rappresenta un libro registrato nel sistema con le sue caratteristiche
  * @invariant la data di pubblicazione deve essere precedente a quella al momento della registrazione (implementabile graficamente)
+ * @invariant l'ISBN è sempre diverso da qualsiasi altro ISBN di un libro
  * 
  * Le informazioni gestite includono i metadati bibliografici (Titolo, Autori, Anno, ISBN)
  * e lo stato dell'inventario (copie disponibili).
@@ -46,7 +47,6 @@ public class Libro implements Searchable {
      * 
      */
     
-    //NON SONO SICURO DEI TIPI DEL COSTRUTTORE
     public Libro(String titolo, String autori, LocalDate dataDiPubblicazione, String ISBN, int numeroCopieDiStock, float valore) {
         this.titolo = titolo;
         this.dataDiPubblicazione = dataDiPubblicazione;
@@ -65,8 +65,9 @@ public class Libro implements Searchable {
     /**
      * Imposta il titolo.
      * 
-     * @param titolo titolo del libro
-     *  
+     * @pre Il paramentro deve essere conforme a tutte le caratteristiche grammaticali
+     * @post Il titolo viene aggiornato con il nuovo valore
+     * @param titolo titolo del libro 
      */
     
     public void setTitolo(String titolo) {
@@ -76,8 +77,9 @@ public class Libro implements Searchable {
     /**
      * Imposta la data di pubblicazione.
      * 
+     * @pre Il paramentro deve essere conforme a tutte le caratteristiche semantiche
+     * @post La data viene aggiornata con il nuovo valore
      * @param dataDiPubblicazione la data di pubblicazione del libro
-     *  
      */
     
     public void setDataDiPubblicazione(LocalDate dataDiPubblicazione) {
@@ -87,8 +89,9 @@ public class Libro implements Searchable {
     /**
      * Imposta e riempe la lista degli autori con una nuova lista di autori separata da virgole
      * 
+     * @pre Il paramentro deve essere conforme a tutte le caratteristiche grammaticali
+     * @post La lista degli autori viene aggiornata con i nuovi valori
      * @param autori la nuova lista di autori separati da virgola
-     *  
      */
     
     public void setListaAutori(String autori) {
@@ -98,8 +101,9 @@ public class Libro implements Searchable {
     /**
      * Imposta il valore del libro.
      * 
+     * @pre il nuovo valore deve essere positivo
+     * @post Il titolo viene aggiornato con il nuovo valore
      * @param valore il valore commerciale del libro
-     *  
      */
     
     public void setValore(float valore) {
@@ -134,7 +138,6 @@ public class Libro implements Searchable {
      * Restituisce la data di pubblicazione del libro.
      * 
      * @return la data di pubblicazione del libro
-     * 
      */
     
     public LocalDate getDataDiPubblicazione() {

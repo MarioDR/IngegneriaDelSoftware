@@ -168,6 +168,8 @@ public class ScenaAggiungiLibroController implements Initializable {
     
     /**
      * Questo è un metodo helper che svuota tutti i campi dei textField.
+     * 
+     * @post tutti i campi TextField vengono svuotati
      */
     
     private void pulisciCampi() {
@@ -183,6 +185,7 @@ public class ScenaAggiungiLibroController implements Initializable {
     * Riscrive completamente il file catalogo.csv con lo stato attuale della collezione GestoreLibri.
     * Questo è necessario quando si aggiornano campi (come il numero di copie) di un record esistente.
     * 
+    * @post il file CSV verrà riscritto con i nuovi dati perdendo definitivamente la vecchia configurazione
     * @throws IOException Se il file non può essere riscritto.
     */
     
@@ -217,8 +220,10 @@ public class ScenaAggiungiLibroController implements Initializable {
      * con tutte le operazioni di inserimento nel file CSV e nella collezione di gestione. La gestione della sintassi corretta
      * è rimandata all'interfaccia grafica.
      * 
+     * @pre il nuovo libro deve essere legittimo (questo metodo non ha questa responsabilità)
+     * @post il nuovo libro verrà aggiunto al GestoreLibri
+     * @post tutti i dati del nuovo libro vengono custoditi nel file CSV corrispondente
      * @param event l'evento del click sul pulsante
-     * @pre tutti i campi devono essere conformi ai requisiti sintattici previsti
      */
 
     @FXML
@@ -312,6 +317,7 @@ public class ScenaAggiungiLibroController implements Initializable {
     /**
      * Questo metodo è associato all'azione del pulsante 'annullaButton' che serve a ripulire tutti i campi dei textField.
      * 
+     * @post tutti i campi TextField vengono svuotati
      * @param event l'evento del click sul pulsante
      */
     

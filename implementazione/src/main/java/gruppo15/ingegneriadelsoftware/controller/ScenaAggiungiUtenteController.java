@@ -136,6 +136,8 @@ public class ScenaAggiungiUtenteController implements Initializable {
     
     /**
      * Questo è un metodo helper che svuota tutti i campi dei textField.
+     * 
+     * @post tutti i campi TextField vengono svuotati
      */
     
     private void pulisciCampi() {
@@ -149,6 +151,17 @@ public class ScenaAggiungiUtenteController implements Initializable {
     // AZIONI DEI PULSANTI
     // =========================================================
     
+    /**
+     * Il metodo è collegato all'azione del pulsante 'aggiungiButton' che permette di aggiungere un prestito alla lista
+     * con tutte le operazioni di inserimento nel file CSV e nella collezione di gestione. La gestione della sintassi corretta
+     * è rimandata all'interfaccia grafica.
+     * 
+     * @pre il nuovo utente deve essere legittimo (questo metodo non ha questa responsabilità)
+     * @post il nuovo utente verrà aggiunto al GestoreUtenti
+     * @post tutti i dati del nuovo utente vengono custoditi nel file CSV corrispondente
+     * @param event l'evento del click sul pulsante
+     */
+             
     @FXML
     private void clickAggiungi(ActionEvent event) {
         try{
@@ -193,6 +206,7 @@ public class ScenaAggiungiUtenteController implements Initializable {
     /**
      * Questo metodo è associato all'azione del pulsante 'annullaButton' che serve a ripulire tutti i campi dei textField.
      * 
+     * @post tutti i campi TextField vengono svuotati
      * @param event l'evento del click sul pulsante
      */
     

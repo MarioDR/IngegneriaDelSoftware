@@ -24,7 +24,7 @@ public class GestoreLibri implements Manager<Libro> {
     private static GestoreLibri instance = null;
     
     /**
-     * @brief Costruttore della classe GestoreLibri
+     * @brief Costruttore privato della classe GestoreLibri
      * 
      * Inizializza la lista dei prestiti come una lista vuota
      */
@@ -69,7 +69,7 @@ public class GestoreLibri implements Manager<Libro> {
      * Rimuove un libro dalla collezione gestita.
      * 
      * @post Il libro viene rimosso dalla collezione se presente
-     * @param object Il Il libro da rimuovere
+     * @param object Il libro da rimuovere
      * @return La lista aggiornata
      */
     

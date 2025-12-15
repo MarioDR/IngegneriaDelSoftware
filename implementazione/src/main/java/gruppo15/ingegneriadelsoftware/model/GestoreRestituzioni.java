@@ -24,7 +24,7 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     private static GestoreRestituzioni instance = null;
     
     /**
-     * Costruttore della classe GestoreRestituzioni
+     * Costruttore privato della classe GestoreRestituzioni
      * 
      * Inizializza la lista delle restituzioni come una lista vuota
      */
@@ -68,8 +68,8 @@ public class GestoreRestituzioni implements Manager<Restituzione>{
     /**
      * Rimuove una restituzione dalla collezione gestita.
      * 
-     * @post La restituzione viene rimosso dalla collezione se presente
-     * @param object Il La restituzione da rimuovere
+     * @post La restituzione viene rimossa dalla collezione se presente
+     * @param object La restituzione da rimuovere
      * @return La lista aggiornata
      */
     

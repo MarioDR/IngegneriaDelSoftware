@@ -181,6 +181,7 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     * Riscrive completamente il file libri.csv con lo stato attuale della collezione GestoreLibri.
     * Questo è necessario quando si aggiornano campi di un record esistente.
     * 
+    * @post il file viene riscritto con le nuove informazioni, sovrascrivendo quello vecchio
     * @throws IOException Se il file non può essere riscritto.
     */
     
@@ -214,6 +215,7 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     * All'azione del doppio click su una riga della tabella dei libri verrà visualizzato un
     * pop-up informativo con i pulsanti di modifica e di elimina.
     * 
+    * @post viene visualizzato il pop-up informativo di un libro con la possibilità di modificarlo o eliminarlo
     * @param libro il libro di cui bisogna visualizzare le informazioni
     */
     
@@ -302,7 +304,7 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     /**
     * All'azione del pulsante elimina del pop-up informativo di un libro, verrà visualizzato un
     * pop-up che chiede conferma per procedere con l'eliminazione.
-    * 
+    *
     * @param libro il libro da eliminare
     * @param popupStage La finestra di pop-up mostrata
     */
@@ -377,6 +379,7 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
      * All'azione del pulsante "conferma", verrà mostrato un pop-up di conferma che ci chiede
      * se vogliamo modificare in modo permanete il libro.
      * 
+     * @post i campi verranno prima validati e poi la modifica avrà effetto
      * @param libro il libro di cui si intende confermare la modifica
      * @param popupStage la finestra di pop-up mostrata
      */
@@ -426,6 +429,7 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     /**
      * Cliccando su annulla il pop-up riguardante la modifica verrà chiuso
      * 
+     * @post il pop-up viene chiuso
      * @param libro il libro di cui si intende annullare la modifica
      * @param popupStage la finestra di pop-up mostrata
      */

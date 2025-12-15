@@ -26,7 +26,7 @@ public class GestoreUtenti implements Manager<Utente> {
     private static GestoreUtenti instance = null;
 
     /**
-     * Costruttore della classe GestoreUtenti
+     * Costruttore privato della classe GestoreUtenti
      * 
      * Inizializza la lista degli utenti come una lista vuota
      */

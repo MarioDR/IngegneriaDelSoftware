@@ -35,7 +35,9 @@ public class ScenaLoginController {
 
     /**
      * Il metodo è collegato all'azione del pulsante 'Accedi' e tenta di autenticare l'utente.
-     * * @param event L'evento del click sul pulsante.
+     * 
+     * @post Verrà permesso il login e il caricamento della scena principale se le credenziali sono corrette
+     * @param event L'evento del click sul pulsante.
      * @throws Exception Se si verifica un errore non gestito nel cambio di scena.
      */
     
@@ -95,6 +97,13 @@ public class ScenaLoginController {
     }
 
 
+    /**
+     * Questo metodo è associato all'azione del pulsante 'annullaButton' che serve a ripulire tutti i campi dei textField.
+     * 
+     * @post tutti i campi TextField vengono svuotati
+     * @param event l'evento del click sul pulsante
+     */
+    
     @FXML
     private void clickAnnulla(ActionEvent event) {
         usernameField.clear();
