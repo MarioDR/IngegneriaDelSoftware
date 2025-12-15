@@ -606,5 +606,10 @@ public class ScenaVisualizzaCatalogoController implements Initializable {
     
     @FXML
     private void clickVisualizzaStatistiche(ActionEvent event) {
+        try {
+            App.setRoot("ScenaVisualizzaStatistiche");
+        } catch (IOException ex) {
+            ex.printStackTrace();            
+        }        
     }
 }
