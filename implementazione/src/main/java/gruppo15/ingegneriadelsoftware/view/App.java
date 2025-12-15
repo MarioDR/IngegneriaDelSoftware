@@ -18,17 +18,31 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 /**
- * JavaFX App
- */ 
+ * @file App.java
+ * @brief Questa classe implementa tutti i metodi e le azioni che devono essere fatte all'avvio dell'App.
+ * Inoltre contiene anche dei metodi statici utili a caricare nuove scene e visualizzare errori.
+ *
+ * @author Gruppo15
+ * @version 1.0
+ */
+
 public class App extends Application {
 
     private static Scene scene;
 
+    // Dichiarazione di tutti i path dei file
     public static final String PATH_CATALOGO = "./src/main/resources/gruppo15/ingegneriadelsoftware/archivio/libri.csv";
     public static final String PATH_UTENTI = "./src/main/resources/gruppo15/ingegneriadelsoftware/archivio/utenti.csv";
     public static final String PATH_PRESTITI = "./src/main/resources/gruppo15/ingegneriadelsoftware/archivio/prestiti.csv";
     public static final String PATH_RESTITUZIONI = "./src/main/resources/gruppo15/ingegneriadelsoftware/archivio/restituzioni.csv";
     public static final String PATH_CREDENZIALI = "./src/main/resources/gruppo15/ingegneriadelsoftware/archivio/credenziali.csv";
+    
+    /**
+     * Effettua tutte le operazioni preliminari utili all'avvio corretto dell'app.
+     * 
+     * @param stage si tratta dello stage principale
+     * @throws IOException per la gestione del caricamento da file nelle strutture dati
+    */
     
     @Override
     public void start(Stage stage) throws IOException {
@@ -84,6 +98,13 @@ public class App extends Application {
         // 4. Avvia la pausa
         pausa.play();
     }
+    
+    /**
+     * Carica una nuova scena sostituendola a quella attuale.
+     * 
+     * @param fxml si tratta del file fxml della scena da caricare
+     * @throws IOException per la gestione del caricamento della nuova scena
+    */
     
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));

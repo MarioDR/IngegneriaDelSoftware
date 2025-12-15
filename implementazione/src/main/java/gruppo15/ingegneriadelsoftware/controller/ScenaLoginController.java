@@ -12,9 +12,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
+ * @file ScenaLoginController.java
+ * @brief Questa classe implementa tutti i metodi e le azioni collegate 
+ * agli oggetti della scena 'ScenaLogin.fxml'.
  *
- * @author fgrim
+ * @author Gruppo15
+ * @version 1.0
  */
+
 public class ScenaLoginController {
 
     @FXML
@@ -92,5 +97,7 @@ public class ScenaLoginController {
 
     @FXML
     private void clickAnnulla(ActionEvent event) {
+        usernameField.clear();
+        passwordField.clear();
     }
 }
