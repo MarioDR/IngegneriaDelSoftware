@@ -1,25 +1,39 @@
 \doxysection{Riferimenti per la classe gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione}
 \hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione}{}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
+Diagramma delle classi per gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Membri pubblici}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a43924a47d58aea302444963368abcfab}{Restituzione}} (\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} p, Local\+Date data\+Effettiva\+Restituzione)
+\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a8b86b94d3ffebcda5343b56e87f2ca03}{Restituzione}} (\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} p)
+\item 
+\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a36c3b1fe8f15a12b5695cf71a833c232}{Restituzione}} (Local\+Date data\+Effettiva\+Restituzione, \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} p)
 \item 
 Local\+Date \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_abc94794baca368b2545028dc616bfcb9}{get\+Data\+Restituzione}} ()
 \item 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a78d73b6199742274c69bf9c3210e8677}{get\+Prestito}} ()
+\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a1818b7721b570242f8b5a7d4bc172380}{get\+Prestito\+Da\+Restituire}} ()
 \item 
-int \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ab1f5687fa963881dcbc2146803e23202}{get\+Ritardo\+Definitivo}} ()
+long \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a6e14d70f491260eb5cff1fa7d95942d8}{get\+Ritardo\+Definitivo}} ()
 \item 
 boolean \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a97b248ae9deaa5bb4cdff69991697e96}{is\+Restituito\+In\+Ritardo}} ()
+\item 
+float \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ac8343267baaca8c06ba0c02b418fd5d4}{calcola\+Penale}} ()
+\item 
+boolean \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a888d9321beddcff8829003b23319c535}{contains\+Pattern}} (String pattern)
+\item 
+boolean \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ab424e5f8b7f0db7430207eadf7751ac3}{equals}} (Object o)
 \item 
 String \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ae4f005fca8232cef862300ceb07c8845}{to\+CSV}} ()
 \end{DoxyCompactItemize}
 \doxysubsubsection*{Attributi privati}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a57001daa724e02ea338abf06c96775c5}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a57001daa724e02ea338abf06c96775c5} 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} {\bfseries prestito\+Da\+Restituire}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a3710ff7b989ae54fe2d15e04d605f4db}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a3710ff7b989ae54fe2d15e04d605f4db} 
+final \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} {\bfseries prestito\+Da\+Restituire}
 \item 
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ae4c90461cb79892186583d7a14370729}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ae4c90461cb79892186583d7a14370729} 
 final Local\+Date {\bfseries data\+Effettiva\+Restituzione}
@@ -29,13 +43,26 @@ final Local\+Date {\bfseries data\+Effettiva\+Restituzione}
 \label{doc-constructors}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_doc-constructors}
 \doxysubsection{Documentazione dei costruttori e dei distruttori}
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a43924a47d58aea302444963368abcfab}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!Restituzione@{Restituzione}}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a8b86b94d3ffebcda5343b56e87f2ca03}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!Restituzione@{Restituzione}}
 \index{Restituzione@{Restituzione}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
-\doxysubsubsection{\texorpdfstring{Restituzione()}{Restituzione()}}
-{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a43924a47d58aea302444963368abcfab} 
-gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+Restituzione (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}}}]{p}{, }\item[{Local\+Date}]{data\+Effettiva\+Restituzione}{}\end{DoxyParamCaption})}
+\doxysubsubsection{\texorpdfstring{Restituzione()}{Restituzione()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a8b86b94d3ffebcda5343b56e87f2ca03} 
+gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+Restituzione (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption})}
 
 Costruttore della classe \doxylink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione}{Restituzione}.
+
+
+\begin{DoxyParams}{Parametri}
+{\em p} & L\textquotesingle{}oggetto prestito che viene restituito \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a36c3b1fe8f15a12b5695cf71a833c232}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!Restituzione@{Restituzione}}
+\index{Restituzione@{Restituzione}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
+\doxysubsubsection{\texorpdfstring{Restituzione()}{Restituzione()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a36c3b1fe8f15a12b5695cf71a833c232} 
+gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+Restituzione (\begin{DoxyParamCaption}\item[{Local\+Date}]{data\+Effettiva\+Restituzione}{, }\item[{\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption})}
+
+Secondo costruttore della classe \doxylink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione}{Restituzione}. (viene usato in fase di ricostruzione da un file CSV)
 
 
 \begin{DoxyParams}{Parametri}
@@ -49,6 +76,48 @@ Costruttore della classe \doxylink{classgruppo15_1_1ingegneriadelsoftware_1_1mod
 \label{doc-func-members}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_doc-func-members}
 \doxysubsection{Documentazione delle funzioni membro}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ac8343267baaca8c06ba0c02b418fd5d4}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!calcolaPenale@{calcolaPenale}}
+\index{calcolaPenale@{calcolaPenale}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
+\doxysubsubsection{\texorpdfstring{calcolaPenale()}{calcolaPenale()}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ac8343267baaca8c06ba0c02b418fd5d4} 
+float gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+calcola\+Penale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Ritorna l\textquotesingle{}ammontare della penale di una restituzione se arrivata in ritardo.
+
+\begin{DoxyReturn}{Restituisce}
+il valore della penale calcolato 
+\end{DoxyReturn}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a888d9321beddcff8829003b23319c535}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!containsPattern@{containsPattern}}
+\index{containsPattern@{containsPattern}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
+\doxysubsubsection{\texorpdfstring{containsPattern()}{containsPattern()}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a888d9321beddcff8829003b23319c535} 
+boolean gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+contains\+Pattern (\begin{DoxyParamCaption}\item[{String}]{pattern}{}\end{DoxyParamCaption})}
+
+Verifica se l\textquotesingle{}elemento ha almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
+
+
+\begin{DoxyParams}{Parametri}
+{\em pattern} & la stringa usata per la ricerca \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Restituisce}
+{\ttfamily true} se l\textquotesingle{}oggetto corrisponde al pattern {\ttfamily false} in ogni altro caso 
+\end{DoxyReturn}
+
+
+Implementa \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_searchable_a99fceb6b74e48e6034b359708c35947a}{gruppo15.\+ingegneriadelsoftware.\+model.\+Searchable}}.
+
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ab424e5f8b7f0db7430207eadf7751ac3}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!equals@{equals}}
+\index{equals@{equals}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
+\doxysubsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ab424e5f8b7f0db7430207eadf7751ac3} 
+boolean gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+equals (\begin{DoxyParamCaption}\item[{Object}]{o}{}\end{DoxyParamCaption})}
+
+Controlla se un oggetto è uguale a questa istanza (due restituzioni sono uguali se i due prestiti restituiti hanno lo stesso ID)
+
+\begin{DoxyReturn}{Restituisce}
+{\ttfamily true} se i due prestiti da restituire hanno lo stesso ID {\ttfamily false} in tutti gli atri casi 
+\end{DoxyReturn}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_abc94794baca368b2545028dc616bfcb9}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!getDataRestituzione@{getDataRestituzione}}
 \index{getDataRestituzione@{getDataRestituzione}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
 \doxysubsubsection{\texorpdfstring{getDataRestituzione()}{getDataRestituzione()}}
@@ -60,22 +129,22 @@ Restituisce la data di restituzione del libro.
 \begin{DoxyReturn}{Restituisce}
 Data di restituzione 
 \end{DoxyReturn}
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a78d73b6199742274c69bf9c3210e8677}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!getPrestito@{getPrestito}}
-\index{getPrestito@{getPrestito}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
-\doxysubsubsection{\texorpdfstring{getPrestito()}{getPrestito()}}
-{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a78d73b6199742274c69bf9c3210e8677} 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+get\+Prestito (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a1818b7721b570242f8b5a7d4bc172380}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!getPrestitoDaRestituire@{getPrestitoDaRestituire}}
+\index{getPrestitoDaRestituire@{getPrestitoDaRestituire}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
+\doxysubsubsection{\texorpdfstring{getPrestitoDaRestituire()}{getPrestitoDaRestituire()}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a1818b7721b570242f8b5a7d4bc172380} 
+\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+get\+Prestito\+Da\+Restituire (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 Restituisce l\textquotesingle{}oggetto prestito.
 
 \begin{DoxyReturn}{Restituisce}
 \doxylink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito} 
 \end{DoxyReturn}
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ab1f5687fa963881dcbc2146803e23202}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!getRitardoDefinitivo@{getRitardoDefinitivo}}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a6e14d70f491260eb5cff1fa7d95942d8}\index{gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}!getRitardoDefinitivo@{getRitardoDefinitivo}}
 \index{getRitardoDefinitivo@{getRitardoDefinitivo}!gruppo15.ingegneriadelsoftware.model.Restituzione@{gruppo15.ingegneriadelsoftware.model.Restituzione}}
 \doxysubsubsection{\texorpdfstring{getRitardoDefinitivo()}{getRitardoDefinitivo()}}
-{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ab1f5687fa963881dcbc2146803e23202} 
-int gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+get\+Ritardo\+Definitivo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_a6e14d70f491260eb5cff1fa7d95942d8} 
+long gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+get\+Ritardo\+Definitivo (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
 Calcola il ritardo definitivo facendo un confronto con la data prevista di restituzione con quella attuale.
 
@@ -99,7 +168,7 @@ Verifica se un libro è stato restituito in ritardo o no.
 {\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione_ae4f005fca8232cef862300ceb07c8845} 
 String gruppo15.\+ingegneriadelsoftware.\+model.\+Restituzione.\+to\+CSV (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-Converte i dati in una stringa CSV.
+Converte i dati in una stringa CSV. L\textquotesingle{}ordine è\+: tutti gli attributi del prestito e la data effettiva di restituzione
 
 \begin{DoxyReturn}{Restituisce}
 Una stringa che contiene i dati del prestito restituito e la data effettiva di restituzione 

@@ -3,28 +3,26 @@
 \doxysubsubsection*{Membri pubblici}
 \begin{DoxyCompactItemize}
 \item 
-T \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a5bccea14772c2162cb825129fa28daa1}{add}} (T object)
+List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_ae7f58ce7acb1f01456fd4af3d4ad2534}{add}} (T object)
 \item 
-T \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a970f5151b627e4e70d0ef8cd2e5a2ebc}{remove}} (T object)
-\item 
-T \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a746b0405e550c711609e83e454f3385a}{search}} (T object)
+List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_abe2243c4153dfcc0e4cfc27465982bf3}{remove}} (T object)
 \item 
 List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_aa2bca80e0170863bcabea806b2c3acb3}{get\+List}} ()
 \item 
 boolean \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a508ab46f0f8d738abf4176f09493a9de}{contains}} (T object)
 \item 
-List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a85ddc2b14fcf29c680421930272aaafe}{starts\+With}} (String regex)
+List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a061a0f109671d000659476eb4f509e77}{contains\+String}} (String pattern)
 \end{DoxyCompactItemize}
 
 
 \label{doc-func-members}
 \Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_doc-func-members}
 \doxysubsection{Documentazione delle funzioni membro}
-\Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a5bccea14772c2162cb825129fa28daa1}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!add@{add}}
+\Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_ae7f58ce7acb1f01456fd4af3d4ad2534}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!add@{add}}
 \index{add@{add}!gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{add()}{add()}}
-{\footnotesize\ttfamily \label{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a5bccea14772c2162cb825129fa28daa1} 
-T \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}{gruppo15.\+ingegneriadelsoftware.\+model.\+Manager}}$<$ T $>$.add (\begin{DoxyParamCaption}\item[{T}]{object}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_ae7f58ce7acb1f01456fd4af3d4ad2534} 
+List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}{gruppo15.\+ingegneriadelsoftware.\+model.\+Manager}}$<$ T $>$.add (\begin{DoxyParamCaption}\item[{T}]{object}{}\end{DoxyParamCaption})}
 
 Aggiunge un nuovo oggetto nella collezione gestita.
 
@@ -42,7 +40,7 @@ L\textquotesingle{}oggetto viene inserito correttamente
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Restituisce}
-L\textquotesingle{}oggetto aggiunto 
+La lista aggiornata 
 \end{DoxyReturn}
 \Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a508ab46f0f8d738abf4176f09493a9de}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!contains@{contains}}
 \index{contains@{contains}!gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}}
@@ -60,6 +58,22 @@ Verifica se l\textquotesingle{}oggetto è presente nella collezione.
 \begin{DoxyReturn}{Restituisce}
 {\ttfamily true} se è presente {\ttfamily false} se non è presente 
 \end{DoxyReturn}
+\Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a061a0f109671d000659476eb4f509e77}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!containsString@{containsString}}
+\index{containsString@{containsString}!gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{containsString()}{containsString()}}
+{\footnotesize\ttfamily \label{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a061a0f109671d000659476eb4f509e77} 
+List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}{gruppo15.\+ingegneriadelsoftware.\+model.\+Manager}}$<$ T $>$.contains\+String (\begin{DoxyParamCaption}\item[{String}]{pattern}{}\end{DoxyParamCaption})}
+
+Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
+
+
+\begin{DoxyParams}{Parametri}
+{\em pattern} & il prefisso usato per la ricerca \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Restituisce}
+La lista di tutti gli oggetti trovati corrispondenti al pattern. 
+\end{DoxyReturn}
 \Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_aa2bca80e0170863bcabea806b2c3acb3}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!getList@{getList}}
 \index{getList@{getList}!gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{getList()}{getList()}}
@@ -71,11 +85,11 @@ Restituisce la collezione nello stato attuale.
 \begin{DoxyReturn}{Restituisce}
 La lista aggiornata 
 \end{DoxyReturn}
-\Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a970f5151b627e4e70d0ef8cd2e5a2ebc}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!remove@{remove}}
+\Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_abe2243c4153dfcc0e4cfc27465982bf3}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!remove@{remove}}
 \index{remove@{remove}!gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}}
 \doxysubsubsection{\texorpdfstring{remove()}{remove()}}
-{\footnotesize\ttfamily \label{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a970f5151b627e4e70d0ef8cd2e5a2ebc} 
-T \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}{gruppo15.\+ingegneriadelsoftware.\+model.\+Manager}}$<$ T $>$.remove (\begin{DoxyParamCaption}\item[{T}]{object}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_abe2243c4153dfcc0e4cfc27465982bf3} 
+List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}{gruppo15.\+ingegneriadelsoftware.\+model.\+Manager}}$<$ T $>$.remove (\begin{DoxyParamCaption}\item[{T}]{object}{}\end{DoxyParamCaption})}
 
 Rimuove un oggetto dalla collezione gestita.
 
@@ -88,39 +102,7 @@ L\textquotesingle{}oggetto viene rimosso dalla collezione se presente
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Restituisce}
-L\textquotesingle{}oggetto T rimosso 
-\end{DoxyReturn}
-\Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a746b0405e550c711609e83e454f3385a}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!search@{search}}
-\index{search@{search}!gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}}
-\doxysubsubsection{\texorpdfstring{search()}{search()}}
-{\footnotesize\ttfamily \label{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a746b0405e550c711609e83e454f3385a} 
-T \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}{gruppo15.\+ingegneriadelsoftware.\+model.\+Manager}}$<$ T $>$.search (\begin{DoxyParamCaption}\item[{T}]{object}{}\end{DoxyParamCaption})}
-
-Cerca un oggetto nella collezione gestita.
-
-
-\begin{DoxyParams}{Parametri}
-{\em object} & l\textquotesingle{}oggetto da cercare \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Restituisce}
-L\textquotesingle{}oggetto T se è presente o {\ttfamily Null} se l\textquotesingle{}oggetto non è presente 
-\end{DoxyReturn}
-\Hypertarget{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a85ddc2b14fcf29c680421930272aaafe}\index{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}!startsWith@{startsWith}}
-\index{startsWith@{startsWith}!gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$@{gruppo15.ingegneriadelsoftware.model.Manager$<$ T $>$}}
-\doxysubsubsection{\texorpdfstring{startsWith()}{startsWith()}}
-{\footnotesize\ttfamily \label{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager_a85ddc2b14fcf29c680421930272aaafe} 
-List$<$ T $>$ \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}{gruppo15.\+ingegneriadelsoftware.\+model.\+Manager}}$<$ T $>$.starts\+With (\begin{DoxyParamCaption}\item[{String}]{regex}{}\end{DoxyParamCaption})}
-
-Ritorna una lista di elementi che hanno almeno uno degli attributi (quelli di tipo String) che iniziano con un prefisso.
-
-
-\begin{DoxyParams}{Parametri}
-{\em regex} & il prefisso usato per la ricerca \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Restituisce}
-La lista di tutti gli oggetti trovati corrispondenti al pattern. Se nessun oggetto viene trovato restituisce {\ttfamily Null} 
+La lista aggiornata 
 \end{DoxyReturn}
 
 

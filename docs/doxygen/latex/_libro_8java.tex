@@ -6,7 +6,9 @@ Rappresenta un libro registrato nel sistema con le sue caratteristiche.
 
 
 {\ttfamily import java.\+time.\+Local\+Date;}\newline
+{\ttfamily import java.\+util.\+Arrays;}\newline
 {\ttfamily import java.\+util.\+List;}\newline
+{\ttfamily import java.\+util.\+stream.\+Collectors;}\newline
 \doxysubsubsection*{Composti}
 \begin{DoxyCompactItemize}
 \item 
@@ -18,7 +20,9 @@ class \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro
 Rappresenta un libro registrato nel sistema con le sue caratteristiche. 
 
 \begin{DoxyInvariant}{Invariante}
-la data di pubblicazione deve essere precedente a quella al momento della registrazione (implementabile graficamente)
+la data di pubblicazione deve essere precedente a quella al momento della registrazione (implementabile graficamente) 
+
+l\textquotesingle{}ISBN è sempre diverso da qualsiasi altro ISBN di un libro
 \end{DoxyInvariant}
 Le informazioni gestite includono i metadati bibliografici (Titolo, Autori, Anno, ISBN) e lo stato dell\textquotesingle{}inventario (copie disponibili).
 

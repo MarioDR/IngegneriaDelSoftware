@@ -1,5 +1,19 @@
 var searchData=
 [
-  ['utente_0',['Utente',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente.html#a19ac61de78b654ad65f0add62bb2e513',1,'gruppo15::ingegneriadelsoftware::model::Utente']]],
-  ['utentidormienti_1',['utentiDormienti',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_generatore_statistiche.html#a1b16ae7024d50ed51e1013fdcdc02e8e',1,'gruppo15::ingegneriadelsoftware::model::GeneratoreStatistiche']]]
+  ['setcognome_0',['setCognome',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente.html#aee42e5b1d9d0649f0ce0c493591a764f',1,'gruppo15::ingegneriadelsoftware::model::Utente']]],
+  ['setdatadipubblicazione_1',['setDataDiPubblicazione',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#ac954859009c3a84d51d90a11556f6ffc',1,'gruppo15::ingegneriadelsoftware::model::Libro']]],
+  ['setemail_2',['setEmail',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente.html#a4c518d820f8f0b66c1d7fdd8cd8be9cf',1,'gruppo15::ingegneriadelsoftware::model::Utente']]],
+  ['setlistaautori_3',['setListaAutori',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#a9c5f4faf85ba2861a1ca39bd7c7618fe',1,'gruppo15::ingegneriadelsoftware::model::Libro']]],
+  ['setnome_4',['setNome',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente.html#a034f57fbc948813c0ca41ec3a39da1ec',1,'gruppo15::ingegneriadelsoftware::model::Utente']]],
+  ['setnumerocopiedistock_5',['setNumeroCopieDiStock',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#af74ec355f38ae8358e9fbcb7001490db',1,'gruppo15::ingegneriadelsoftware::model::Libro']]],
+  ['setroot_6',['setRoot',['../classgruppo15_1_1ingegneriadelsoftware_1_1view_1_1_app.html#abcc41134a6070a4d7ccccb5551844f0b',1,'gruppo15::ingegneriadelsoftware::view::App']]],
+  ['settitolo_7',['setTitolo',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#a46ea481f78f83f48c0e82c36304abaad',1,'gruppo15::ingegneriadelsoftware::model::Libro']]],
+  ['setvalore_8',['setValore',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#a12a0259058c7f017a7ac709520e3c2bd',1,'gruppo15::ingegneriadelsoftware::model::Libro']]],
+  ['showlibrodetailspopup_9',['showLibroDetailsPopup',['../classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_visualizza_catalogo_controller.html#af8ea17036834f44d1518cfaf333c2c4b',1,'gruppo15::ingegneriadelsoftware::controller::ScenaVisualizzaCatalogoController']]],
+  ['showprestitodetailspopup_10',['showPrestitoDetailsPopup',['../classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_prestiti_attivi_controller.html#ad31916121ca6906cbdf7c37fe2efc6bd',1,'gruppo15::ingegneriadelsoftware::controller::ScenaPrestitiAttiviController']]],
+  ['showrestituzionedetailspopup_11',['showRestituzioneDetailsPopup',['../classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_storico_restituzioni_controller.html#af9c8e5abc930d6ab9832e8b0afe9f750',1,'gruppo15::ingegneriadelsoftware::controller::ScenaStoricoRestituzioniController']]],
+  ['showuserdetailspopup_12',['showUserDetailsPopup',['../classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_lista_utenti_controller.html#a594e0ec6e9c0b1cb605043bc85320ab9',1,'gruppo15::ingegneriadelsoftware::controller::ScenaListaUtentiController']]],
+  ['speseultimomese_13',['speseUltimoMese',['../classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_visualizza_statistiche_controller.html#a4950773165c33fd346f8d8fb8e65497b',1,'gruppo15::ingegneriadelsoftware::controller::ScenaVisualizzaStatisticheController']]],
+  ['stampaautori_14',['stampaAutori',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#ae79984a871c9a5857ba3f249a883fe61',1,'gruppo15::ingegneriadelsoftware::model::Libro']]],
+  ['start_15',['start',['../classgruppo15_1_1ingegneriadelsoftware_1_1view_1_1_app.html#accfac24028b7a81a6b141d8c469bf014',1,'gruppo15::ingegneriadelsoftware::view::App']]]
 ];

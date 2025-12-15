@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['restituzione_2ejava_0',['Restituzione.java',['../_restituzione_8java.html',1,'']]]
+  ['prestito_2ejava_0',['Prestito.java',['../_prestito_8java.html',1,'']]]
 ];

@@ -13,6 +13,14 @@
   \fi
   % Set document class depending on configuration
   \documentclass[twoside]{book}
+  %% moved from doxygen.sty due to workaround for LaTex 2019 version and unmaintained tabu package
+  \usepackage{ifthen}
+  \ifx\requestedLaTeXdate\undefined
+    \usepackage{array}
+  \else
+    \usepackage{array}[=2016-10-06]
+  \fi
+  %%
   % Packages required by doxygen
   \makeatletter
   \providecommand\IfFormatAtLeastTF{\@ifl@t@r\fmtversion}
@@ -175,7 +183,7 @@
       linkcolor=blue,%
       citecolor=blue,%
       unicode,%
-      pdftitle={doxygen},%
+      pdftitle={Ingegneria del Software},%
       pdfsubject={}%
     }
   % Custom commands used by the header
@@ -212,9 +220,9 @@
   \begin{titlepage}
   \vspace*{7cm}
   \begin{center}%
-  {\Large doxygen}\\
+  {\Large Ingegneria del Software}\\
   \vspace*{1cm}
-  {\large Generato da Doxygen 1.15.0}\\
+  {\large Generato da Doxygen 1.14.0}\\
   \end{center}
   \end{titlepage}
   \clearemptydoublepage
@@ -233,7 +241,6 @@
 \input{files}
 \chapter{Documentazione delle classi}
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1view_1_1_app}
-\input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_generatore_statistiche}
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_libri}
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_prestiti}
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_gestore_restituzioni}
@@ -241,11 +248,30 @@
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro}
 \input{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_manager}
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}
-\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_primary_controller}
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_restituzione}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_aggiungi_libro_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_aggiungi_prestito_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_aggiungi_utente_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_lista_utenti_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_login_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_menu_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_prestiti_attivi_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_storico_restituzioni_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_visualizza_catalogo_controller}
+\input{classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_scena_visualizza_statistiche_controller}
+\input{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_searchable}
 \input{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente}
 \chapter{Documentazione dei file}
-\input{_generatore_statistiche_8java}
+\input{_scena_aggiungi_libro_controller_8java}
+\input{_scena_aggiungi_prestito_controller_8java}
+\input{_scena_aggiungi_utente_controller_8java}
+\input{_scena_lista_utenti_controller_8java}
+\input{_scena_login_controller_8java}
+\input{_scena_menu_controller_8java}
+\input{_scena_prestiti_attivi_controller_8java}
+\input{_scena_storico_restituzioni_controller_8java}
+\input{_scena_visualizza_catalogo_controller_8java}
+\input{_scena_visualizza_statistiche_controller_8java}
 \input{_gestore_libri_8java}
 \input{_gestore_prestiti_8java}
 \input{_gestore_restituzioni_8java}
@@ -255,6 +281,7 @@
 \input{_prestito_8java}
 \input{_restituzione_8java}
 \input{_utente_8java}
+\input{_app_8java}
 %--- End generated contents ---
 % Index
   \backmatter

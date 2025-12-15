@@ -1,5 +1,11 @@
 \doxysection{Riferimenti per la classe gruppo15.\+ingegneriadelsoftware.\+model.\+Utente}
 \hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente}{}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
+Diagramma delle classi per gruppo15.\+ingegneriadelsoftware.\+model.\+Utente\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente}
+\end{center}
+\end{figure}
 \doxysubsubsection*{Membri pubblici}
 \begin{DoxyCompactItemize}
 \item 
@@ -8,8 +14,6 @@
 void \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a034f57fbc948813c0ca41ec3a39da1ec}{set\+Nome}} (String \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a3609f4949fb1522e90227909b5051fcd}{nome}})
 \item 
 void \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_aee42e5b1d9d0649f0ce0c493591a764f}{set\+Cognome}} (String cognome)
-\item 
-void \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a4200bb130da2a96b53bc396bd94d2a89}{set\+Matricola}} (String matricola)
 \item 
 void \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a4c518d820f8f0b66c1d7fdd8cd8be9cf}{set\+Email}} (String email)
 \item 
@@ -23,11 +27,11 @@ String \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_uten
 \item 
 List$<$ \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} $>$ \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a7fbad44cbb473b11891cb7e7a03631a3}{get\+Lista\+Prestiti}} ()
 \item 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a347534dc66fbc22724272b48ae36b70e}{add\+Prestito}} (\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} prestito)
-\item 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_ae3f6190b1b5524aa4953b8ac58431d4b}{remove\+Prestito}} (\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} p)
-\item 
 boolean \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a6ea47e94b11afe3ec0aeaf73ba5a5b37}{has\+Max\+Num\+Prestiti}} ()
+\item 
+boolean \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_adc8313a20f99a772f1a685ff7275dd4f}{contains\+Pattern}} (String pattern)
+\item 
+boolean \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a5f86bfa78f3b6855b39fb34a5731829e}{equals}} (Object o)
 \item 
 String \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_ace5718d881506cca8183e101d1275aab}{to\+CSV}} ()
 \end{DoxyCompactItemize}
@@ -40,15 +44,12 @@ String {\bfseries nome}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a26ca0c47ec13580d208910bdcb6757f8}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a26ca0c47ec13580d208910bdcb6757f8} 
 String {\bfseries cognome}
 \item 
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a6177da110f9ef26f1cf87e3e9d79734f}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a6177da110f9ef26f1cf87e3e9d79734f} 
-String {\bfseries matricola}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_aa23cd138d63d8a22b6c9b7e67988ee44}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_aa23cd138d63d8a22b6c9b7e67988ee44} 
+final String {\bfseries matricola}
 \item 
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_ae0705c3c9f6337875a28caf42da3eb7f}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_ae0705c3c9f6337875a28caf42da3eb7f} 
 String {\bfseries email}
-\item 
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_aa238400dac3c8cb3aac4477a6d8099f0}\label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_aa238400dac3c8cb3aac4477a6d8099f0} 
-List$<$ \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} $>$ {\bfseries lista\+Prestiti}
-\begin{DoxyCompactList}\small\item\em Lista che memorizza tutti i prestiti attivi dell\textquotesingle{}utente. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{DoxyCompactItemize}
 
 
 \label{doc-constructors}
@@ -62,6 +63,9 @@ gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+Utente (\begin{DoxyParamCapt
 
 Costruttore della classe \doxylink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente}{Utente}.
 
+\begin{DoxyPrecond}{Precondizione}
+tutti i parametri devono rispettare i requisiti grammaticali 
+\end{DoxyPrecond}
 
 \begin{DoxyParams}{Parametri}
 {\em nome} & Il nome dell\textquotesingle{}utente \\
@@ -78,29 +82,36 @@ Costruttore della classe \doxylink{classgruppo15_1_1ingegneriadelsoftware_1_1mod
 \label{doc-func-members}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_doc-func-members}
 \doxysubsection{Documentazione delle funzioni membro}
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a347534dc66fbc22724272b48ae36b70e}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!addPrestito@{addPrestito}}
-\index{addPrestito@{addPrestito}!gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
-\doxysubsubsection{\texorpdfstring{addPrestito()}{addPrestito()}}
-{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a347534dc66fbc22724272b48ae36b70e} 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+add\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}}}]{prestito}{}\end{DoxyParamCaption})}
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_adc8313a20f99a772f1a685ff7275dd4f}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!containsPattern@{containsPattern}}
+\index{containsPattern@{containsPattern}!gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
+\doxysubsubsection{\texorpdfstring{containsPattern()}{containsPattern()}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_adc8313a20f99a772f1a685ff7275dd4f} 
+boolean gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+contains\+Pattern (\begin{DoxyParamCaption}\item[{String}]{pattern}{}\end{DoxyParamCaption})}
 
-Aggiunge un nuovo prestito nella lista dei prestiti dell\textquotesingle{}utente.
+Verifica se l\textquotesingle{}elemento ha almeno uno degli attributi (quelli di tipo String) che contengono una certa stringa.
 
-\begin{DoxyPrecond}{Precondizione}
-L\textquotesingle{}utente destinatario del prestito deve essere questa istanza 
-
-L\textquotesingle{}ID del prestito deve essere diverso da tutti gli ID dei prestiti attualmente collegati a questa istanza 
-\end{DoxyPrecond}
-\begin{DoxyPostcond}{Postcondizione}
-Il prestito viene aggiunto alla lista dei prestiti dell\textquotesingle{}utente 
-\end{DoxyPostcond}
 
 \begin{DoxyParams}{Parametri}
-{\em prestito} & Il prestito che si vuole aggiungere all\textquotesingle{}utente \\
+{\em pattern} & la stringa usata per la ricerca \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Restituisce}
-La lista dei prestiti aggiornata 
+{\ttfamily true} se l\textquotesingle{}oggetto corrisponde al pattern {\ttfamily false} in ogni altro caso 
+\end{DoxyReturn}
+
+
+Implementa \mbox{\hyperlink{interfacegruppo15_1_1ingegneriadelsoftware_1_1model_1_1_searchable_a99fceb6b74e48e6034b359708c35947a}{gruppo15.\+ingegneriadelsoftware.\+model.\+Searchable}}.
+
+\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a5f86bfa78f3b6855b39fb34a5731829e}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!equals@{equals}}
+\index{equals@{equals}!gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
+\doxysubsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a5f86bfa78f3b6855b39fb34a5731829e} 
+boolean gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+equals (\begin{DoxyParamCaption}\item[{Object}]{o}{}\end{DoxyParamCaption})}
+
+Controlla se un oggetto è uguale a questa istanza (due utenti sono uguali se hanno la stessa matricola e la stessa emai)
+
+\begin{DoxyReturn}{Restituisce}
+{\ttfamily true} se i due utenti hanno la stessa matricola e la stessa email {\ttfamily false} in tutti gli atri casi 
 \end{DoxyReturn}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a146ee38262681be1cad299dc399ab5aa}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!getCognome@{getCognome}}
 \index{getCognome@{getCognome}!gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
@@ -168,25 +179,6 @@ Verifica se l\textquotesingle{}utente ha raggiunto il numero massimo di prestiti
 \begin{DoxyReturn}{Restituisce}
 {\ttfamily true} se l\textquotesingle{}utente ha già tre prestiti attivi, {\ttfamily false} se l\textquotesingle{}utente ha meno di tre prestiti attivi 
 \end{DoxyReturn}
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_ae3f6190b1b5524aa4953b8ac58431d4b}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!removePrestito@{removePrestito}}
-\index{removePrestito@{removePrestito}!gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
-\doxysubsubsection{\texorpdfstring{removePrestito()}{removePrestito()}}
-{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_ae3f6190b1b5524aa4953b8ac58431d4b} 
-\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}} gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+remove\+Prestito (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito}{Prestito}}}]{p}{}\end{DoxyParamCaption})}
-
-Rimuove un prestito dalla lista prestiti dell\textquotesingle{}utente.
-
-\begin{DoxyPostcond}{Postcondizione}
-Il prestito viene rimosso dalla lista dei prestiti dell\textquotesingle{}utente 
-\end{DoxyPostcond}
-
-\begin{DoxyParams}{Parametri}
-{\em p} & Il prestito da rimuovere dalla lista dei prestiti dell\textquotesingle{}utente \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Restituisce}
-La lista dei prestiti aggiornata 
-\end{DoxyReturn}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_aee42e5b1d9d0649f0ce0c493591a764f}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!setCognome@{setCognome}}
 \index{setCognome@{setCognome}!gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
 \doxysubsubsection{\texorpdfstring{setCognome()}{setCognome()}}
@@ -195,6 +187,12 @@ void gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+set\+Cognome (\begin{Do
 
 Imposta il cognome dell\textquotesingle{}utente.
 
+\begin{DoxyPrecond}{Precondizione}
+il parametro deve rispettare tutti i requisiti grammaticali 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondizione}
+il cognome verrà aggiornato con il nuovo valore 
+\end{DoxyPostcond}
 
 \begin{DoxyParams}{Parametri}
 {\em cognome} & La stringa contenente il nuovo cognome dell\textquotesingle{}utente \\
@@ -208,22 +206,15 @@ void gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+set\+Email (\begin{Doxy
 
 Imposta l\textquotesingle{}indirizzo email dell\textquotesingle{}utente.
 
+\begin{DoxyPrecond}{Precondizione}
+il parametro deve rispettare tutti i requisiti grammaticali 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondizione}
+l\textquotesingle{}email verrà aggiornata con il nuovo valore 
+\end{DoxyPostcond}
 
 \begin{DoxyParams}{Parametri}
 {\em email} & La stringa contenente il nuovo indirizzo email \\
-\hline
-\end{DoxyParams}
-\Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a4200bb130da2a96b53bc396bd94d2a89}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!setMatricola@{setMatricola}}
-\index{setMatricola@{setMatricola}!gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}}
-\doxysubsubsection{\texorpdfstring{setMatricola()}{setMatricola()}}
-{\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a4200bb130da2a96b53bc396bd94d2a89} 
-void gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+set\+Matricola (\begin{DoxyParamCaption}\item[{String}]{matricola}{}\end{DoxyParamCaption})}
-
-Imposta la matricola dell\textquotesingle{}utente.
-
-
-\begin{DoxyParams}{Parametri}
-{\em matricola} & La stringa contenente la nuova matricola dell\textquotesingle{}utente \\
 \hline
 \end{DoxyParams}
 \Hypertarget{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_a034f57fbc948813c0ca41ec3a39da1ec}\index{gruppo15.ingegneriadelsoftware.model.Utente@{gruppo15.ingegneriadelsoftware.model.Utente}!setNome@{setNome}}
@@ -234,6 +225,12 @@ void gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+set\+Nome (\begin{DoxyP
 
 Imposta il nome dell\textquotesingle{}utente.
 
+\begin{DoxyPrecond}{Precondizione}
+il parametro deve rispettare tutti i requisiti grammaticali 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondizione}
+il nome verrà aggiornato con il nuovo valore 
+\end{DoxyPostcond}
 
 \begin{DoxyParams}{Parametri}
 {\em nome} & La stringa contenente il nuovo nome dell\textquotesingle{}utente \\
@@ -245,7 +242,7 @@ Imposta il nome dell\textquotesingle{}utente.
 {\footnotesize\ttfamily \label{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente_ace5718d881506cca8183e101d1275aab} 
 String gruppo15.\+ingegneriadelsoftware.\+model.\+Utente.\+to\+CSV (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-Converte i dati in una stringa CSV.
+Converte i dati in una stringa CSV. L\textquotesingle{}ordine è\+: nome, cognome, matricola, email ed eventuali ID di prestiti attivi (ogni ID prestito inizia con \#).
 
 \begin{DoxyReturn}{Restituisce}
 Una stringa che contiene Nome, Cognome, Matricola, Email e ID dei prestiti in formato CSV 

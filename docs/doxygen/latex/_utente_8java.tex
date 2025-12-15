@@ -5,6 +5,7 @@
 Rappresenta un utente registrato nel sistema con la gestione dei suoi prestiti.  
 
 
+{\ttfamily import java.\+util.\+Array\+List;}\newline
 {\ttfamily import java.\+util.\+List;}\newline
 \doxysubsubsection*{Composti}
 \begin{DoxyCompactItemize}
@@ -17,7 +18,7 @@ class \mbox{\hyperlink{classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utent
 Rappresenta un utente registrato nel sistema con la gestione dei suoi prestiti. 
 
 \begin{DoxyInvariant}{Invariante}
-Nessuna invariante
+La matricola e la email devono essere diverse da quelle di tutti gli altri utenti
 \end{DoxyInvariant}
 La classe Utente modella il concetto che si ha di Utente nel sistema. I suoi attributi rapprerentano tutte le generalità necessarie e la lista dei libri presi in prestito. Le istanze di questa classe possono trovarsi in uno stato incoerente e sarà il metodo is\+Valid() dell\textquotesingle{}interfaccia Checkable a decidere questa condizione.
 

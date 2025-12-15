@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 /**
  * @file Prestito.java
- * @breaf Rappresenta un prestito di un libro ad un determinato utente
+ * @brief Rappresenta un prestito di un libro ad un determinato utente
  * @invariant la data prevista per la restituzione deve essere sempre successiva a quella di inizio ma mai oltre i 6 mesi
  * @invariant l'ID deve essere un numero positivo e ogni istanza deve avere un ID  diverso da tutte le altre
  * 

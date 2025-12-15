@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['prestito_0',['Prestito',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito.html',1,'gruppo15.ingegneriadelsoftware.model.Prestito'],['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_prestito.html#abd5fdeb6ecfa4dac9a976e7b2804e9ed',1,'gruppo15.ingegneriadelsoftware.model.Prestito.Prestito()']]],
-  ['prestito_2ejava_1',['Prestito.java',['../_prestito_8java.html',1,'']]],
-  ['primarycontroller_2',['PrimaryController',['../classgruppo15_1_1ingegneriadelsoftware_1_1controller_1_1_primary_controller.html',1,'gruppo15::ingegneriadelsoftware::controller']]]
+  ['nome_0',['nome',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_utente.html#a3609f4949fb1522e90227909b5051fcd',1,'gruppo15::ingegneriadelsoftware::model::Utente']]],
+  ['numerocopiedistock_1',['numeroCopieDiStock',['../classgruppo15_1_1ingegneriadelsoftware_1_1model_1_1_libro.html#ae8e74090fa7309f89f44c67df0bb5b22',1,'gruppo15::ingegneriadelsoftware::model::Libro']]]
 ];
