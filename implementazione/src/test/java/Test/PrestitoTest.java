@@ -18,6 +18,7 @@ class PrestitoTest {
     private Libro libroReale;
     private Libro libroB;
     private Prestito prestitoStandard;
+    private LocalDate dataPrevistaRestituzione;
     
     // Date per i test (la data di oggi è implicita nel costruttore)
     private final LocalDate DATA_OGGI = LocalDate.now();
@@ -30,9 +31,9 @@ class PrestitoTest {
         libroB = new Libro("Code", "Robert C. Martin", LocalDate.of(2008, 5, 2), "1234567890124", 2, 35.00f);
         
         // Prestito standard con scadenza tra 30 giorni
-        LocalDate dataPrevistaRestituzione = DATA_OGGI.plusDays(30);
+        dataPrevistaRestituzione = DATA_OGGI.plusDays(30);
         
-        // Aggiungo il prestito e l'utente nei manager
+        // Aggiungo il libro e l'utente nei manager
         GestoreUtenti.getInstance().getList().clear();
         GestoreLibri.getInstance().getList().clear();
         
@@ -59,6 +60,22 @@ class PrestitoTest {
         assertEquals(utenteReale, prestitoStandard.getUtenteAssegnatario());
         assertEquals(libroReale, prestitoStandard.getLibroPrestato());
         assertEquals(DATA_OGGI.plusDays(30), prestitoStandard.getDataPrevistaRestituzione());
+    }
+    
+    @Test
+    void testCostruttore2InizializzaCorrettamente() {
+        Prestito prestito2 = new Prestito(1, "0123456789", "1234567890123", DATA_OGGI, dataPrevistaRestituzione);
+        
+        // Verifica l'ID: deve essere positivo (invariante implicita)
+        assertTrue(prestito2.getID() == 1); 
+        
+        // Verifica che la data di inizio sia oggi
+        assertEquals(DATA_OGGI, prestito2.getDataInizioPrestito());
+        
+        // Verifica le associazioni
+        assertEquals(utenteReale, prestito2.getUtenteAssegnatario());
+        assertEquals(libroReale, prestito2.getLibroPrestato());
+        assertEquals(DATA_OGGI.plusDays(30), prestito2.getDataPrevistaRestituzione());
     }
     
     @Test
@@ -97,7 +114,7 @@ class PrestitoTest {
     }
     
     @Test
-    void testGetGiorniDiRitardoCalcoloCorretto() {
+    void testGetGiorniDiRitardoQuandoInRitardo() {
         // Data prevista: 5 giorni fa
         LocalDate dataPassata = DATA_OGGI.minusDays(5);
         Prestito prestitoInRitardo = new Prestito("0123456789", "1234567890123", dataPassata);
@@ -106,6 +123,14 @@ class PrestitoTest {
         assertEquals(5L, prestitoInRitardo.getGiorniDiRitardo());
     }
 
+    @Test
+    void testGetGiorniDiRitardoQuandoPuntuale() {
+        LocalDate dataFutura = DATA_OGGI;
+        Prestito prestitoInAnticipo = new Prestito("0123456789", "1234567890123", dataFutura);
+        
+        assertEquals(0L, prestitoInAnticipo.getGiorniDiRitardo());
+    }
+    
     @Test
     void testGetGiorniDiRitardoQuandoInAnticipo() {
         // Data prevista: 10 giorni nel futuro
@@ -117,24 +142,21 @@ class PrestitoTest {
     }
 
     // =========================================================
-    // TEST EQUALS, SEARCHABLE E TO CSV
+    // TEST EQUALS, CONTAINS PATTERN E TO CSV
     // =========================================================
 
     @Test
-    void testEqualsConStessoID() {
+    void testEquals() {
         // Creiamo un prestito p1 e ne copiamo l'ID
         Prestito p1 = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(1));
-        
-        // Creiamo un oggetto fittizio che simuli lo stesso ID di p1 per l'equals
-        // (Nota: in assenza di mock, questo è difficile da testare senza violare l'invariante ID,
-        // ma verifichiamo che il metodo 'equals' funzioni sulla stessa istanza)
-        
+        Prestito p1copia = p1;
+
         // Due istanze consecutive hanno ID diversi
         Prestito p2 = new Prestito("0123456789", "1234567890123", DATA_OGGI.plusDays(1));
         assertFalse(p1.equals(p2));
         
         // La stessa istanza è uguale
-        assertTrue(p1.equals(p1));
+        assertTrue(p1.equals(p1copia));
     }
     
     @Test
@@ -145,8 +167,6 @@ class PrestitoTest {
 
     @Test
     void testContainsPatternDelegaRicerca() {
-        // Utente: Marco, Bianchi, U777, Libro: Clean Code, 0132350882
-        
         // 1. Ricerca che trova corrispondenza in Utente (Cognome)
         assertTrue(prestitoStandard.containsPattern("Bianchi"));
 
@@ -163,5 +183,13 @@ class PrestitoTest {
         String expectedCSV = prestitoStandard.getID() + "," + expectedDates + "," + "0123456789" + "," + "1234567890123";
         
         assertEquals(expectedCSV, prestitoStandard.toCSV());
+    }
+    
+    @Test
+    void testToCSVFormatoSbagliato() {
+        String expectedDates = prestitoStandard.getDataInizioPrestito().plusDays(1) + "," + prestitoStandard.getDataPrevistaRestituzione();
+        String unexpectedCSV = prestitoStandard.getID() + "," + expectedDates + "," + "0123456789" + "," + "1234567890123";
+        
+        assertNotEquals(unexpectedCSV, prestitoStandard.toCSV());
     }
 }

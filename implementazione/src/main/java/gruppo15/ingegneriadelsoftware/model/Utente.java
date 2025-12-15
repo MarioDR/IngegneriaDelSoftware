@@ -23,7 +23,7 @@ public class Utente implements Searchable {
     
     private String nome;
     private String cognome;
-    private String matricola;
+    private final String matricola;
     private String email;
     
     /**
@@ -65,16 +65,6 @@ public class Utente implements Searchable {
     
     public void setCognome(String cognome) {
         this.cognome = cognome;
-    }
-
-    /**
-     * Imposta la matricola dell'utente.
-     * 
-     * @param matricola La stringa contenente la nuova matricola dell'utente
-     */
-    
-    public void setMatricola(String matricola) {
-        this.matricola = matricola;
     }
 
     /**

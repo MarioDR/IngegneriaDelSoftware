@@ -6,6 +6,8 @@ import gruppo15.ingegneriadelsoftware.model.Libro;
 import gruppo15.ingegneriadelsoftware.model.Prestito;
 import gruppo15.ingegneriadelsoftware.model.Utente;
 import gruppo15.ingegneriadelsoftware.model.Restituzione;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
@@ -16,6 +18,7 @@ class RestituzioneTest {
 
     private Utente utenteStandard;
     private Libro libroStandard;
+    private Libro libroTest;
     
     // Date usate per simulare le condizioni di ritardo/anticipo
     private final LocalDate DATA_OGGI = LocalDate.now();
@@ -26,18 +29,19 @@ class RestituzioneTest {
         // Oggetti di base necessari per creare un Prestito reale
         utenteStandard = new Utente("Marco", "Neri", "0123456789", "m.neri@uni.it");
         libroStandard = new Libro("Test Ritorno", "Autore", LocalDate.now(), "1234567890123", 1, 1f);
+        libroTest = new Libro("Test CSV", "Autore", LocalDate.now(), "1234567880123", 1, 1f);
         
-        // Aggiungo il prestito e l'utente nei manager
-        // Aggiungo i prestiti e l'utente nei manager
+        // Aggiungo i libri e l'utente nei manager
         GestoreUtenti.getInstance().getList().clear();
         GestoreLibri.getInstance().getList().clear();
         
         GestoreUtenti.getInstance().add(utenteStandard);
         GestoreLibri.getInstance().add(libroStandard);
+        GestoreLibri.getInstance().add(libroTest);
     }
 
     // =========================================================
-    // TEST COSTRUTTORE
+    // TEST COSTRUTTORI
     // =========================================================
 
     @Test
@@ -52,8 +56,18 @@ class RestituzioneTest {
         assertEquals(DATA_OGGI, restituzione.getDataRestituzione()); 
     }
 
+    @Test
+    void testCostruttore2InizializzazioneCorretta() {
+        // Creiamo un prestito che sarà restituito (la sua dataInizio sarà oggi)
+        Prestito prestitoDaRestituire = new Prestito(2, "0123456789", "1234567890123", DATA_OGGI, DATA_OGGI.plusDays(7));
+        Restituzione restituzione = new Restituzione(DATA_OGGI.plusDays(2), prestitoDaRestituire);
+        
+        assertEquals(prestitoDaRestituire, restituzione.getPrestitoDaRestituire());
+        assertEquals(DATA_OGGI.plusDays(2), restituzione.getDataRestituzione()); 
+    }
+    
     // =========================================================
-    // TEST LOGICA RITARDO (isRestituitoInRitardo / getRitardoDefinitivo)
+    // TEST LOGICA RITARDO (isRestituitoInRitardo / getRitardoDefinitivo testati insieme)
     // =========================================================
 
     @Test
@@ -94,7 +108,6 @@ class RestituzioneTest {
         
         // 2. La Restituzione avviene OGGI
         Restituzione restituzione = new Restituzione(prestitoPuntuale);
-        
         assertFalse(restituzione.isRestituitoInRitardo());
         
         // Ritardo = 0 giorni
@@ -102,7 +115,38 @@ class RestituzioneTest {
     }
 
     // =========================================================
-    // TEST EQUALS, SEARCHABLE E ToCSV
+    // TEST CALCOLA PENALE
+    // =========================================================
+    
+    @Test 
+    void testPenaleQuandoNonNulla() {
+        LocalDate dataPrevista = DATA_OGGI.minusDays(GIORNI_RITARDO_TEST);
+        Prestito prestitoInAnticipo = new Prestito("0123456789", "1234567890123", dataPrevista);
+
+        Restituzione restituzione = new Restituzione(prestitoInAnticipo);
+        
+        float val = GIORNI_RITARDO_TEST * 0.05F * restituzione.getPrestitoDaRestituire().getLibroPrestato().getValore();
+            
+        // Fase di arrotondamento
+        BigDecimal bd = new BigDecimal(Float.toString(val));
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        float penale = bd.floatValue(); 
+        
+        assertEquals(penale, restituzione.calcolaPenale());
+    }
+    
+    @Test
+    void testPenaleQuandoNulla() {
+        LocalDate dataPrevista = DATA_OGGI;
+        Prestito prestitoInAnticipo = new Prestito("0123456789", "1234567890123", dataPrevista);
+
+        Restituzione restituzione = new Restituzione(prestitoInAnticipo);
+        
+        assertEquals(0, restituzione.calcolaPenale());
+    }
+    
+    // =========================================================
+    // TEST EQUALS, CONTAINS PATTERN E ToCSV
     // =========================================================
 
     @Test
@@ -154,14 +198,21 @@ class RestituzioneTest {
         Prestito prestito = new Prestito("0123456789", "1234567890123", dataPrevista);
         Restituzione restituzione = new Restituzione(prestito);
         
-        // Il toCSV deve essere: Prestito.toCSV() + "," + DataEffettivaRestituzione
-        
-        // Formato Prestito (Utente + Libro + DataInizio + DataPrevista):
-        // Marco,Neri,U900,m.neri@uni.it,Test Ritorno,ISBN-RET,1,1.0,Autore,2025-12-12,2026-01-01 (Esempio)
-        
         String prestitoCSV = prestito.toCSV();
         String expectedCSV = DATA_OGGI + "," + prestitoCSV; // DATA_OGGI è la data effettiva di restituzione
         
         assertEquals(expectedCSV, restituzione.toCSV());
+    }
+    
+    @Test
+    void testToCSVFormatoSbagliato() {
+        LocalDate dataPrevista = DATA_OGGI.plusDays(15);
+        Prestito prestito = new Prestito("0123456789", "1234567880123", dataPrevista);
+        Restituzione restituzione = new Restituzione(prestito);
+        
+        String prestitoCSV = prestito.toCSV();
+        String unexpectedCSV = DATA_OGGI.plusDays(1) + "," + prestitoCSV; // DATA_OGGI è la data effettiva di restituzione
+        
+        assertNotEquals(unexpectedCSV, restituzione.toCSV());
     }
 }

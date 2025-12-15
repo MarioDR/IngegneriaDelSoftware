@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GestoreLibriTest {
@@ -94,6 +93,7 @@ class GestoreLibriTest {
         
         assertEquals(2, lista.size());
         assertTrue(lista.contains(libroA));
+        assertTrue(lista.contains(libroB));
     }
 
     // =========================================================

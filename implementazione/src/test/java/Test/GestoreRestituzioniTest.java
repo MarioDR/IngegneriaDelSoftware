@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GestoreRestituzioniTest {
@@ -36,7 +35,7 @@ class GestoreRestituzioniTest {
         // 3. Creazione di Prestiti (necessari per le Restituzioni)
         LocalDate dataFutura = LocalDate.now().plusDays(15);
         
-        // Aggiungo il prestito e l'utente nei manager
+        // Aggiungo i prestiti e gli utenti nei manager
         GestoreUtenti.getInstance().getList().clear();
         GestoreLibri.getInstance().getList().clear();
         
@@ -98,6 +97,16 @@ class GestoreRestituzioniTest {
         List<Restituzione> lista = gestore.remove(restituzioneA);
         
         assertFalse(lista.contains(restituzioneA));
+        assertEquals(1, lista.size());
+    }
+    
+    @Test
+    void testRemoveRimuoveRestituzioneNull() {
+        gestore.add(restituzioneA);
+        
+        List<Restituzione> lista = gestore.remove(null);
+        
+        assertTrue(lista.contains(restituzioneA));
         assertEquals(1, lista.size());
     }
     

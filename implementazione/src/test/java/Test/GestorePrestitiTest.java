@@ -35,7 +35,7 @@ class GestorePrestitiTest {
         // 3. Creazione di Prestiti reali
         LocalDate dataFutura = LocalDate.now().plusDays(15);
         
-        // Aggiungo il prestito e l'utente nei manager
+        // Aggiungo i libri e gli utenti nei manager
         GestoreUtenti.getInstance().getList().clear();
         GestoreLibri.getInstance().getList().clear();
         
@@ -44,13 +44,8 @@ class GestorePrestitiTest {
         GestoreUtenti.getInstance().add(utenteB);
         GestoreLibri.getInstance().add(libro2);
         
-        // Prestito A (ID X)
         prestitoA = new Prestito("0123456789", "1234567890123", dataFutura);
-        // Prestito B (ID Y)
         prestitoB = new Prestito("0123456780", "1234567890124", dataFutura);
-        // Prestito C ha lo stesso ID logico di A, ma ID diversi (dovrebbe fallire l'equals)
-        // Nota: Poiché Prestito usa contatore statico, Prestito.equals si basa solo sull'ID
-        // Qui creiamo un Prestito che non sarà MAI uguale ad A o B
         prestitoC = new Prestito("0123456780", "1234567890123", dataFutura);
     }
 
@@ -108,6 +103,18 @@ class GestorePrestitiTest {
         assertEquals(dimensioneIniziale, gestore.getList().size());
     }
     
+    @Test
+    void testGetListRestituisceCollezioneCorretta() {
+        gestore.add(prestitoA);
+        gestore.add(prestitoB);
+        
+        List<Prestito> lista = gestore.getList();
+        
+        assertEquals(2, lista.size());
+        assertTrue(lista.contains(prestitoA));
+        assertTrue(lista.contains(prestitoB));
+    }
+    
     // =========================================================
     // TEST CONTAINS
     // =========================================================
@@ -116,7 +123,6 @@ class GestorePrestitiTest {
     void testContainsTrovaPrestitoUgualePerID() {
         gestore.add(prestitoA);
         
-        // Creiamo un riferimento esatto, che deve essere trovato
         Prestito prestitoUguale = prestitoA;
         assertTrue(gestore.contains(prestitoUguale)); 
     }
@@ -125,7 +131,6 @@ class GestorePrestitiTest {
     void testContainsNonTrovaPrestitoDiverso() {
         gestore.add(prestitoA);
         
-        // Prestito B ha un ID diverso da A
         assertFalse(gestore.contains(prestitoB));
     }
 

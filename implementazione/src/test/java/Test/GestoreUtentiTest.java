@@ -5,7 +5,6 @@ import gruppo15.ingegneriadelsoftware.model.Utente;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class GestoreUtentiTest {
@@ -91,6 +90,7 @@ class GestoreUtentiTest {
         
         assertEquals(2, lista.size());
         assertTrue(lista.contains(utenteA));
+        assertTrue(lista.contains(utenteB));
     }
     
     // =========================================================
@@ -101,7 +101,7 @@ class GestoreUtentiTest {
     void testContainsTrovaUtenteUgualePerMatricolaEmail() {
         gestore.add(utenteA);
         
-        // utenteUgualeA ha la stessa matricola e email di utenteA
+        // utenteUgualeA ha la stessa matricola o email di utenteA
         assertTrue(gestore.contains(utenteUgualeA)); 
     }
     
@@ -118,11 +118,10 @@ class GestoreUtentiTest {
     // =========================================================
 
     @Test
-    void testContainsStringTrovaCorrispondenzeInNomeECognome() {
+    void testContainsStringTrovaCorrispondenzeInNome() {
         gestore.add(utenteA); // Mario Rossi
         gestore.add(utenteB); // Luisa Bianchi
         
-        // Cerca la sottostringa "oss" (presente in Rossi)
         List<Utente> risultati = gestore.containsString("oss");
         
         assertEquals(1, risultati.size());
@@ -130,11 +129,10 @@ class GestoreUtentiTest {
     }
     
     @Test
-    void testContainsStringTrovaCorrispondenzaInMatricolaEEmail() {
+    void testContainsStringTrovaCorrispondenzaInEmail() {
         gestore.add(utenteA); // R001, mario.rossi
         gestore.add(utenteB); // B002, luisa.bianchi
         
-        // Cerca la sottostringa "uni" (presente in entrambe le email)
         List<Utente> risultati = gestore.containsString("uni");
         
         assertEquals(2, risultati.size());

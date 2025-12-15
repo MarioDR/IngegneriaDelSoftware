@@ -82,6 +82,22 @@ class LibroTest {
     }
     
     // =========================================================
+    // TEST STAMPA AUTORI
+    // =========================================================
+    
+    @Test
+    void testStampaAutori() {
+        String aut = libro.stampaAutori();
+        
+        String expectedString = "Gamma; Helm; Johnson; Vlissides";
+        String unexpectedString = "Gamma, Helm, Johnson, Vlissides";
+        
+        assertEquals(expectedString, aut);
+        assertNotEquals(unexpectedString, aut);
+        assertNotEquals(null, aut);
+    }
+    
+    // =========================================================
     // TEST EQUALS, SEARCHABLE E ToCSV
     // =========================================================
 
@@ -104,17 +120,23 @@ class LibroTest {
         assertTrue(libro.containsPattern("63361"));
         assertTrue(libro.containsPattern("ign patt"));
         assertTrue(libro.containsPattern("DESIGN"));
-        
-        // Ricerche che non vanno a buon fine
         assertFalse(libro.containsPattern("Pippo"));
         assertTrue(libro.containsPattern(""));
         assertTrue(libro.containsPattern(" "));
+        assertTrue(libro.containsPattern(null));
+
+        // Ricerche che non vanno a buon fine
         assertFalse(libro.containsPattern("02 01"));
         assertFalse(libro.containsPattern("ignpatt"));
     }
     
     @Test
-    void testToCSV() {
+    void testToCSVCorretto() {
         assertTrue(libro.toCSV().equals("Design Patterns,0201633612101,5,65.99,2000-01-01,Gamma,Helm,Johnson,Vlissides"));
+    }
+    
+    @Test
+    void testToCSVSbagliato() {
+        assertFalse(libro.toCSV().equals("Design Patterns,0201633612101,5,65.99,2000-01-01,Gamme,Helm,Johnson,Vlissides"));
     }
 }

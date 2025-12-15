@@ -72,7 +72,7 @@ class UtenteTest {
     }
 
     // =========================================================
-    // TEST LIMITE PRESTITI (hasMaxNumPrestiti)
+    // TEST LIMITE PRESTITI (hasMaxNumPrestiti) 
     // =========================================================
 
     @Test
@@ -110,6 +110,7 @@ class UtenteTest {
     @Test
     void testGetListaPrestitiVuota() {
         assertEquals(0, utenteStandard.getListaPrestiti().size());
+        assertTrue(utenteStandard.getListaPrestiti().isEmpty());
     }
     
     @Test
@@ -157,6 +158,12 @@ class UtenteTest {
         assertEquals(expectedCSV, utenteStandard.toCSV());
     }
     
+    @Test
+    void testToCSVFormatoSbagliato() {
+        String unexpectedCSV = "Marco,Rossi,0123456799,marco.rossi@uni.it";
+        assertNotEquals(unexpectedCSV, utenteStandard.toCSV());
+    }
+    
     // =========================================================
     // TEST CONTAINS PATTERN
     // =========================================================
@@ -164,13 +171,25 @@ class UtenteTest {
     @Test
     void testContainsPatternTrovaMatchCaseInsensitiveInNome() {
         // Ricerca per nome (case insensitive)
-        assertTrue(utenteStandard.containsPattern("mar"));
+        assertTrue(utenteStandard.containsPattern("mAr"));
     }
 
+    @Test
+    void testContainsPatternTrovaMatchCaseInsensitiveInCognome() {
+        // Ricerca per cognome (case insensitive)
+        assertTrue(utenteStandard.containsPattern("rOs"));
+    }
+    
     @Test
     void testContainsPatternTrovaMatchInMatricola() {
         // Ricerca per matricola (numerica)
         assertTrue(utenteStandard.containsPattern("1234"));
+    }
+    
+    @Test
+    void testContainsPatternTrovaMatchInEmail() {
+        // Ricerca per email (case insensitive)
+        assertTrue(utenteStandard.containsPattern("rco.roS"));
     }
     
     @Test
